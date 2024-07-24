@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api;
+namespace Entuity.Api.Models;
 
 public abstract class Entity
 {
