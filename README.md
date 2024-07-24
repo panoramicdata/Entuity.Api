@@ -1,6 +1,7 @@
 # Entuity.Api
 
-
+Support for the REST API as documented here:
+https://support.entuity.com/hc/en-us/sections/360004560094-Entuity-RESTful-API
 
 ## Example Usage
 ``` C#
