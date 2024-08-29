@@ -28,4 +28,15 @@ public class EventTests(EntuityClient client)
 
 		result.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async Task Get_IdIs655363_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.Events
+			.GetAsync(655363, default);
+
+		result.Should().NotBeNull();
+	}
 }
