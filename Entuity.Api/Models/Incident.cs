@@ -35,6 +35,6 @@ public class Incident : IntIdentifiedEntity
 	public required int EventCount { get; set; }
 
 	[JsonPropertyName("extraAttribs")]
-	public Dictionary<string, string> ExtraAttribs { get; set; }
+	public Dictionary<string, string>? ExtraAttribs { get; set; }
 
 }
