@@ -14,4 +14,15 @@ public class EventTests(EntuityClient client)
 
 		result.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async Task GetAllTypes_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.Events
+			.GetAllTypesAsync(default);
+
+		result.Should().NotBeNull();
+	}
 }
