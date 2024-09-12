@@ -9,7 +9,7 @@ public class IncidentTests(EntuityClient client)
 	{
 		// Arrange
 		var result = await client
-			.Events
+			.Incidents
 			.GetAllAsync(default);
 
 		result.Should().NotBeNull();
