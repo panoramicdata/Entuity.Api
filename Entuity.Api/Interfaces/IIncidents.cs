@@ -6,7 +6,7 @@ namespace Entuity.Api.Interfaces;
 public interface IIncidents
 {
 	/// <summary>
-	/// Returns all Incidents
+	/// Returns a collection of all Incidents
 	/// </summary>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
@@ -29,8 +29,41 @@ public interface IIncidents
 	/// <returns></returns>
 	[Get("/api/incidents?mask={severity}")]
 	Task<IncidentResponse> GetBySeverity(int severity, CancellationToken cancellationToken);
+
 	/// <summary>
-	/// Returns all types of Incidents
+	/// Returns a collection of Incidents with a state of "Open"
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?states=open")]
+	Task<IncidentResponse> GetOpen(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Returns a collection of Incidents with a state of "Closed"
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?states=closed")]
+	Task<IncidentResponse> GetClosed(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Returns a collection of Incidents with a state of "Expired"
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?states=open")]
+	Task<IncidentResponse> GetExpired(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Returns a collection of Incidents with a state of "Open" or "Closed"
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?states=open&stastes=closed")]
+	Task<IncidentResponse> GetNonExpired(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Returns a collection of all types of Incidents
 	/// </summary>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
