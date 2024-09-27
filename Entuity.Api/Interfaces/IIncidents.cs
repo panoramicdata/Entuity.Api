@@ -63,6 +63,53 @@ public interface IIncidents
 	Task<IncidentResponse> GetNonExpired(CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Get Incidents From a time
+	/// </summary>
+	/// <param name="startEpoch">The epoch time for the lower bound</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?openedFrom={startEpoch}")]
+	Task<IncidentResponse> GetOpenedFrom(int startEpoch, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get Incidents up to a time
+	/// </summary>
+	/// <param name="endEpoch">The epoch time for the upper bound</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?openedTo={endEpoch}")]
+	Task<IncidentResponse> GetOpenedTo(int endEpoch, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get Incidents that were closed after a given time
+	/// </summary>
+	/// <param name="startEpoch">The epoch time for the lower bound</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?closedFrom={startEpoch}")]
+	Task<IncidentResponse> GetClosedFrom(int startEpoch, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get Incidents that were closed before a given time
+	/// </summary>
+	/// <param name="endEpoch">The epoch time for the upper bound</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?closedTo={endEpoch}")]
+	Task<IncidentResponse> GetClosedTo(int endEpoch, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Gets Incidents that sit within a time range
+	/// </summary>
+	/// <param name="startEpoch">The Epoch time of the lower bound</param>
+	/// <param name="endEpoch">The Epoch time of the upper bound</param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?openedFrom={startEpoch}&closedTo={endEpoch}")]
+	Task<IncidentResponse> GetOpenedBetween(int startEpoch, int endEpoch, CancellationToken cancellationToken);
+
+
+	/// <summary>
 	/// Returns a collection of all types of Incidents
 	/// </summary>
 	/// <param name="cancellationToken"></param>

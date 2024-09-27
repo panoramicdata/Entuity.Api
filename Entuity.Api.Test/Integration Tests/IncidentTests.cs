@@ -125,4 +125,59 @@ public class IncidentTests(EntuityClient client)
 
 		result.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async Task IncidentsController_GetOpenedFrom_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.Incidents
+			.GetOpenedFrom(1727442360, default);
+
+		result.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task IncidentsController_GetOpenedTo_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.Incidents
+			.GetOpenedTo(1727447521, default);
+
+		result.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task IncidentsController_GetClosedFrom_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.Incidents
+			.GetClosedFrom(1727419871, default);
+
+		result.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task IncidentsController_GetClosedTo_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.Incidents
+			.GetClosedTo(1727419871, default);
+
+		result.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task IncidentsController_GetOpenedBetween_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.Incidents
+			.GetOpenedBetween(1727419871, 1727442360, default);
+
+		result.Should().NotBeNull();
+	}
 }
