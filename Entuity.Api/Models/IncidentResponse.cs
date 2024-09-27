@@ -1,7 +1,6 @@
-﻿using Entuity.Api.Models;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api;
+namespace Entuity.Api.Models;
 
 public class IncidentResponse
 {

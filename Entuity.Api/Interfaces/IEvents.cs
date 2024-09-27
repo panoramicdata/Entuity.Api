@@ -1,4 +1,5 @@
-﻿using Refit;
+﻿using Entuity.Api.Models;
+using Refit;
 
 namespace Entuity.Api.Interfaces;
 
