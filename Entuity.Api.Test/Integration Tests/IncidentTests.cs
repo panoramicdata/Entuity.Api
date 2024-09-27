@@ -5,7 +5,7 @@ namespace Entuity.Api.Test;
 public class IncidentTests(EntuityClient client)
 {
 	[Fact]
-	public async Task GetAll_Succeeds()
+	public async Task IncidentsController_GetAll_Succeeds()
 	{
 		// Arrange
 		var result = await client
@@ -16,7 +16,7 @@ public class IncidentTests(EntuityClient client)
 	}
 
 	[Fact]
-	public async Task GetAllTypes_Succeeds()
+	public async Task IncidentsController_GetAllTypes_Succeeds()
 	{
 		// Arrange
 		var result = await client
