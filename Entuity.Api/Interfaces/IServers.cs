@@ -11,4 +11,12 @@ public interface IServers
 	/// <returns></returns>
 	[Get("/api/servers")]
 	Task<ServerResponse> GetAll(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get details about a specific server
+	/// </summary>
+	/// <param name="serverId"></param>
+	/// <returns></returns>
+	[Get("/api/servers/{serverId}")]
+	Task<ServerDetails> GetServerDetails(string serverId, CancellationToken cancellationToken);
 }
