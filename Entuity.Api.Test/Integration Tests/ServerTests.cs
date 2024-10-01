@@ -1,16 +1,15 @@
 ﻿using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
-
-public class InventoryTests(EntuityClient client)
+public class ServerTests(EntuityClient client)
 {
 	[Fact]
-	public async Task GetAll_Succeeds()
+	public async Task ServerController_GetAll_Succeeds()
 	{
 		// Arrange
 		var result = await client
-			.Inventory
-			.GetAllAsync(default);
+			.Servers
+			.GetAll(default);
 
 		result.Should().NotBeNull();
 	}
