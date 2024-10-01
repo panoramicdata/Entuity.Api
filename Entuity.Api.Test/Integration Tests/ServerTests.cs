@@ -16,7 +16,7 @@ public class ServerTests(EntuityClient client, TestCredentialsManager credential
 	}
 
 	[Fact]
-	public async Task GetServerDetails_ValidString_Succeeds()
+	public async Task GetServerDetails_ValidId_Succeeds()
 	{
 		// Arrange
 		var result = await client
