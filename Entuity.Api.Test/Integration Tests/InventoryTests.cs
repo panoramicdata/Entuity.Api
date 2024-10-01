@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 
-namespace Entuity.Api.Test;
+namespace Entuity.Api.Test.Integration_Tests;
 
 public class InventoryTests(EntuityClient client)
 {

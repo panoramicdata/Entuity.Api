@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Entuity.Api.Test.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit.DependencyInjection.Logging;
@@ -31,8 +32,15 @@ public class Startup
 					UserAgent = "Entuity.Api.Test",
 					Logger = s.GetRequiredService<ILogger<EntuityClient>>()
 				})
-			)
-			;
+			);
+
+		services
+			.AddTransient(s =>
+			new TestCredentialsManager
+			{
+				TestServerId = GetConfigString(config, "TestServerId")
+			});
+
 	}
 
 	private static string GetConfigString(IConfigurationRoot config, string key)

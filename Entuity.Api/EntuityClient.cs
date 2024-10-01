@@ -30,6 +30,8 @@ public class EntuityClient : IDisposable
 		Inventory = RestService.For<IInventory>(_httpClient, refitSettings);
 		Events = RestService.For<IEvents>(_httpClient, refitSettings);
 		Incidents = RestService.For<IIncidents>(_httpClient, refitSettings);
+		Servers = RestService.For<IServers>(_httpClient, refitSettings);
+
 	}
 
 	public IInventory Inventory { get; set; }
@@ -37,6 +39,8 @@ public class EntuityClient : IDisposable
 	public IEvents Events { get; set; }
 
 	public IIncidents Incidents { get; set; }
+
+	public IServers Servers { get; set; }
 
 	protected virtual void Dispose(bool disposing)
 	{
