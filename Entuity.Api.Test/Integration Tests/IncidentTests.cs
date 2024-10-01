@@ -1,5 +1,4 @@
-﻿using Entuity.Api.Enums;
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace Entuity.Api.Test;
 
@@ -28,56 +27,56 @@ public class IncidentTests(EntuityClient client)
 	}
 
 	[Fact]
-	public async Task GetBySeverity_SeverityRatingOf1_Succeeds()
+	public async Task IncidentsController_GetInfoIncidents_Succeeds()
 	{
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetBySeverity((int)SeverityRating.Information, default);
+			.GetInfoIncidents(default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task GetBySeverity_SeverityRatingOf2_Succeeds()
+	public async Task IncidentsController_GetMinorIncidents_Succeeds()
 	{
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetBySeverity((int)SeverityRating.Minor, default);
+			.GetMinorIncidents(default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task GetBySeverity_SeverityRatingOf4_Succeeds()
+	public async Task IncidentsController_GetMajorIncidents_Succeeds()
 	{
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetBySeverity((int)SeverityRating.Major, default);
+			.GetMajorIncidents(default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task GetBySeverity_SeverityRatingOf8_Succeeds()
+	public async Task IncidentsController_GetSevereIncidents_Succeeds()
 	{
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetBySeverity((int)SeverityRating.Severe, default);
+			.GetSevereIncidents(default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task GetBySeverity_SeverityRatingOf16_Succeeds()
+	public async Task IncidentsController_GetCriticalIncidents_Succeeds()
 	{
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetBySeverity((int)SeverityRating.Critical, default);
+			.GetCriticalIncidents(default);
 
 		result.Should().NotBeNull();
 	}

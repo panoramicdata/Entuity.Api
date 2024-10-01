@@ -14,21 +14,50 @@ public interface IIncidents
 	Task<IncidentResponse> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Returns Incidents of a given Severity
+	/// Gets Incidents with an Information Severity Rating (value of 2)
 	/// </summary>
-	/// <remarks>
-	/// <list type="bullet">
-	/// <item>Information - Severity of 1</item>
-	/// <item>Minor - Severity of 2</item>
-	/// <item>Major - Severity of 4</item>
-	/// <item>Severe - Severity of 8</item>
-	/// <item>Critical - Severity of 16</item>
-	/// </list>
-	/// </remarks>
+	/// <param name="severity"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
-	[Get("/api/incidents?mask={severity}")]
-	Task<IncidentResponse> GetBySeverity(int severity, CancellationToken cancellationToken);
+	[Get("/api/incidents?mask=1")]
+	Task<IncidentResponse> GetInfoIncidents(CancellationToken cancellationToken);
+
+
+	/// <summary>
+	/// Gets Incidents with a Minor Severity Rating (value of 4)
+	/// </summary>
+	/// <param name="severity"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?mask=2")]
+	Task<IncidentResponse> GetMinorIncidents(CancellationToken cancellationToken);
+
+
+	/// <summary>
+	/// Gets Incidents with a Major Severity Rating (value of 6)
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?mask=4")]
+	Task<IncidentResponse> GetMajorIncidents(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Gets Incidents with a Severe Severity Rating (value of 8)
+	/// </summary>
+	/// <param name="severity"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?mask=8")]
+	Task<IncidentResponse> GetSevereIncidents(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Gets Incidents with a Critical Severity Rating (value of 10)
+	/// </summary>
+	/// <param name="severity"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents?mask=16")]
+	Task<IncidentResponse> GetCriticalIncidents(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Returns a collection of Incidents with a state of "Open"
