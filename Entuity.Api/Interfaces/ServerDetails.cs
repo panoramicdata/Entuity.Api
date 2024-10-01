@@ -17,7 +17,7 @@ public class ServerDetails
 	public int WebPort { get; set; }
 
 	[JsonPropertyName("licensed")]
-	public bool Liscensed { get; set; }
+	public bool Licensed { get; set; }
 
 	[JsonPropertyName("ssl")]
 	public bool Ssl { get; set; }
