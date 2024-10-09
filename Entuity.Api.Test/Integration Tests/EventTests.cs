@@ -1,11 +1,13 @@
-﻿using FluentAssertions;
+﻿using Entuity.Api.Enums;
+using Entuity.Api.Query_Parameters;
+using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
 public class EventTests(EntuityClient client)
 {
 	[Fact]
-	public async Task EventsController_GetAll_Succeeds()
+	public async Task EventsController_GetAllAsync_Succeeds()
 	{
 		// Arrange
 		var result = await client
@@ -16,145 +18,196 @@ public class EventTests(EntuityClient client)
 	}
 
 	[Fact]
-	public async Task GetEventsOpenedFrom_ValidEpochTime_Succeeds()
+	public async Task GetAllAsync_WithOpenedFromParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			OpenedFrom = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetEventsOpenedFrom(1727775926, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task GetEventsOpenedTo_ValidEpochTime_Succeeds()
+	public async Task GetAllAsync_WithOpenedToParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			ClosedTo = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetEventsOpenedTo(1727775926, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task GetEventsClosedFrom_ValidEpochTime_Succeeds()
+	public async Task GetAllAsync_WithClosedFromParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			ClosedFrom = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetEventsClosedFrom(1727775926, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task GetEventsClosedTo_ValidEpochTime_Succeeds()
+	public async Task GetAllAsync_WithClosedToParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			ClosedTo = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetEventsClosedTo(1727775926, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetInfoEvents_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingInfoParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			SeverityRating = SeverityRating.Info
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetInfoEvents(default);
+			.GetAllAsync(parameters, default);
+
+		result.Should().NotBeNull();
+	}
+	[Fact]
+
+	public async Task GetAllAsync_WithSeverityRatingMinorParameter_Succeeds()
+	{
+		var parameters = new EventParams
+		{
+			SeverityRating = SeverityRating.Minor
+		};
+		// Arrange
+		var result = await client
+			.Events
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetMinorEvents_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingMajorParameter_Succeeds()
 	{
-
+		var parameters = new EventParams
+		{
+			SeverityRating = SeverityRating.Major
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetMinorEvents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetMajorEvents_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingSevereParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			SeverityRating = SeverityRating.Severe
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetMajorEvents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetSevereEvents_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingCriticalParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			SeverityRating = SeverityRating.Critical
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetSevereEvents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetCriticalEvents_Succeeds()
+	public async Task GetAllAsync_WithStateOpenParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			State = State.Open
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetCriticalEvents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetOpenEvents_Succeeds()
+	public async Task GetAllAsync_WithStateClosedParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			State = State.Closed
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetOpenEvents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetClosedEvents_Succeeds()
+	public async Task GetAllAsync_WithStateFinalizedParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			State = State.Finalized
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetClosedEvents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task EventsController_GetFinalizedEvents_Succeeds()
+	public async Task GetAllAsync_WithStateAllParameter_Succeeds()
 	{
+		var parameters = new EventParams
+		{
+			State = State.All
+		};
 		// Arrange
 		var result = await client
 			.Events
-			.GetFinalizedEvents(default);
-
-		result.Should().NotBeNull();
-	}
-
-	[Fact]
-	public async Task EventsController_GetAllTypes_Succeeds()
-	{
-		// Arrange
-		var result = await client
-			.Events
-			.GetAllTypesAsync(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
