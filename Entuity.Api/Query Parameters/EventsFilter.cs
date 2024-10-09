@@ -2,7 +2,7 @@
 using Refit;
 
 namespace Entuity.Api.Query_Parameters;
-public class EventParams
+public class EventsFilter
 {
 	//public int UpdateId { get; set; }
 
@@ -32,11 +32,14 @@ public class EventParams
 
 	//public int? View { get; set; }
 
+	//[Query(Format = "D")]
+	public SeverityRating? SeverityRating { private get; set; }
+
 	/// <summary>
 	/// Filter events with a severity rating
 	/// </summary>
 	[AliasAs("mask")]
-	public SeverityRating? SeverityRating { get; set; }
+	public int? Mask => (SeverityRating is null) ? null : (int)SeverityRating;
 
 	/// <summary>
 	/// Filter events by their state

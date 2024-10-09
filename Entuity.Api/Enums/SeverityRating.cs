@@ -3,7 +3,9 @@
 /// <summary>
 /// A given severity rating
 /// </summary>
-public enum SeverityRating
+
+[Flags]
+public enum SeverityRating : short
 {
 	Info = 1,
 	Minor = 2,

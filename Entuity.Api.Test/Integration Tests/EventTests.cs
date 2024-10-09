@@ -20,7 +20,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithOpenedFromParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			OpenedFrom = 1727775926
 		};
@@ -35,7 +35,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithOpenedToParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			ClosedTo = 1727775926
 		};
@@ -50,7 +50,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithClosedFromParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			ClosedFrom = 1727775926
 		};
@@ -65,7 +65,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithClosedToParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			ClosedTo = 1727775926
 		};
@@ -80,7 +80,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithSeverityRatingInfoParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			SeverityRating = SeverityRating.Info
 		};
@@ -95,7 +95,7 @@ public class EventTests(EntuityClient client)
 
 	public async Task GetAllAsync_WithSeverityRatingMinorParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			SeverityRating = SeverityRating.Minor
 		};
@@ -110,7 +110,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithSeverityRatingMajorParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			SeverityRating = SeverityRating.Major
 		};
@@ -125,7 +125,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithSeverityRatingSevereParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			SeverityRating = SeverityRating.Severe
 		};
@@ -140,7 +140,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithSeverityRatingCriticalParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			SeverityRating = SeverityRating.Critical
 		};
@@ -153,9 +153,24 @@ public class EventTests(EntuityClient client)
 	}
 
 	[Fact]
+	public async Task GetAllAsync_WithSeverityRatingMultipleValuesParameter_Succeeds()
+	{
+		var parameters = new EventsFilter
+		{
+			SeverityRating = SeverityRating.Info | SeverityRating.Minor
+		};
+		// Arrange
+		var result = await client
+			.Events
+			.GetAllAsync(parameters, default);
+
+		result.Should().NotBeNull();
+	}
+
+	[Fact]
 	public async Task GetAllAsync_WithStateOpenParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			State = State.Open
 		};
@@ -170,7 +185,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithStateClosedParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			State = State.Closed
 		};
@@ -185,7 +200,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithStateFinalizedParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			State = State.Finalized
 		};
@@ -200,7 +215,7 @@ public class EventTests(EntuityClient client)
 	[Fact]
 	public async Task GetAllAsync_WithStateAllParameter_Succeeds()
 	{
-		var parameters = new EventParams
+		var parameters = new EventsFilter
 		{
 			State = State.All
 		};

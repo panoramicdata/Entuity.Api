@@ -15,7 +15,7 @@ public interface IEvents
 	Task<EventsResponse> GetAllAsync(CancellationToken cancellationToken);
 
 	[Get("/api/events")]
-	Task<EventsResponse> GetAllAsync([Query] EventParams parameters, CancellationToken cancellationToken);
+	Task<EventsResponse> GetAllAsync([Query] EventsFilter parameters, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Returns all Types of Events
