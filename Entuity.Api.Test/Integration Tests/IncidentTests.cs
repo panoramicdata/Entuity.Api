@@ -183,7 +183,7 @@ public class IncidentTests(EntuityClient client)
 	{
 		var parameters = new IncidentsFilter
 		{
-			State = State.Open
+			State = IncidentState.Open
 		};
 		// Arrange
 		var result = await client
@@ -198,7 +198,7 @@ public class IncidentTests(EntuityClient client)
 	{
 		var parameters = new IncidentsFilter
 		{
-			State = State.Closed
+			State = IncidentState.Closed
 		};
 		// Arrange
 		var result = await client
@@ -213,7 +213,7 @@ public class IncidentTests(EntuityClient client)
 	{
 		var parameters = new IncidentsFilter
 		{
-			State = State.Finalized
+			State = IncidentState.Expire
 		};
 		// Arrange
 		var result = await client
@@ -228,7 +228,7 @@ public class IncidentTests(EntuityClient client)
 	{
 		var parameters = new IncidentsFilter
 		{
-			State = State.All
+			State = IncidentState.All
 		};
 		// Arrange
 		var result = await client

@@ -183,7 +183,7 @@ public class EventTests(EntuityClient client)
 	{
 		var parameters = new EventsFilter
 		{
-			State = State.Open
+			State = EventState.Open
 		};
 		// Arrange
 		var result = await client
@@ -198,7 +198,7 @@ public class EventTests(EntuityClient client)
 	{
 		var parameters = new EventsFilter
 		{
-			State = State.Closed
+			State = EventState.Closed
 		};
 		// Arrange
 		var result = await client
@@ -213,7 +213,7 @@ public class EventTests(EntuityClient client)
 	{
 		var parameters = new EventsFilter
 		{
-			State = State.Finalized
+			State = EventState.Finalized
 		};
 		// Arrange
 		var result = await client
@@ -228,7 +228,7 @@ public class EventTests(EntuityClient client)
 	{
 		var parameters = new EventsFilter
 		{
-			State = State.All
+			State = EventState.All
 		};
 		// Arrange
 		var result = await client

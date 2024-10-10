@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Interfaces;
+namespace Entuity.Api.Models;
 
 public class ServerDetails
 {

@@ -21,7 +21,7 @@ public class IncidentsFilter
 	/// Filter events by their state
 	/// </summary>
 	[AliasAs("states")]
-	public State? State { get; set; }
+	public IncidentState? State { get; set; }
 
 	/// <summary>
 	/// Filter for events from this Epoch Time

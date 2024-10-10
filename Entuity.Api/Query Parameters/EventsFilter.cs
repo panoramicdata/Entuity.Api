@@ -45,5 +45,5 @@ public class EventsFilter
 	/// Filter events by their state
 	/// </summary>
 	[AliasAs("states")]
-	public State? State { get; set; }
+	public EventState? State { get; set; }
 }
