@@ -14,6 +14,12 @@ public interface IEvents
 	[Get("/api/events")]
 	Task<EventsResponse> GetAllAsync(CancellationToken cancellationToken);
 
+
+	/// <summary>
+	/// Returns all events filtered by filter options
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/events")]
 	Task<EventsResponse> GetAllAsync([Query] EventsFilter parameters, CancellationToken cancellationToken);
 

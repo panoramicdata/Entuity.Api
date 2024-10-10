@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models;
+using Entuity.Api.Query_Parameters;
 using Refit;
 
 namespace Entuity.Api.Interfaces;
@@ -12,6 +13,14 @@ public interface IIncidents
 	/// <returns></returns>
 	[Get("/api/incidents")]
 	Task<IncidentResponse> GetAllAsync(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Returns a collection of all Incidents, filtered by filter options
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/incidents")]
+	Task<IncidentResponse> GetAllAsync([Query] IncidentsFilter filter, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Gets Incidents with an Information Severity Rating (value of 2)

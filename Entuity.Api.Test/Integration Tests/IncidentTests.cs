@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using Entuity.Api.Enums;
+using Entuity.Api.Query_Parameters;
+using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
@@ -27,155 +29,211 @@ public class IncidentTests(EntuityClient client)
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetInfoIncidents_Succeeds()
+	public async Task GetAllAsync_WithOpenedFromParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			OpenedFrom = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetInfoIncidents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetMinorIncidents_Succeeds()
+	public async Task GetAllAsync_WithOpenedToParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			ClosedTo = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetMinorIncidents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetMajorIncidents_Succeeds()
+	public async Task GetAllAsync_WithClosedFromParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			ClosedFrom = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetMajorIncidents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetSevereIncidents_Succeeds()
+	public async Task GetAllAsync_WithClosedToParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			ClosedTo = 1727775926
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetSevereIncidents(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetCriticalIncidents_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingInfoParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			SeverityRating = SeverityRating.Info
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetCriticalIncidents(default);
+			.GetAllAsync(parameters, default);
+
+		result.Should().NotBeNull();
+	}
+	[Fact]
+
+	public async Task GetAllAsync_WithSeverityRatingMinorParameter_Succeeds()
+	{
+		var parameters = new IncidentsFilter
+		{
+			SeverityRating = SeverityRating.Minor
+		};
+		// Arrange
+		var result = await client
+			.Incidents
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetOpen_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingMajorParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			SeverityRating = SeverityRating.Major
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetOpen(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetClosed_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingSevereParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			SeverityRating = SeverityRating.Severe
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetClosed(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetExpired_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingCriticalParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			SeverityRating = SeverityRating.Critical
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetExpired(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetNonExpired_Succeeds()
+	public async Task GetAllAsync_WithSeverityRatingMultipleValuesParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			SeverityRating = SeverityRating.Info | SeverityRating.Minor
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetNonExpired(default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetOpenedFrom_Succeeds()
+	public async Task GetAllAsync_WithStateOpenParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			State = State.Open
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetOpenedFrom(1727442360, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetOpenedTo_Succeeds()
+	public async Task GetAllAsync_WithStateClosedParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			State = State.Closed
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetOpenedTo(1727447521, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetClosedFrom_Succeeds()
+	public async Task GetAllAsync_WithStateFinalizedParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			State = State.Finalized
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetClosedFrom(1727419871, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task IncidentsController_GetClosedTo_Succeeds()
+	public async Task GetAllAsync_WithStateAllParameter_Succeeds()
 	{
+		var parameters = new IncidentsFilter
+		{
+			State = State.All
+		};
 		// Arrange
 		var result = await client
 			.Incidents
-			.GetClosedTo(1727419871, default);
-
-		result.Should().NotBeNull();
-	}
-
-	[Fact]
-	public async Task IncidentsController_GetOpenedBetween_Succeeds()
-	{
-		// Arrange
-		var result = await client
-			.Incidents
-			.GetOpenedBetween(1727419871, 1727442360, default);
+			.GetAllAsync(parameters, default);
 
 		result.Should().NotBeNull();
 	}
