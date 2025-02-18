@@ -10,7 +10,7 @@ public interface IServers
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/servers")]
-	Task<ServerResponse> GetAll(CancellationToken cancellationToken);
+	Task<ServerResponse> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get details about a specific server
@@ -18,5 +18,5 @@ public interface IServers
 	/// <param name="serverId"></param>
 	/// <returns></returns>
 	[Get("/api/servers/{serverId}")]
-	Task<ServerDetails> GetServerDetails(string serverId, CancellationToken cancellationToken);
+	Task<ServerDetails> GetServerDetailsAsync(string serverId, CancellationToken cancellationToken);
 }

@@ -10,7 +10,7 @@ public class ServerTests(EntuityClient client, TestCredentialsManager credential
 		// Arrange
 		var result = await client
 			.Servers
-			.GetAll(default);
+			.GetAllAsync(default);
 
 		result.Should().NotBeNull();
 	}
@@ -21,7 +21,7 @@ public class ServerTests(EntuityClient client, TestCredentialsManager credential
 		// Arrange
 		var result = await client
 			.Servers
-			.GetServerDetails(credentialsManager.TestServerId, default);
+			.GetServerDetailsAsync(credentialsManager.TestServerId, default);
 
 		result.Should().NotBeNull();
 	}
