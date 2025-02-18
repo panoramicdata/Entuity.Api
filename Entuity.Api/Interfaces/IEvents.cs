@@ -1,5 +1,5 @@
 ﻿using Entuity.Api.Models;
-using Entuity.Api.Query_Parameters;
+using Entuity.Api.QueryParameters;
 using Refit;
 
 namespace Entuity.Api.Interfaces;

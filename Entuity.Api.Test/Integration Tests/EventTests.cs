@@ -1,5 +1,5 @@
 ﻿using Entuity.Api.Enums;
-using Entuity.Api.Query_Parameters;
+using Entuity.Api.QueryParameters;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;

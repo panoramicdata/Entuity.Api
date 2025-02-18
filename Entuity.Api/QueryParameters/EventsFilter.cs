@@ -1,27 +1,10 @@
 ﻿using Entuity.Api.Enums;
 using Refit;
 
-namespace Entuity.Api.Query_Parameters;
-public class IncidentsFilter
+namespace Entuity.Api.QueryParameters;
+public class EventsFilter
 {
 	//public int UpdateId { get; set; }
-
-	//public int? View { get; set; }
-
-	//[Query(Format = "D")]
-	public SeverityRating? SeverityRating { private get; set; }
-
-	/// <summary>
-	/// Filter events with a severity rating
-	/// </summary>
-	[AliasAs("mask")]
-	public int? Mask => (SeverityRating is null) ? null : (int)SeverityRating;
-
-	/// <summary>
-	/// Filter events by their state
-	/// </summary>
-	[AliasAs("states")]
-	public IncidentState? State { get; set; }
 
 	/// <summary>
 	/// Filter for events from this Epoch Time
@@ -47,4 +30,20 @@ public class IncidentsFilter
 	[AliasAs("closedTo")]
 	public int? ClosedTo { get; set; }
 
+	//public int? View { get; set; }
+
+	//[Query(Format = "D")]
+	public SeverityRating? SeverityRating { private get; set; }
+
+	/// <summary>
+	/// Filter events with a severity rating
+	/// </summary>
+	[AliasAs("mask")]
+	public int? Mask => SeverityRating is null ? null : (int)SeverityRating;
+
+	/// <summary>
+	/// Filter events by their state
+	/// </summary>
+	[AliasAs("states")]
+	public EventState? State { get; set; }
 }
