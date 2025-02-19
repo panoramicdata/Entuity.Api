@@ -27,12 +27,15 @@ public class EntuityClient : IDisposable
 			})
 		};
 
+		DataAccessTemplates = RestService.For<IDataAccessTemplates>(_httpClient, refitSettings);
 		Inventory = RestService.For<IInventory>(_httpClient, refitSettings);
 		Events = RestService.For<IEvents>(_httpClient, refitSettings);
 		Incidents = RestService.For<IIncidents>(_httpClient, refitSettings);
 		Servers = RestService.For<IServers>(_httpClient, refitSettings);
 		Zones = RestService.For<IZones>(_httpClient, refitSettings);
 	}
+
+	public IDataAccessTemplates DataAccessTemplates { get; set; }
 
 	public IInventory Inventory { get; set; }
 
