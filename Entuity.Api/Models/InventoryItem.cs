@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models;
 
-public class InventoryItem : Entity
+public class InventoryItem : Entity<string>
 {
 	[JsonPropertyName("serverId")]
 	public required Guid ServerId { get; set; }

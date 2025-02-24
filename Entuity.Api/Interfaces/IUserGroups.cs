@@ -5,5 +5,5 @@ namespace Entuity.Api.Interfaces;
 public interface IUserGroups
 {
 	[Get("/api/userGroups")]
-	Task<Response<UserGroup>> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<string, UserGroup>> GetAllAsync(CancellationToken cancellationToken);
 }

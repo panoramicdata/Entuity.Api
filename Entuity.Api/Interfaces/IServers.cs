@@ -16,7 +16,7 @@ public interface IServers
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/servers")]
-	Task<Response<Server>> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<string, Server>> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get details about a specific server

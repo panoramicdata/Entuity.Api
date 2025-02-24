@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models;
 
-public class Zone : Entity
+public class Zone : Entity<string>
 {
 	[JsonPropertyName("serverId")]
 	public Guid ServerId { get; set; }

@@ -15,7 +15,7 @@ public interface IInventory
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/inventory")]
-	Task<Response<InventoryItem>> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<string, InventoryItem>> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get Inventory Item
@@ -25,5 +25,5 @@ public interface IInventory
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/inventory/{id}")]
-	Task<Response<InventoryItem>> GetAsync(string id, CancellationToken cancellationToken);
+	Task<InventoryItem> GetAsync(string id, CancellationToken cancellationToken);
 }

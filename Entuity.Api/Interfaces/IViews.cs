@@ -5,5 +5,5 @@ namespace Entuity.Api.Interfaces;
 public interface IViews
 {
 	[Get("/api/views")]
-	Task<Response<View>> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<string, View>> GetAllAsync(CancellationToken cancellationToken);
 }

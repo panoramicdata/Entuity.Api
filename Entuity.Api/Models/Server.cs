@@ -5,7 +5,7 @@ namespace Entuity.Api.Models;
 /// <summary>
 /// Server
 /// </summary>
-public class Server : Entity
+public class Server : Entity<string>
 {
 	[JsonPropertyName("serverId")]
 	public Guid ServerId { get; set; }

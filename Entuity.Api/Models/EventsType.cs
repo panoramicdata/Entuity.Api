@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models;
 
-public class EventsType : IntIdentifiedEntity
+public class EventsType : Entity<int>
 {
 	[JsonPropertyName("name")]
 	public required string Name { get; set; }
