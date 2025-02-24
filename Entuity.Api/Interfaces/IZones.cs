@@ -17,7 +17,7 @@ public interface IZones
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/zones")]
-	Task<ZonesResponse> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<Zone>> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get Zone Details

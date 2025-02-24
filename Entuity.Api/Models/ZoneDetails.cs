@@ -1,15 +1,38 @@
-﻿namespace Entuity.Api.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace Entuity.Api.Models;
 public class ZoneDetails
 {
+	[JsonPropertyName("id")]
 	public int Id { get; set; }
+
+	[JsonPropertyName("name")]
 	public string Name { get; set; } = string.Empty;
+
+	[JsonPropertyName("flags")]
 	public int Flags { get; set; }
+
+	[JsonPropertyName("description")]
 	public string Description { get; set; } = string.Empty;
+
+	[JsonPropertyName("v4Interface")]
 	public string V4Interface { get; set; } = string.Empty;
+
+	[JsonPropertyName("v6Interface")]
 	public string V6Interface { get; set; } = string.Empty;
+
+	[JsonPropertyName("domainSuffix")]
 	public string DomainSuffix { get; set; } = string.Empty;
+
+	[JsonPropertyName("dnsServers")]
 	public string Proxy { get; set; } = string.Empty;
+
+	[JsonPropertyName("devicePrefix")]
 	public string DevicePrefix { get; set; } = string.Empty;
+
+	[JsonPropertyName("hostFile")]
 	public string HostFile { get; set; } = string.Empty;
+
+	[JsonPropertyName("dnsServers")]
 	public IEnumerable<string> DnsServers { get; set; } = [];
 }

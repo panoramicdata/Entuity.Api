@@ -2,14 +2,11 @@
 
 namespace Entuity.Api.Models;
 
-public class Zone
+public class Zone : Entity
 {
 	[JsonPropertyName("serverId")]
 	public Guid ServerId { get; set; }
 
-	[JsonPropertyName("id")]
-	public string Id { get; set; }
-
 	[JsonPropertyName("name")]
-	public string Name { get; set; }
+	public string Name { get; set; } = string.Empty;
 }
