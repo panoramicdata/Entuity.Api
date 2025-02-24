@@ -9,7 +9,7 @@ public class UserTests(EntuityClient client)
 		//Assert
 		var users = await client
 			.Users
-			.GetAllAsync();
+			.GetAllAsync(CancellationToken.None);
 
 		users.Should().NotBeNull();
 	}
