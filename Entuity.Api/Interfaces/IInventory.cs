@@ -9,7 +9,7 @@ namespace Entuity.Api.Interfaces;
 public interface IInventory
 {
 	/// <summary>
-	/// 
+	/// Get all Inventory Items
 	/// </summary>
 	/// <param name="cancellationToken"></param>
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
@@ -18,7 +18,7 @@ public interface IInventory
 	Task<Response<InventoryItem>> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
-	/// 
+	/// Get Inventory Item
 	/// </summary>
 	/// <param name="id"></param>
 	/// <param name="cancellationToken"></param>
