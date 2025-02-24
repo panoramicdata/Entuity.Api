@@ -34,6 +34,7 @@ public class EntuityClient : IDisposable
 		Incidents = RestService.For<IIncidents>(_httpClient, refitSettings);
 		Users = RestService.For<IUsers>(_httpClient, refitSettings);
 		Servers = RestService.For<IServers>(_httpClient, refitSettings);
+		Views = RestService.For<IViews>(_httpClient, refitSettings);
 		Zones = RestService.For<IZones>(_httpClient, refitSettings);
 	}
 	public IInformation Information { get; set; }
@@ -47,7 +48,7 @@ public class EntuityClient : IDisposable
 	public IIncidents Incidents { get; set; }
 	public IUsers Users { get; set; }
 	public IServers Servers { get; set; }
-
+	public IViews Views { get; set; }
 	public IZones Zones { get; set; }
 
 	protected virtual void Dispose(bool disposing)
