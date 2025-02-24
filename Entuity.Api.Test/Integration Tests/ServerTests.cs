@@ -19,10 +19,19 @@ public class ServerTests(EntuityClient client, TestCredentialsManager credential
 	public async Task GetServerDetails_ValidId_Succeeds()
 	{
 		// Arrange
-		var result = await client
+		var serverResponse = await client
 			.Servers
-			.GetServerDetailsAsync(credentialsManager.TestServerId, default);
+			.GetAllAsync(default);
 
-		result.Should().NotBeNull();
+		serverResponse.Should().NotBeNull();
+
+		foreach (var server in serverResponse.Items)
+		{
+			var result = await client
+				.Servers
+				.GetServerDetailsAsync(server.Id, default);
+
+			result.Should().NotBeNull();
+		}
 	}
 }

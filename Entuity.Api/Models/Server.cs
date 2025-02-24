@@ -2,13 +2,13 @@
 
 namespace Entuity.Api.Models;
 
-public class Server
+/// <summary>
+/// Server
+/// </summary>
+public class Server : Entity
 {
 	[JsonPropertyName("serverId")]
 	public Guid ServerId { get; set; }
-
-	[JsonPropertyName("id")]
-	public Guid Id { get; set; }
 
 	[JsonPropertyName("name")]
 	public string Name { get; set; } = string.Empty;
