@@ -31,6 +31,7 @@ public class EntuityClient : IDisposable
 		Information = RestService.For<IInformation>(_httpClient, refitSettings);
 		Inventory = RestService.For<IInventory>(_httpClient, refitSettings);
 		Events = RestService.For<IEvents>(_httpClient, refitSettings);
+		EventFilters = RestService.For<IEventFilters>(_httpClient, refitSettings);
 		Incidents = RestService.For<IIncidents>(_httpClient, refitSettings);
 		Maintenance = RestService.For<IMaintenance>(_httpClient, refitSettings);
 		Users = RestService.For<IUsers>(_httpClient, refitSettings);
@@ -46,6 +47,8 @@ public class EntuityClient : IDisposable
 	public IInventory Inventory { get; set; }
 
 	public IEvents Events { get; set; }
+
+	public IEventFilters EventFilters { get; set; }
 
 	public IIncidents Incidents { get; set; }
 	public IMaintenance Maintenance { get; set; }
