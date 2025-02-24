@@ -1,8 +1,7 @@
-﻿using Entuity.Api.Test.Services;
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
-public class ServerTests(EntuityClient client, TestCredentialsManager credentialsManager)
+public class ServerTests(EntuityClient client)
 {
 	[Fact]
 	public async Task ServerController_GetAll_Succeeds()

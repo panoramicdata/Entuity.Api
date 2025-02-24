@@ -1,5 +1,4 @@
-﻿using Entuity.Api.Test.Services;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit.DependencyInjection.Logging;
@@ -33,13 +32,6 @@ public class Startup
 					Logger = s.GetRequiredService<ILogger<EntuityClient>>()
 				})
 			);
-
-		services
-			.AddTransient(s =>
-			new TestCredentialsManager
-			{
-				TestServerId = GetConfigString(config, "TestServerId")
-			});
 
 	}
 
