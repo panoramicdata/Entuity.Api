@@ -29,6 +29,7 @@ public class EntuityClient : IDisposable
 
 		DataAccessTemplates = Refit<IDataAccessTemplates>(refitSettings);
 		FlowData = Refit<IFlowData>(refitSettings);
+		Filters = Refit<IFilters>(refitSettings);
 		Information = Refit<IInformation>(refitSettings);
 		Inventory = Refit<IInventory>(refitSettings);
 		Events = Refit<IEvents>(refitSettings);
@@ -46,6 +47,8 @@ public class EntuityClient : IDisposable
 		=> RestService.For<T>(_httpClient, refitSettings);
 
 	public IFlowData FlowData { get; set; }
+
+	public IFilters Filters { get; set; }
 
 	public IInformation Information { get; set; }
 
