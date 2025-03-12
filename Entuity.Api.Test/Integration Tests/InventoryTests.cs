@@ -18,11 +18,25 @@ public class InventoryTests(EntuityClient client)
 	[Fact]
 	public async Task GetAsync_GivenId_Succeeds()
 	{
-		// Arrange
+		// Fetch all
 		var result = await client
 			.Inventory
-			.GetAsync("anid", default);
+			.GetAllAsync(default);
 
 		result.Should().NotBeNull();
+		result.Items.Should().NotBeEmpty();
+
+		// Refetch
+		foreach (var device in result.Items)
+		{
+
+			var deviceResult = await client
+				.Inventory
+				.GetAsync(device.Id, default);
+
+
+			deviceResult.Should().NotBeNull();
+		}
+
 	}
 }
