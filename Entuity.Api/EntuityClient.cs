@@ -45,7 +45,6 @@ public class EntuityClient : IDisposable
 	private T Refit<T>(RefitSettings refitSettings)
 		=> RestService.For<T>(_httpClient, refitSettings);
 
-
 	public IFlowData FlowData { get; set; }
 
 	public IInformation Information { get; set; }
