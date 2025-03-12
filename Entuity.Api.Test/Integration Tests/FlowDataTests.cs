@@ -9,9 +9,20 @@ public class FlowDataTests(EntuityClient client)
 	{
 		var flowDevices = await client
 			.FlowData
-			.GetFlowDevicesAsync();
+			.GetFlowDevicesAsync(default);
 
 		flowDevices.Should().NotBeNull();
 		flowDevices.Devices.Should().NotBeEmpty();
+	}
+
+	[Fact]
+	public async Task FlowDataController_GetFlowApplicationsAsync_Succeeds()
+	{
+		var flowApplications = await client
+			.FlowData
+			.GetFlowApplicationsAsync(default);
+
+		flowApplications.Should().NotBeNull();
+		flowApplications.Applications.Should().NotBeEmpty();
 	}
 }
