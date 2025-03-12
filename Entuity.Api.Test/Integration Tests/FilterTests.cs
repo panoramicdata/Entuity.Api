@@ -15,4 +15,15 @@ public class FilterTests(EntuityClient client)
 		result.Should().NotBeNull();
 		result.Items.Should().NotBeEmpty();
 	}
+
+	[Fact]
+	public async Task FiltersController_GetAllIncidentFiltersAsync_Succeeds()
+	{
+		var result = await
+		client.Filters
+		.GetAllIncidentFiltersAsync(default);
+
+		result.Should().NotBeNull();
+		result.Items.Should().NotBeEmpty();
+	}
 }
