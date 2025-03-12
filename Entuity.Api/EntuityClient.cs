@@ -37,6 +37,7 @@ public class EntuityClient : IDisposable
 		Maintenance = Refit<IMaintenance>(refitSettings);
 		Users = Refit<IUsers>(refitSettings);
 		UserGroups = Refit<IUserGroups>(refitSettings);
+		UserDefinedRestPollers = Refit<IUserDefinedRestPollers>(refitSettings);
 		Servers = Refit<IServers>(refitSettings);
 		Tools = Refit<ITools>(refitSettings);
 		Views = Refit<IViews>(refitSettings);
@@ -69,6 +70,8 @@ public class EntuityClient : IDisposable
 	public IUsers Users { get; set; }
 
 	public IUserGroups UserGroups { get; set; }
+
+	public IUserDefinedRestPollers UserDefinedRestPollers { get; set; }
 
 	public IServers Servers { get; set; }
 
