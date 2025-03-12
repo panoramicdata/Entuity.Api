@@ -27,20 +27,24 @@ public class EntuityClient : IDisposable
 			})
 		};
 
-		DataAccessTemplates = RestService.For<IDataAccessTemplates>(_httpClient, refitSettings);
-		FlowData = RestService.For<IFlowData>(_httpClient, refitSettings);
-		Information = RestService.For<IInformation>(_httpClient, refitSettings);
-		Inventory = RestService.For<IInventory>(_httpClient, refitSettings);
-		Events = RestService.For<IEvents>(_httpClient, refitSettings);
-		EventFilters = RestService.For<IEventFilters>(_httpClient, refitSettings);
-		Incidents = RestService.For<IIncidents>(_httpClient, refitSettings);
-		Maintenance = RestService.For<IMaintenance>(_httpClient, refitSettings);
-		Users = RestService.For<IUsers>(_httpClient, refitSettings);
-		UserGroups = RestService.For<IUserGroups>(_httpClient, refitSettings);
-		Servers = RestService.For<IServers>(_httpClient, refitSettings);
-		Views = RestService.For<IViews>(_httpClient, refitSettings);
-		Zones = RestService.For<IZones>(_httpClient, refitSettings);
+		DataAccessTemplates = Refit<IDataAccessTemplates>(refitSettings);
+		FlowData = Refit<IFlowData>(refitSettings);
+		Information = Refit<IInformation>(refitSettings);
+		Inventory = Refit<IInventory>(refitSettings);
+		Events = Refit<IEvents>(refitSettings);
+		EventFilters = Refit<IEventFilters>(refitSettings);
+		Incidents = Refit<IIncidents>(refitSettings);
+		Maintenance = Refit<IMaintenance>(refitSettings);
+		Users = Refit<IUsers>(refitSettings);
+		UserGroups = Refit<IUserGroups>(refitSettings);
+		Servers = Refit<IServers>(refitSettings);
+		Views = Refit<IViews>(refitSettings);
+		Zones = Refit<IZones>(refitSettings);
 	}
+
+	private T Refit<T>(RefitSettings refitSettings)
+		=> RestService.For<T>(_httpClient, refitSettings);
+
 
 	public IFlowData FlowData { get; set; }
 
