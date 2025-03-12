@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models;
 
-public class User : Entity<string>
+public class UserSimple : Entity<string>
 {
 	[JsonPropertyName("serverId")]
 	public required string ServerId { get; set; }
