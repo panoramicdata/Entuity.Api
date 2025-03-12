@@ -10,4 +10,8 @@ public interface IFilters
 
 	[Get("/api/incidentFilters")]
 	Task<Response<string, IncidentFilter>> GetAllIncidentFiltersAsync(CancellationToken cancellationToken);
+
+	[Get("/api/eventFilters")]
+	Task<Response<string, EventFilter>> GetAllEventFiltersAsync(
+		CancellationToken cancellationToken);
 }

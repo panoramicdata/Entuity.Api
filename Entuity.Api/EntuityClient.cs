@@ -33,7 +33,6 @@ public class EntuityClient : IDisposable
 		Information = Refit<IInformation>(refitSettings);
 		Inventory = Refit<IInventory>(refitSettings);
 		Events = Refit<IEvents>(refitSettings);
-		EventFilters = Refit<IEventFilters>(refitSettings);
 		Incidents = Refit<IIncidents>(refitSettings);
 		Maintenance = Refit<IMaintenance>(refitSettings);
 		Users = Refit<IUsers>(refitSettings);
