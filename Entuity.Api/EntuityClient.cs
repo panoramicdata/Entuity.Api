@@ -38,6 +38,7 @@ public class EntuityClient : IDisposable
 		Users = Refit<IUsers>(refitSettings);
 		UserGroups = Refit<IUserGroups>(refitSettings);
 		Servers = Refit<IServers>(refitSettings);
+		Tools = Refit<ITools>(refitSettings);
 		Views = Refit<IViews>(refitSettings);
 		Zones = Refit<IZones>(refitSettings);
 	}
@@ -60,11 +61,19 @@ public class EntuityClient : IDisposable
 	public IEventFilters EventFilters { get; set; }
 
 	public IIncidents Incidents { get; set; }
+
+	public ITools Tools { get; set; }
+
 	public IMaintenance Maintenance { get; set; }
+
 	public IUsers Users { get; set; }
+
 	public IUserGroups UserGroups { get; set; }
+
 	public IServers Servers { get; set; }
+
 	public IViews Views { get; set; }
+
 	public IZones Zones { get; set; }
 
 	protected virtual void Dispose(bool disposing)
