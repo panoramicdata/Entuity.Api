@@ -25,4 +25,15 @@ public class FlowDataTests(EntuityClient client)
 		flowApplications.Should().NotBeNull();
 		flowApplications.Applications.Should().NotBeEmpty();
 	}
+
+	[Fact]
+	public async Task FlowDataController_GetFlowHistoryAsync_Succeeds()
+	{
+		var history = await client
+			.FlowData
+			.GetFlowHistoryAsync(1, default);
+
+		history.Should().NotBeNull();
+		history.SampleSets.Should().NotBeEmpty();
+	}
 }
