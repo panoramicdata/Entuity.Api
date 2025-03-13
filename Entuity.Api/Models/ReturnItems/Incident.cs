@@ -12,7 +12,7 @@ public class Incident : Entity<int>, IReturnItem
 	public required string Details { get; set; }
 
 	[JsonPropertyName("objectKeyInfo")]
-	public required EventObjectKeyInfo ObjectKeyInfo { get; set; }
+	public required ObjectKey ObjectKeyInfo { get; set; }
 
 	[JsonPropertyName("severity")]
 	public required int Severity { get; set; }
