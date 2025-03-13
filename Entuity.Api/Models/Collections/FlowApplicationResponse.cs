@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models;
+﻿namespace Entuity.Api.Models.Collections;
 
 public class FlowApplicationResponse
 {

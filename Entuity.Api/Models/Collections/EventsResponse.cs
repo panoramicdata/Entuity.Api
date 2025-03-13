@@ -1,11 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.Collections;
 
-public class IncidentResponse
+public class EventsResponse
 {
-	[JsonPropertyName("incidents")]
-	public required ICollection<Incident> Incidents { get; set; }
+	[JsonPropertyName("events")]
+	public required ICollection<Event> Events { get; set; }
 
 	[JsonPropertyName("updateId")]
 	public int UpdateId { get; set; }

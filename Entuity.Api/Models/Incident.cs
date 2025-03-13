@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Entuity.Api.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models;
 
-public class Incident : Entity<int>
+public class Incident : Entity<int>, IReturnItem
 {
 	[JsonPropertyName("description")]
 	public required string Description { get; set; }
