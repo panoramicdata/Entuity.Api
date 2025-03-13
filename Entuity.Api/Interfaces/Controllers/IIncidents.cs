@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Entuity.Api.QueryParameters;
 using Refit;
 
@@ -37,5 +38,5 @@ public interface IIncidents
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/incidentTypes")]
-	Task<IncidentTypeResponse> GetAllTypesAsync(CancellationToken cancellationToken);
+	Task<Response<IncidentType>> GetAllTypesAsync(CancellationToken cancellationToken);
 }
