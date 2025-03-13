@@ -32,6 +32,7 @@ public class EntuityClient : IDisposable
 		FlowData = Refit<IFlowData>(refitSettings);
 		Filters = Refit<IFilters>(refitSettings);
 		Information = Refit<IInformation>(refitSettings);
+		Ipam = Refit<IIpam>(refitSettings);
 		Inventory = Refit<IInventory>(refitSettings);
 		Events = Refit<IEvents>(refitSettings);
 		Incidents = Refit<IIncidents>(refitSettings);
@@ -54,6 +55,8 @@ public class EntuityClient : IDisposable
 	public IFlowData FlowData { get; set; }
 
 	public IFilters Filters { get; set; }
+
+	public IIpam Ipam { get; set; }
 
 	public IInformation Information { get; set; }
 
