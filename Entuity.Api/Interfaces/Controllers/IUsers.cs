@@ -1,11 +1,12 @@
 ﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
 public interface IUsers
 {
 	[Get("/api/users")]
-	Task<Response<string, UserSimple>> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<UserSimple>> GetAllAsync(CancellationToken cancellationToken);
 
 	[Get("/api/users/{id}")]
 	Task<UserDetailed> GetAsync(int id,

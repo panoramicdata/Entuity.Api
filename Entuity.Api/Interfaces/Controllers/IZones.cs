@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -17,7 +18,7 @@ public interface IZones
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/zones")]
-	Task<Response<string, Zone>> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<Zone>> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get Zone Details

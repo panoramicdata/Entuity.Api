@@ -1,13 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using Entuity.Api.Interfaces;
+using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.Collections;
 
 /// <summary>
 /// A model that represents a multiple item response
 /// </summary>
-/// <typeparam name="TId">The type of ID the item will have e.g. GUID or int</typeparam>
 /// <typeparam name="T">The Type that is returned in Items e.g. Server</typeparam>
-public class Response<TId, T> where T : Entity<TId>
+public class Response<T> where T : IReturnItem
 {
 	[JsonPropertyName("items")]
 	public required ICollection<T> Items { get; set; }

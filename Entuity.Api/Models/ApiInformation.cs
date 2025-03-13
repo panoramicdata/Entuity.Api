@@ -5,11 +5,8 @@ namespace Entuity.Api.Models;
 /// <summary>
 /// Information about the API.
 /// </summary>
-public class ApiInformation
+public class ApiInformation : Entity<string>
 {
-	[JsonPropertyName("id")]
-	public required string Id { get; set; }
-
 	[JsonPropertyName("version")]
 	public required string Version { get; set; }
 

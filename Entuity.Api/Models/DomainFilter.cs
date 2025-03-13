@@ -1,6 +1,8 @@
-﻿namespace Entuity.Api.Models;
+﻿using Entuity.Api.Interfaces;
 
-public class DomainFilter : Entity<string>
+namespace Entuity.Api.Models;
+
+public class DomainFilter : Entity<string>, IReturnItem
 {
 	public Guid ServerId { get; set; }
 

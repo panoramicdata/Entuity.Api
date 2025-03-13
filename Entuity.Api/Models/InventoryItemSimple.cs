@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Entuity.Api.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models;
 
-public class InventoryItemSimple : Entity<string>
+public class InventoryItemSimple : Entity<string>, IReturnItem
 {
 	[JsonPropertyName("serverId")]
 	public required Guid ServerId { get; set; }

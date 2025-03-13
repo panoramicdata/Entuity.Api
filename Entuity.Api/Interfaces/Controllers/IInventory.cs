@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -15,7 +16,7 @@ public interface IInventory
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/inventory")]
-	Task<Response<string, InventoryItemSimple>> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<InventoryItemSimple>> GetAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get Inventory Item

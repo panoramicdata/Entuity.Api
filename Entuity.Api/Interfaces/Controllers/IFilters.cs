@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -6,12 +7,12 @@ namespace Entuity.Api.Interfaces.Controllers;
 public interface IFilters
 {
 	[Get("/api/domainFilters")]
-	Task<Response<string, DomainFilter>> GetAllDomainFiltersAsync(CancellationToken cancellationToken);
+	Task<Response<DomainFilter>> GetAllDomainFiltersAsync(CancellationToken cancellationToken);
 
 	[Get("/api/incidentFilters")]
-	Task<Response<string, IncidentFilter>> GetAllIncidentFiltersAsync(CancellationToken cancellationToken);
+	Task<Response<IncidentFilter>> GetAllIncidentFiltersAsync(CancellationToken cancellationToken);
 
 	[Get("/api/eventFilters")]
-	Task<Response<string, EventFilter>> GetAllEventFiltersAsync(
+	Task<Response<EventFilter>> GetAllEventFiltersAsync(
 		CancellationToken cancellationToken);
 }
