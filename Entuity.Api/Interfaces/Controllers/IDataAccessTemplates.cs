@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -16,5 +17,5 @@ public interface IDataAccessTemplates
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/dataAccessTemplates")]
-	Task<DataAccessTemplatesResponse> GetAllAsync(CancellationToken cancellationToken);
+	Task<Response<DataAccessTemplate>> GetAllAsync(CancellationToken cancellationToken);
 }
