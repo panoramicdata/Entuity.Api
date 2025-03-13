@@ -1,9 +1,10 @@
 ﻿using Entuity.Api.Enums;
+using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.ReturnItems;
 
-public class InventoryItemDetailed : Entity<string>
+public class InventoryItemDetailed : Entity<string>, IReturnItem
 {
 	/// <summary>
 	/// Device Capabilities: routing, switching, switching and routing

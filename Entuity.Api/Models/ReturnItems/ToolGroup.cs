@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.ReturnItems;
 
 public class ToolGroup : IReturnItem
 {

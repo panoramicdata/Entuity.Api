@@ -1,9 +1,9 @@
 ﻿using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.ReturnItems;
 
-public class UserGroup : Entity<string>, IReturnItem
+public class UserSimple : Entity<string>, IReturnItem
 {
 	[JsonPropertyName("serverId")]
 	public required string ServerId { get; set; }

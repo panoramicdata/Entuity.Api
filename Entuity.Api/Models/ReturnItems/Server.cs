@@ -1,9 +1,12 @@
 ﻿using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.ReturnItems;
 
-public class Zone : Entity<string>, IReturnItem
+/// <summary>
+/// Server
+/// </summary>
+public class Server : Entity<string>, IReturnItem
 {
 	[JsonPropertyName("serverId")]
 	public Guid ServerId { get; set; }

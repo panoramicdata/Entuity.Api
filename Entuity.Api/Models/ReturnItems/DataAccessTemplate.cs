@@ -2,7 +2,7 @@
 using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.ReturnItems;
 public class DataAccessTemplate : IReturnItem
 {
 	public string Name { get; set; } = string.Empty;

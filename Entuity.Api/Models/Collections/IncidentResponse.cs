@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Entuity.Api.Models.ReturnItems;
+using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.Collections;
 

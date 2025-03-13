@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models;
-using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Models.Collections;
+using Entuity.Api.Models.ReturnItems;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -28,6 +28,6 @@ public interface IZones
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/zones/{id}")]
-	Task<ZoneDetails> GetAsync(int id,
+	Task<ZoneDetailed> GetAsync(int id,
 		CancellationToken cancellationToken);
 }

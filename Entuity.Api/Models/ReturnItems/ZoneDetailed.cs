@@ -1,7 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Entuity.Api.Interfaces;
+using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
-public class ZoneDetails
+namespace Entuity.Api.Models.ReturnItems;
+
+public class ZoneDetailed : IReturnItem
 {
 	[JsonPropertyName("id")]
 	public int Id { get; set; }

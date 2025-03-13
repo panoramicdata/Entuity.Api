@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.ReturnItems;
 
 public class InventoryItemSimple : Entity<string>, IReturnItem
 {

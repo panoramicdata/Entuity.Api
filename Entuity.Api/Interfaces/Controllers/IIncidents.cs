@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models;
-using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Models.Collections;
+using Entuity.Api.Models.ReturnItems;
 using Entuity.Api.QueryParameters;
 using Refit;
 
