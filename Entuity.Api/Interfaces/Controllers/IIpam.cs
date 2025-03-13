@@ -8,4 +8,7 @@ public interface IIpam
 {
 	[Get("/api/ipam/dhcp")]
 	public Task<ListResponse<DhcpServer>> GetAllDhcpServers(CancellationToken cancellationToken);
+
+	[Get("/api/ipam/network")]
+	public Task<ListResponse<Network>> GetAllNetworks(CancellationToken cancellationToken);
 }

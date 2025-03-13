@@ -9,8 +9,18 @@ public class IpamTests(EntuityClient client)
 	{
 		var dhcpServers = await client
 			.Ipam
-			.GetAllDhcpServers(CancellationToken.None);
+			.GetAllDhcpServers(default);
 
 		dhcpServers.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task IpamController_GetAllNetworks_Succeeds()
+	{
+		var networks = await client
+			.Ipam
+			.GetAllNetworks(default);
+
+		networks.Should().NotBeNull();
 	}
 }
