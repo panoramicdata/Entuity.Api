@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Models;
 using Refit;
 
-namespace Entuity.Api.Interfaces;
+namespace Entuity.Api.Interfaces.Controllers;
 public interface IEventFilters
 {
 	[Get("/api/eventFilters")]

@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Models;
 using Refit;
 
-namespace Entuity.Api.Interfaces;
+namespace Entuity.Api.Interfaces.Controllers;
 /// <summary>
 /// Servers
 /// see https://support.entuity.com/hc/en-us/articles/13829672195869-Servers-RESTful-API

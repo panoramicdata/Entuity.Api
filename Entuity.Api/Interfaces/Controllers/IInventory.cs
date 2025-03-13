@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Models;
 using Refit;
 
-namespace Entuity.Api.Interfaces;
+namespace Entuity.Api.Interfaces.Controllers;
 /// <summary>
 /// Inventory
 /// see https://support.entuity.com/hc/en-us/articles/13819757448349-Asset-Management-Device-Inventory-RESTful-API

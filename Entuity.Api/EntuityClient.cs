@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Interfaces;
+﻿using Entuity.Api.Interfaces.Controllers;
 using Refit;
 using System.Text.Json;
 using System.Text.Json.Serialization;

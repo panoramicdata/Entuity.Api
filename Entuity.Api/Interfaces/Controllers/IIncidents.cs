@@ -2,7 +2,7 @@
 using Entuity.Api.QueryParameters;
 using Refit;
 
-namespace Entuity.Api.Interfaces;
+namespace Entuity.Api.Interfaces.Controllers;
 
 /// <summary>
 /// Incidents
