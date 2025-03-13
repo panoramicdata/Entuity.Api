@@ -27,6 +27,7 @@ public class EntuityClient : IDisposable
 			})
 		};
 
+		AutoDiscovery = Refit<IAutoDiscovery>(refitSettings);
 		DataAccessTemplates = Refit<IDataAccessTemplates>(refitSettings);
 		FlowData = Refit<IFlowData>(refitSettings);
 		Filters = Refit<IFilters>(refitSettings);
@@ -46,6 +47,8 @@ public class EntuityClient : IDisposable
 
 	private T Refit<T>(RefitSettings refitSettings)
 		=> RestService.For<T>(_httpClient, refitSettings);
+
+	public IAutoDiscovery AutoDiscovery { get; set; }
 
 	public IFlowData FlowData { get; set; }
 
