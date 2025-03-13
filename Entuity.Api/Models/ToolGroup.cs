@@ -1,6 +1,8 @@
-﻿namespace Entuity.Api.Models;
+﻿using Entuity.Api.Interfaces;
 
-public class ToolGroup
+namespace Entuity.Api.Models;
+
+public class ToolGroup : IReturnItem
 {
 	public string Subgroup { get; set; } = string.Empty;
 
