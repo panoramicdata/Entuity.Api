@@ -1,6 +1,8 @@
-﻿namespace Entuity.Api.Models;
+﻿using Entuity.Api.Interfaces;
 
-public class RestPoller
+namespace Entuity.Api.Models;
+
+public class RestPoller : IReturnItem
 {
 	public int PollerId { get; set; }
 
