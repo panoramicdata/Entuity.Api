@@ -9,7 +9,17 @@ public class SettingTests(EntuityClient client)
 	{
 		var settings = await client
 			.Settings
-			.GetGlobalUserSettingsAsync();
+			.GetGlobalUserSettingsAsync(default);
+
+		settings.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task SettingsController_GetGlobalPasswordComplexitySettingsAsync_Succeeds()
+	{
+		var settings = await client
+			.Settings
+			.GetGlobalPasswordComplexitySettingsAsync(default);
 
 		settings.Should().NotBeNull();
 	}
