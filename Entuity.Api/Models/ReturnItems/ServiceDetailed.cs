@@ -1,7 +1,9 @@
-﻿namespace Entuity.Api.Models.ReturnItems;
+﻿using Entuity.Api.Interfaces;
+
+namespace Entuity.Api.Models.ReturnItems;
 
 
-public class ServiceDetailed
+public class ServiceDetailed : IReturnItem
 {
 	public required ServiceInfo Info { get; set; }
 

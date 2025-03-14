@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.ReturnItems;
+﻿namespace Entuity.Api.Models;
 
 public class ServiceUser
 {
@@ -6,4 +6,3 @@ public class ServiceUser
 
 	public string Second { get; set; } = string.Empty;
 }
-

@@ -1,6 +1,8 @@
-﻿namespace Entuity.Api.Models.ReturnItems;
+﻿using Entuity.Api.Interfaces;
 
-public class ViewDetailed : Entity<string>
+namespace Entuity.Api.Models.ReturnItems;
+
+public class ViewDetailed : Entity<string>, IReturnItem
 {
 	public Guid ServerId { get; set; }
 

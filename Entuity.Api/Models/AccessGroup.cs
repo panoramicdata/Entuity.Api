@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.ReturnItems;
+﻿namespace Entuity.Api.Models;
 
 public class AccessGroup
 {
