@@ -70,4 +70,14 @@ public class WebHookTests(EntuityClient client)
 
 		webHookEndpoints.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async Task WebHooksController_GetWebHookEventsAsync_Succeeds()
+	{
+		var webHookEvents = await client
+			.WebHooks
+			.GetWebhookEventsAsync(default);
+
+		webHookEvents.Should().NotBeNull();
+	}
 }

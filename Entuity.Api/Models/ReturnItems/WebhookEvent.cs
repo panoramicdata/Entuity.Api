@@ -1,6 +1,8 @@
-﻿namespace Entuity.Api.Models.ReturnItems;
+﻿using Entuity.Api.Interfaces;
 
-public class WebhookEvent
+namespace Entuity.Api.Models.ReturnItems;
+
+public class WebhookEvent : IReturnItem
 {
 	public string EventName { get; set; } = string.Empty;
 
