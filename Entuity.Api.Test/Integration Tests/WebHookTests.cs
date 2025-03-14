@@ -36,10 +36,28 @@ public class WebHookTests(EntuityClient client)
 	[Fact]
 	public async Task WebHooksController_GetWebHookRulesAsync_Succeeds()
 	{
-		var webHooks = await client
+		var webHookRules = await client
 			.WebHooks
 			.GetWebhookRulesAsync(default);
 
-		webHooks.Should().NotBeNull();
+		webHookRules.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task WebHooksController_GetWebHookAsync_Succeeds()
+	{
+		var webHookRules = await client
+			.WebHooks
+			.GetWebhookRulesAsync(default);
+
+		webHookRules.Should().NotBeNull();
+
+		foreach (var webHookRule in webHookRules.Items)
+		{
+			var rule = await client
+				.WebHooks
+				.GetWebhookRuleAsync(webHookRule.RuleID, default);
+			rule.Should().NotBeNull();
+		}
 	}
 }
