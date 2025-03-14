@@ -8,4 +8,7 @@ public interface IServices
 {
 	[Get("/api/service")]
 	public Task<Response<Service>> GetAllAsync(CancellationToken cancellationToken);
+
+	[Get("/api/service/{serviceId}")]
+	public Task<ServiceDetailed> GetAsync(int serviceId, CancellationToken cancellationToken);
 }
