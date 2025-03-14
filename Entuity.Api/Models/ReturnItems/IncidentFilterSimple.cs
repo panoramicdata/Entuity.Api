@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.ReturnItems;
 
-public class IncidentFilter : Entity<string>, IReturnItem
+public class IncidentFilterSimple : Entity<string>, IReturnItem
 {
 	public Guid ServerId { get; set; }
 

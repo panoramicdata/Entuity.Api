@@ -10,9 +10,12 @@ public interface IFilters
 	Task<Response<DomainFilter>> GetAllDomainFiltersAsync(CancellationToken cancellationToken);
 
 	[Get("/api/incidentFilters")]
-	Task<Response<IncidentFilter>> GetAllIncidentFiltersAsync(CancellationToken cancellationToken);
+	Task<Response<IncidentFilterSimple>> GetAllIncidentFiltersAsync(CancellationToken cancellationToken);
+
+	[Get("/api/incidentFilters/{id}")]
+	Task<IncidentFilterDetailed> GetIncidentFilterAsync(string id, CancellationToken cancellationToken);
 
 	[Get("/api/eventFilters")]
-	Task<Response<EventFilter>> GetAllEventFiltersAsync(
+	Task<Response<EventFilterSimple>> GetAllEventFiltersAsync(
 		CancellationToken cancellationToken);
 }

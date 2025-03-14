@@ -66,8 +66,6 @@ public class EntuityClient : IDisposable
 
 	public IEvents Events { get; set; }
 
-	public IEventFilters EventFilters { get; set; }
-
 	public IIncidents Incidents { get; set; }
 
 	public ITools Tools { get; set; }

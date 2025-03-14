@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.ReturnItems;
 
-public class EventFilter : Entity<string>, IReturnItem
+public class EventFilterSimple : Entity<string>, IReturnItem
 {
 	[JsonPropertyName("serverId")]
 	public required string ServerId { get; set; }
