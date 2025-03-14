@@ -11,4 +11,7 @@ public interface IWebHooks
 
 	[Get("/api/webhooks/groups/{groupName}")]
 	Task<WebhookGroup> GetWebhookGroupAsync(string groupName, CancellationToken cancellationToken);
+
+	[Get("/api/webhooks/rules")]
+	Task<Response<WebhookRule>> GetWebhookRulesAsync(CancellationToken cancellationToken);
 }
