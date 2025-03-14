@@ -23,4 +23,22 @@ public class IpamTests(EntuityClient client)
 
 		networks.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async Task IpamController_GetNetwork_Succeeds()
+	{
+		var networks = await client
+			.Ipam
+			.GetAllNetworks(default);
+
+		networks.Should().NotBeNull();
+
+		foreach (var network in networks)
+		{
+			var detailedNetwork = await client
+				.Ipam
+				.GetNetworkAsync(network.Id, default);
+			detailedNetwork.Should().NotBeNull();
+		}
+	}
 }

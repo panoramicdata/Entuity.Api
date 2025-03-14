@@ -11,4 +11,7 @@ public interface IIpam
 
 	[Get("/api/ipam/network")]
 	public Task<ListResponse<Network>> GetAllNetworks(CancellationToken cancellationToken);
+
+	[Get("/api/ipam/network/{id}")]
+	public Task<Network> GetNetworkAsync(int id, CancellationToken cancellationToken);
 }
