@@ -45,6 +45,7 @@ public class EntuityClient : IDisposable
 		Services = Refit<IServices>(refitSettings);
 		Tools = Refit<ITools>(refitSettings);
 		Views = Refit<IViews>(refitSettings);
+		WebHooks = Refit<IWebHooks>(refitSettings);
 		Zones = Refit<IZones>(refitSettings);
 	}
 
@@ -86,6 +87,8 @@ public class EntuityClient : IDisposable
 	public ISettings Settings { get; set; }
 
 	public IViews Views { get; set; }
+
+	public IWebHooks WebHooks { get; set; }
 
 	public IZones Zones { get; set; }
 
