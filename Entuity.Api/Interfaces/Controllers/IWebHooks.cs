@@ -7,5 +7,8 @@ namespace Entuity.Api.Interfaces.Controllers;
 public interface IWebHooks
 {
 	[Get("/api/webhooks/groups")]
-	Task<Response<WebhookGroup>> GetWebhookGroupsAsync();
+	Task<Response<WebhookGroup>> GetWebhookGroupsAsync(CancellationToken cancellationToken);
+
+	[Get("/api/webhooks/groups/{groupName}")]
+	Task<WebhookGroup> GetWebhookGroupAsync(string groupName, CancellationToken cancellationToken);
 }

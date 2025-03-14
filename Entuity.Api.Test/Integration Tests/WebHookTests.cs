@@ -9,8 +9,26 @@ public class WebHookTests(EntuityClient client)
 	{
 		var webHooks = await client
 			.WebHooks
-			.GetWebhookGroupsAsync();
+			.GetWebhookGroupsAsync(default);
 
 		webHooks.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task WebHooksController_GetWebHookGroupAsync_Succeeds()
+	{
+		var webHooks = await client
+			.WebHooks
+			.GetWebhookGroupsAsync(default);
+
+		webHooks.Should().NotBeNull();
+
+		foreach (var webHook in webHooks.Items)
+		{
+			var group = await client
+				.WebHooks
+				.GetWebhookGroupAsync(webHook.GroupName, default);
+			group.Should().NotBeNull();
+		}
 	}
 }
