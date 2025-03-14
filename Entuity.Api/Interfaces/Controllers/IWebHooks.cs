@@ -17,4 +17,7 @@ public interface IWebHooks
 
 	[Get("/api/webhooks/rules/{ruleId}")]
 	Task<WebhookRule> GetWebhookRuleAsync(int ruleId, CancellationToken cancellationToken);
+
+	[Get("/api/webhooks/endpoints")]
+	Task<Response<WebhookEndpoint>> GetWebhookEndpointsAsync(CancellationToken cancellationToken);
 }
