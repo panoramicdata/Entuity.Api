@@ -20,4 +20,7 @@ public interface IConfiguration
 
 	[Put("/api/cfg/serverGroups/{serverGroupId}")]
 	public Task<ServerGroup> UpdateServerGroupAsync(Guid serverGroupId, [Body] ServerGroupUpdate serverGroup, CancellationToken cancellationToken);
+
+	[Get("/api/cfg/serverGroupsSummaryInfo")]
+	public Task<Response<ServerGroupSummaryInformation>> GetServerGroupsSummaryInfoAsync(CancellationToken cancellationToken);
 }

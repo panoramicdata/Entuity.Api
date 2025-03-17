@@ -92,4 +92,14 @@ public class ConfigurationTests(EntuityClient client)
 		deleteResponse.Should().NotBeNull();
 		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
 	}
+
+	[Fact]
+	public async Task ConfigurationController_GetServerGroupsSummaryInformation_Succeeds()
+	{
+		var response = await client
+		.Configuration
+		.GetServerGroupsSummaryInfoAsync(default);
+
+		response.Should().NotBeNull();
+	}
 }
