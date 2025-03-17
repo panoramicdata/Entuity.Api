@@ -26,7 +26,7 @@ public class ZoneDetailed : IReturnItem
 	[JsonPropertyName("domainSuffix")]
 	public string DomainSuffix { get; set; } = string.Empty;
 
-	[JsonPropertyName("dnsServers")]
+	[JsonPropertyName("proxy")]
 	public string Proxy { get; set; } = string.Empty;
 
 	[JsonPropertyName("devicePrefix")]

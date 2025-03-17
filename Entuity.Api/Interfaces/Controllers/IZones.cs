@@ -2,6 +2,7 @@
 using Entuity.Api.Models.Collections;
 using Entuity.Api.Models.PostItems;
 using Entuity.Api.Models.ReturnItems;
+using Entuity.Api.Models.UpdateItems;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -51,5 +52,17 @@ public interface IZones
 	/// <returns></returns>
 	[Delete("/api/zones/{id}")]
 	Task<IApiResponse<Message>> DeleteAsync(int id,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Update a zone by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="zone"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/zones/{id}")]
+	Task<IApiResponse<ZoneDetailed>> UpdateAsync(int id,
+		[Body] ZoneUpdate zone,
 		CancellationToken cancellationToken);
 }

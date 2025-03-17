@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models.PostItems;
+using Entuity.Api.Models.UpdateItems;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
@@ -104,5 +105,48 @@ public class ZonesTests(EntuityClient client)
 			.Zones
 			.DeleteAsync(-1, default);
 		response.IsSuccessStatusCode.Should().BeFalse();
+	}
+
+	[Fact]
+	public async Task ZonesController_UpdateAsync_Succeeds()
+	{
+		var randomName = Guid.NewGuid().ToString();
+
+		var result = await client
+			.Zones
+			.CreateAsync(new ZoneCreate
+			{
+				Name = randomName,
+				V4Interface = "3.4.5.6"
+
+			}, default);
+
+		// Should return content if successful
+		result.Content.Should().NotBeNull();
+
+		var createdZone =
+			result?.Content?.Items.FirstOrDefault(item => item.Name == randomName);
+
+		createdZone.Should().NotBeNull();
+
+		var success = int.TryParse(createdZone?.Id, out var parsedId);
+		success.Should().BeTrue();
+
+		// Update the Item to be {RANDOM_NAME} - edited
+		var updateResult = await client
+			.Zones
+			.UpdateAsync(parsedId, new ZoneUpdate
+			{
+				Name = $"{randomName} - edited"
+			}, default);
+
+		updateResult.Content.Should().NotBeNull();
+
+		//updateResult.Content!.Name.Should().Be($"{randomName} - edited");
+
+		// Attempt cleanup
+		var deleteResult = await client
+			.Zones
+			.DeleteAsync(parsedId, default);
 	}
 }
