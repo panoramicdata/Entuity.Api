@@ -36,6 +36,7 @@ public class EntuityClient : IDisposable
 		Inventory = Refit<IInventory>(refitSettings);
 		Events = Refit<IEvents>(refitSettings);
 		Incidents = Refit<IIncidents>(refitSettings);
+		LicenseInformation = Refit<ILicenseInfo>(refitSettings);
 		Maintenance = Refit<IMaintenance>(refitSettings);
 		Users = Refit<IUsers>(refitSettings);
 		UserGroups = Refit<IUserGroups>(refitSettings);
@@ -71,6 +72,8 @@ public class EntuityClient : IDisposable
 	public IIncidents Incidents { get; set; }
 
 	public ITools Tools { get; set; }
+
+	public ILicenseInfo LicenseInformation { get; set; }
 
 	public IMaintenance Maintenance { get; set; }
 
