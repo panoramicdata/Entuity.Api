@@ -2,6 +2,7 @@
 using Entuity.Api.Models.Collections;
 using Entuity.Api.Models.GetItems;
 using Entuity.Api.Models.PostItems;
+using Entuity.Api.Models.UpdateItems;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -16,4 +17,7 @@ public interface IConfiguration
 
 	[Delete("/api/cfg/serverGroups/{serverGroupId}")]
 	public Task<DeleteResponse> DeleteServerGroupAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	[Put("/api/cfg/serverGroups/{serverGroupId}")]
+	public Task<ServerGroup> UpdateServerGroupAsync(Guid serverGroupId, [Body] ServerGroupUpdate serverGroup, CancellationToken cancellationToken);
 }
