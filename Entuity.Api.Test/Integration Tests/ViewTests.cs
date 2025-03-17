@@ -29,4 +29,21 @@ public class ViewTests(EntuityClient client)
 			viewDetailed.Should().NotBeNull();
 		}
 	}
+
+	[Fact]
+	public async Task ViewsController_GetObjectsAsync_Succeeds()
+	{
+		var views = await client
+		.Views
+		.GetAllAsync(default);
+
+		foreach (var view in views.Items)
+		{
+			var viewObjects = await client
+				.Views
+				.GetObjectsAsync(view.Id, default);
+
+			viewObjects.Should().NotBeNull();
+		}
+	}
 }

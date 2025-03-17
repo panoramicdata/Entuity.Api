@@ -10,4 +10,7 @@ public interface IViews
 
 	[Get("/api/views/{id}")]
 	Task<ViewDetailed> GetAsync(string id, CancellationToken cancellationToken);
+
+	[Get("/api/views/{id}/objects")]
+	Task<Response<ViewObject>> GetObjectsAsync(string id, CancellationToken cancellationToken);
 }
