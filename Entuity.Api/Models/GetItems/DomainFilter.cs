@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.GetItems;
 
-public class DomainFilter : Entity<string>, IReturnItem
+public class DomainFilter : Entity<string>, IGetItem
 {
 	public Guid ServerId { get; set; }
 

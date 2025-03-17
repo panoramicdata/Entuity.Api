@@ -4,7 +4,7 @@ using System.Collections;
 namespace Entuity.Api.Models.GetItems;
 
 
-public class Service : IReturnItem
+public class Service : IGetItem
 {
 	/// <summary>
 	/// Object ID of this service. This is also referenced as 'serviceid' in other RESTful API calls.

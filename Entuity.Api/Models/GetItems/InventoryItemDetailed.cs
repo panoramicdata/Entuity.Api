@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.GetItems;
 
-public class InventoryItemDetailed : Entity<string>, IReturnItem
+public class InventoryItemDetailed : Entity<string>, IGetItem
 {
 	/// <summary>
 	/// Device Capabilities: routing, switching, switching and routing

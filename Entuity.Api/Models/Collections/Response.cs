@@ -7,7 +7,7 @@ namespace Entuity.Api.Models.Collections;
 /// A model that represents a multiple item response
 /// </summary>
 /// <typeparam name="T">The Type that is returned in Items e.g. Server</typeparam>
-public class Response<T> where T : IReturnItem
+public class Response<T> where T : IGetItem
 {
 	[JsonPropertyName("items")]
 	public required ICollection<T> Items { get; set; }

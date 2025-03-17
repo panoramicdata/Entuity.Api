@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.GetItems;
 
-public class WebhookEndpoint : IReturnItem
+public class WebhookEndpoint : IGetItem
 {
 	public int EndpointID { get; set; }
 

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Entuity.Api.Models.GetItems;
 
 
-public class DhcpServerDetailed : IReturnItem
+public class DhcpServerDetailed : IGetItem
 {
 	public int Id { get; set; }
 

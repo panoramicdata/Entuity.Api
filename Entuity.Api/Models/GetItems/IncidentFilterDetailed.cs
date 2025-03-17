@@ -3,7 +3,7 @@
 namespace Entuity.Api.Models.GetItems;
 
 
-public class IncidentFilterDetailed : IReturnItem
+public class IncidentFilterDetailed : IGetItem
 {
 	public string Name { get; set; } = string.Empty;
 

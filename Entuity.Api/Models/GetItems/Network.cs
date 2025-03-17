@@ -3,7 +3,7 @@
 namespace Entuity.Api.Models.GetItems;
 
 
-public class Network : Entity<int>, IReturnItem
+public class Network : Entity<int>, IGetItem
 {
 	/// <summary>
 	/// User-specified name of the network.

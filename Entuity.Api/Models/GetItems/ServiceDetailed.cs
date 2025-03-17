@@ -3,7 +3,7 @@
 namespace Entuity.Api.Models.GetItems;
 
 
-public class ServiceDetailed : IReturnItem
+public class ServiceDetailed : IGetItem
 {
 	public required ServiceInfo Info { get; set; }
 

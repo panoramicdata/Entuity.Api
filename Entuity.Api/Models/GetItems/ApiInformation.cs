@@ -6,7 +6,7 @@ namespace Entuity.Api.Models.GetItems;
 /// <summary>
 /// Information about the API.
 /// </summary>
-public class ApiInformation : Entity<string>, IReturnItem
+public class ApiInformation : Entity<string>, IGetItem
 {
 	[JsonPropertyName("version")]
 	public required string Version { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.GetItems;
 
-public class RestPoller : IReturnItem
+public class RestPoller : IGetItem
 {
 	public int PollerId { get; set; }
 

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.GetItems;
 
-public class InventoryItemSimple : Entity<string>, IReturnItem
+public class InventoryItemSimple : Entity<string>, IGetItem
 {
 	[JsonPropertyName("serverId")]
 	public required Guid ServerId { get; set; }

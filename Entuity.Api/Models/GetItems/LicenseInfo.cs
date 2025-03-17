@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.GetItems;
 
-public class LicenseInfo : IReturnItem
+public class LicenseInfo : IGetItem
 {
 	public Guid ServerId { get; set; }
 

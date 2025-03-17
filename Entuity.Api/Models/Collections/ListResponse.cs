@@ -6,5 +6,5 @@ namespace Entuity.Api.Models.Collections;
 /// Defines a list of items that can be returned from the API.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class ListResponse<T> : List<T> where T : IReturnItem;
+public class ListResponse<T> : List<T> where T : IGetItem;
 

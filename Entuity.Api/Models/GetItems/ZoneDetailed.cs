@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.GetItems;
 
-public class ZoneDetailed : IReturnItem
+public class ZoneDetailed : IGetItem
 {
 	[JsonPropertyName("id")]
 	public int Id { get; set; }

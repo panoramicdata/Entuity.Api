@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.GetItems;
 
-public class DhcpServer : Entity<int>, IReturnItem
+public class DhcpServer : Entity<int>, IGetItem
 {
 	/// <summary>
 	/// User-specified name of the DHCP server.

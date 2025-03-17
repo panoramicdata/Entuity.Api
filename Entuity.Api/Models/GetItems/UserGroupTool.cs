@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.GetItems;
 
-public class UserGroupTool : Entity<int>, IReturnItem
+public class UserGroupTool : Entity<int>, IGetItem
 {
 	public string ToolName { get; set; } = string.Empty;
 

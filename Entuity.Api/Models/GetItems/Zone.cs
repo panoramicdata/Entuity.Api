@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.GetItems;
 
-public class Zone : Entity<string>, IReturnItem
+public class Zone : Entity<string>, IGetItem
 {
 	[JsonPropertyName("serverId")]
 	public Guid ServerId { get; set; }

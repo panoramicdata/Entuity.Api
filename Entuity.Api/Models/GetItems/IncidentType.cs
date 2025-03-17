@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.GetItems;
 
-public class IncidentType : IReturnItem
+public class IncidentType : IGetItem
 {
 	[JsonPropertyName("name")]
 	public required string Name { get; set; }

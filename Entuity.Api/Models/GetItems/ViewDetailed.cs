@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.GetItems;
 
-public class ViewDetailed : Entity<string>, IReturnItem
+public class ViewDetailed : Entity<string>, IGetItem
 {
 	public Guid ServerId { get; set; }
 

@@ -6,7 +6,7 @@ namespace Entuity.Api.Models.GetItems;
 /// <summary>
 /// Server
 /// </summary>
-public class Server : Entity<string>, IReturnItem
+public class Server : Entity<string>, IGetItem
 {
 	[JsonPropertyName("serverId")]
 	public Guid ServerId { get; set; }

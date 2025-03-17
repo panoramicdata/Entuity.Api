@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Models.GetItems;
 
-public class WebhookEvent : IReturnItem
+public class WebhookEvent : IGetItem
 {
 	public string EventName { get; set; } = string.Empty;
 
