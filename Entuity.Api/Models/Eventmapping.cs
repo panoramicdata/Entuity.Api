@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.ReturnItems;
+﻿using Entuity.Api.Models.GetItems;
 
 namespace Entuity.Api.Models;
 

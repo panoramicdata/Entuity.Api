@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Models;
 using Entuity.Api.Models.Collections;
-using Entuity.Api.Models.ReturnItems;
+using Entuity.Api.Models.GetItems;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;

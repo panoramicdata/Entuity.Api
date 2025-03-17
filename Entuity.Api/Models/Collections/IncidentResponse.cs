@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.ReturnItems;
+﻿using Entuity.Api.Models.GetItems;
 using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.Collections;
