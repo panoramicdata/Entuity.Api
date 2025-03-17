@@ -1,4 +1,6 @@
-﻿using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
+using Entuity.Api.Models.PostItems;
 using Entuity.Api.Models.ReturnItems;
 using Refit;
 
@@ -29,5 +31,25 @@ public interface IZones
 	/// <returns></returns>
 	[Get("/api/zones/{id}")]
 	Task<ZoneDetailed> GetAsync(int id,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Create new Zone and get a response of all Zones
+	/// </summary>
+	/// <param name="zone"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/zones")]
+	Task<IApiResponse<Response<Zone>>> CreateAsync([Body] ZoneCreate zone,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Delete a zone by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Delete("/api/zones/{id}")]
+	Task<IApiResponse<Message>> DeleteAsync(int id,
 		CancellationToken cancellationToken);
 }
