@@ -66,7 +66,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task FiltersController_UpdateDomainFilterAsync_Succeeds()
 	{
-		var newDomainFilter = new DomainFilterCreate { Name = "Test Domain Filter" };
+		var newDomainFilter = new DomainFilterCreate { Name = "Test Domain Filter 2" };
 
 		var result = await client
 			.Filters
@@ -132,6 +132,51 @@ public class FilterTests(EntuityClient client) : TestFixture
 
 		result.Should().NotBeNull();
 		result.Items.Should().NotBeEmpty();
+	}
+
+	[Fact]
+	public async Task FiltersController_CreateIncidentFilterAsync_Succeeds()
+	{
+		var newIncidentFilter = new IncidentFilterCreate { Name = "Test Incident Filter" };
+		var result = await client
+			.Filters
+			.CreateIncidentFilterAsync(newIncidentFilter, default);
+		result.Should().NotBeNull();
+
+		// Get Incident Filter ID
+		var allIncidentFilters = await client
+			.Filters.GetAllIncidentFiltersAsync(default);
+		var createdIncidentFilter = allIncidentFilters.Items.FirstOrDefault(filter => filter.Name == newIncidentFilter.Name);
+		createdIncidentFilter.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResult = await client
+			.Filters
+			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
+	}
+
+	[Fact]
+	public async Task FiltersController_DeleteIncidentFilterAsync_Succeeds()
+	{
+		var newIncidentFilter = new IncidentFilterCreate { Name = "Test Incident Filter 2" };
+		var result = await client
+			.Filters
+			.CreateIncidentFilterAsync(newIncidentFilter, default);
+		result.Should().NotBeNull();
+
+		// Get Incident Filter ID
+		var allIncidentFilters = await client
+			.Filters.GetAllIncidentFiltersAsync(default);
+		var createdIncidentFilter = allIncidentFilters.Items.FirstOrDefault(filter => filter.Name == newIncidentFilter.Name);
+		createdIncidentFilter.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResult = await client
+			.Filters
+			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
+
+		deleteResult.Should().NotBeNull();
+		deleteResult.Content.Should().Be("OK");
 	}
 
 	[Fact]

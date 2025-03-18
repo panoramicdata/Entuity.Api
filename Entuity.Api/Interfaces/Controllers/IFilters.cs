@@ -33,8 +33,17 @@ public interface IFilters
 	[Get("/api/incidentFilters")]
 	Task<Response<IncidentFilterSimple>> GetAllIncidentFiltersAsync(CancellationToken cancellationToken);
 
+	[Post("/api/incidentFilters")]
+	Task<IncidentFilterDetailed> CreateIncidentFilterAsync(
+		[Body] IncidentFilterCreate request,
+		CancellationToken cancellationToken);
+
 	[Get("/api/incidentFilters/{id}")]
 	Task<IncidentFilterDetailed> GetIncidentFilterAsync(string id, CancellationToken cancellationToken);
+
+	[Delete("/api/incidentFilters/{id}")]
+	Task<Message> DeleteIncidentFilterAsync(string id,
+		CancellationToken cancellationToken);
 
 	[Get("/api/eventFilters")]
 	Task<Response<EventFilterSimple>> GetAllEventFiltersAsync(
