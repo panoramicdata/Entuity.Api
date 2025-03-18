@@ -101,4 +101,14 @@ public class WebHookTests(EntuityClient client) : TestFixture
 
 		webHookEvents.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async Task WebHookController_GetWebHookPayloadsAsync_Succeeds()
+	{
+		var webHookPayloads = await client
+			.WebHooks
+			.GetWebhookPayloadsAsync(default);
+
+		webHookPayloads.Should().NotBeNull();
+	}
 }

@@ -26,4 +26,7 @@ public interface IWebHooks
 
 	[Get("/api/webhooks/events")]
 	Task<Response<WebhookEvent>> GetWebhookEventsAsync(CancellationToken cancellationToken);
+
+	[Get("/api/webhooks/payloads")]
+	Task<Response<WebhookPayloadCollection>> GetWebhookPayloadsAsync(CancellationToken cancellationToken);
 }
