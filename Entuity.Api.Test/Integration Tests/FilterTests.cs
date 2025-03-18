@@ -259,4 +259,51 @@ public class FilterTests(EntuityClient client) : TestFixture
 			detailedResult.Should().NotBeNull();
 		}
 	}
+
+	[Fact]
+	public async Task FiltersController_CreateEventFilterAsync_Succeeds()
+	{
+		var newEventFilter = new EventFilterCreate { Name = "Test Event Filter" };
+		var result = await client
+			.Filters
+			.CreateEventFilterAsync(newEventFilter, default);
+		result.Should().NotBeNull();
+
+		// Get Event Filter ID
+		var allEventFilters = await client
+			.Filters.GetAllEventFiltersAsync(default);
+		var createdEventFilter = allEventFilters.Items.FirstOrDefault(filter => filter.Name == newEventFilter.Name);
+
+		createdEventFilter.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResult = await client
+			.Filters
+			.DeleteEventFilterAsync(createdEventFilter!.Id, default);
+	}
+
+	[Fact]
+	public async Task FiltersController_DeleteEventFilterAsync_Succeeds()
+	{
+		var newEventFilter = new EventFilterCreate { Name = "Test Event Filter 2" };
+		var result = await client
+			.Filters
+			.CreateEventFilterAsync(newEventFilter, default);
+		result.Should().NotBeNull();
+
+		// Get Event Filter ID
+		var allEventFilters = await client
+			.Filters.GetAllEventFiltersAsync(default);
+		var createdEventFilter = allEventFilters.Items.FirstOrDefault(filter => filter.Name == newEventFilter.Name);
+
+		createdEventFilter.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResult = await client
+			.Filters
+			.DeleteEventFilterAsync(createdEventFilter!.Id, default);
+
+		deleteResult.Should().NotBeNull();
+		deleteResult.Content.Should().Be("OK");
+	}
 }
