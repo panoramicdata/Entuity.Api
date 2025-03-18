@@ -1,6 +1,6 @@
-﻿namespace Entuity.Api.Models;
+﻿namespace Entuity.Api.Models.GetItems;
 
-public class DomainFilterCreationResponse
+public class DomainFilterDetailed
 {
 	public string Name { get; set; } = string.Empty;
 

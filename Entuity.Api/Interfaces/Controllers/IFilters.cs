@@ -12,9 +12,12 @@ public interface IFilters
 	Task<Response<DomainFilter>> GetAllDomainFiltersAsync(CancellationToken cancellationToken);
 
 	[Post("/api/domainFilters")]
-	Task<DomainFilterCreationResponse> CreateDomainFilterAsync(
+	Task<DomainFilterDetailed> CreateDomainFilterAsync(
 		[Body] DomainFilterCreate request,
 		CancellationToken cancellationToken);
+
+	[Get("/api/domainFilters/{id}")]
+	Task<DomainFilterDetailed> GetDomainFilterAsync(string id, CancellationToken cancellationToken);
 
 	[Delete("/api/domainFilters/{id}")]
 	Task<Message> DeleteDomainFilterAsync(string id,
