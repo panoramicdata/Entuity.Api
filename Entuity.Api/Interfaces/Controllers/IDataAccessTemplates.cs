@@ -1,5 +1,7 @@
-﻿using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Entuity.Api.Models.GetItems;
+using Entuity.Api.Models.PostItems;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -18,4 +20,10 @@ public interface IDataAccessTemplates
 	/// <returns></returns>
 	[Get("/api/dataAccessTemplates")]
 	Task<Response<DataAccessTemplate>> GetAllAsync(CancellationToken cancellationToken);
+
+	[Post("/api/dataAccessTemplates")]
+	Task<DataAccessTemplateCreationResponse> CreateAsync([Body] DataAccessTemplateCreate dataAccessTemplateCreate, CancellationToken cancellationToken);
+
+	[Delete("/api/dataAccessTemplates/{name}")]
+	Task<IApiResponse> DeleteAsync(string name, CancellationToken cancellationToken);
 }
