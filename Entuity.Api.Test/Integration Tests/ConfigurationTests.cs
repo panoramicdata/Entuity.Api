@@ -17,6 +17,25 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task ConfigurationController_GetServerGroupAsync_Succeeds()
+	{
+		var response = await client
+			.Configuration
+			.GetServerGroupsAsync(default);
+
+		response.Should().NotBeNull();
+
+		foreach (var serverGroup in response.Items)
+		{
+			var serverGroupResponse = await client
+				.Configuration
+				.GetServerGroupAsync(serverGroup.ServerGroupId, default);
+
+			serverGroupResponse.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
 	public async Task ConfigurationController_CreateServerGroupAsync_Succeeds()
 	{
 		var serverGroup = new ServerGroupCreate

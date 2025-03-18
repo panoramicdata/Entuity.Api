@@ -15,6 +15,9 @@ public interface IConfiguration
 	[Post("/api/cfg/serverGroups")]
 	public Task<ServerGroup> CreateServerGroupAsync([Body] ServerGroupCreate serverGroup, CancellationToken cancellationToken);
 
+	[Get("/api/cfg/serverGroups/{serverGroupId}")]
+	public Task<ServerGroup> GetServerGroupAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
 	[Delete("/api/cfg/serverGroups/{serverGroupId}")]
 	public Task<DeleteResponse> DeleteServerGroupAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
