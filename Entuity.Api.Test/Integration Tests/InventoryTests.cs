@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class InventoryTests(EntuityClient client)
+public class InventoryTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task GetAllAsync_Succeeds()

@@ -3,7 +3,7 @@ using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class IpamTests(EntuityClient client)
+public class IpamTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task IpamController_GetAllDhcpServersAsync_Succeeds()

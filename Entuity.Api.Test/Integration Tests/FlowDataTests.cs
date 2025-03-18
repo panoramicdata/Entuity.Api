@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class FlowDataTests(EntuityClient client)
+public class FlowDataTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task FlowDataController_GetFlowDevicesAsync_Succeeds()

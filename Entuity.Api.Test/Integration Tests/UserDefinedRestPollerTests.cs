@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class UserDefinedRestPollerTests(EntuityClient client)
+public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task UserDefinedRestPollersController_GetAllAsync_Succeeds()

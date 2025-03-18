@@ -4,7 +4,7 @@ using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class IncidentTests(EntuityClient client)
+public class IncidentTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task IncidentsController_GetAll_Succeeds()

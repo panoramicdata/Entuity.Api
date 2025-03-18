@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
-public class ServerTests(EntuityClient client)
+public class ServerTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task ServerController_GetAll_Succeeds()

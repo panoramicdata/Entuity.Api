@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
-public class ViewTests(EntuityClient client)
+public class ViewTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task ViewsController_GetAllViewsAsync_Succeeds()

@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class ToolsTests(EntuityClient client)
+public class ToolsTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task ToolsController_GetAllGroupsAsync_Succeeds()

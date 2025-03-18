@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class WebHookTests(EntuityClient client)
+public class WebHookTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task WebHooksController_GetWebHookGroupsAsync_Succeeds()

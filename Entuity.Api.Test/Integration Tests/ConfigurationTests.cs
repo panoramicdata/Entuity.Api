@@ -4,7 +4,7 @@ using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class ConfigurationTests(EntuityClient client)
+public class ConfigurationTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task ConfigurationController_GetServerGroupsAsync_Succeeds()

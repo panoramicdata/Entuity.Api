@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class AutoDiscoveryTests(EntuityClient client)
+public class AutoDiscoveryTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task AutoDiscoveryController_GetAllAsync_Succeeds()

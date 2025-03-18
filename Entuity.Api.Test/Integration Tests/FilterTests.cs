@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class FilterTests(EntuityClient client)
+public class FilterTests(EntuityClient client) : TestFixture
 {
 
 	[Fact]

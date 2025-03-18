@@ -2,7 +2,7 @@
 
 namespace Entuity.Api.Test.Integration_Tests;
 
-public class SettingTests(EntuityClient client)
+public class SettingTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task SettingsController_GetGlobalSettingsAsync_Succeeds()
