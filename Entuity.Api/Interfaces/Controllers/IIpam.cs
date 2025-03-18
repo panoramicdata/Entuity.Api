@@ -11,8 +11,14 @@ public interface IIpam
 	[Get("/api/ipam/dhcp")]
 	public Task<ListResponse<DhcpServer>> GetAllDhcpServersAsync(CancellationToken cancellationToken);
 
+	[Post("/api/ipam/dhcp")]
+	public Task<Message> CreateDhcpServerAsync([Body] DhcpServerCreate dhcpServer, CancellationToken cancellationToken);
+
 	[Get("/api/ipam/dhcp/{id}")]
 	public Task<DhcpServerDetailed> GetDhcpServerAsync(int id, CancellationToken cancellationToken);
+
+	[Delete("/api/ipam/dhcp/{id}")]
+	public Task<IApiResponse> DeleteDhcpServerAsync(int id, CancellationToken cancellationToken);
 
 	[Get("/api/ipam/network")]
 	public Task<ListResponse<Network>> GetAllNetworksAsync(CancellationToken cancellationToken);

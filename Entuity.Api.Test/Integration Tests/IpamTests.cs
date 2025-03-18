@@ -35,6 +35,70 @@ public class IpamTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task IpamController_CreateDhcpServerAsync_Succeeds()
+	{
+		var dhcpServer = new DhcpServerCreate
+		{
+			Name = "Test DHCP Server",
+			IpAddress = "1.2.3.4"
+		};
+
+		var response = await client
+			.Ipam
+			.CreateDhcpServerAsync(dhcpServer, default);
+
+		response.Should().NotBeNull();
+
+		// Get all DHCP Servers
+		var dhcpServers = await client
+			.Ipam
+			.GetAllDhcpServersAsync(default);
+
+		var dhcpServerId = dhcpServers.FirstOrDefault(d => d.Name == dhcpServer.Name)?
+			.Id;
+
+		dhcpServerId.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResponse = await client
+			.Ipam
+			.DeleteDhcpServerAsync((int)dhcpServerId!, default);
+	}
+
+	[Fact]
+	public async Task IpamController_DeleteDhcpServerAsync_Succeeds()
+	{
+		var dhcpServer = new DhcpServerCreate
+		{
+			Name = "Test DHCP Server 2",
+			IpAddress = "2.3.4.5"
+		};
+
+		var response = await client
+			.Ipam
+			.CreateDhcpServerAsync(dhcpServer, default);
+
+		response.Should().NotBeNull();
+
+		// Get all DHCP Servers
+		var dhcpServers = await client
+			.Ipam
+			.GetAllDhcpServersAsync(default);
+
+		var dhcpServerId = dhcpServers.FirstOrDefault(d => d.Name == dhcpServer.Name)?
+			.Id;
+
+		dhcpServerId.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResponse = await client
+			.Ipam
+			.DeleteDhcpServerAsync((int)dhcpServerId!, default);
+
+		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
+	}
+
+	[Fact]
 	public async Task IpamController_GetAllNetworksAsync_Succeeds()
 	{
 		var networks = await client
