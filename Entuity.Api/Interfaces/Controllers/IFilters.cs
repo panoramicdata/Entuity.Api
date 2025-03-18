@@ -2,6 +2,7 @@
 using Entuity.Api.Models.Collections;
 using Entuity.Api.Models.GetItems;
 using Entuity.Api.Models.PostItems;
+using Entuity.Api.Models.UpdateItems;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -18,6 +19,11 @@ public interface IFilters
 
 	[Get("/api/domainFilters/{id}")]
 	Task<DomainFilterDetailed> GetDomainFilterAsync(string id, CancellationToken cancellationToken);
+
+	[Put("/api/domainFilters/{id}")]
+	Task<DomainFilterDetailed> UpdateDomainFilterAsync(string id,
+		[Body] DomainFilterUpdate request,
+		CancellationToken cancellationToken);
 
 	[Delete("/api/domainFilters/{id}")]
 	Task<Message> DeleteDomainFilterAsync(string id,
