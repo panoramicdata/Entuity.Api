@@ -63,6 +63,11 @@ public interface IFilters
 	Task<EventFilterDetailed> GetEventFilterAsync(string id,
 		CancellationToken cancellationToken);
 
+	[Put("/api/eventFilters/{id}")]
+	Task<EventFilterDetailed> UpdateEventFilterAsync(string id,
+		[Body] EventFilterUpdate request,
+		CancellationToken cancellationToken);
+
 	[Delete("/api/eventFilters/{id}")]
 	Task<Message> DeleteEventFilterAsync(string id,
 		CancellationToken cancellationToken);
