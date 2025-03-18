@@ -53,4 +53,8 @@ public interface IFilters
 	[Get("/api/eventFilters")]
 	Task<Response<EventFilterSimple>> GetAllEventFiltersAsync(
 		CancellationToken cancellationToken);
+
+	[Get("/api/eventFilters/{id}")]
+	Task<EventFilterDetailed> GetEventFilterAsync(string id,
+		CancellationToken cancellationToken);
 }

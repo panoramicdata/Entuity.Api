@@ -239,4 +239,24 @@ public class FilterTests(EntuityClient client) : TestFixture
 		result.Should().NotBeNull();
 		result.Items.Should().NotBeEmpty();
 	}
+
+	[Fact]
+	public async Task FiltersController_GetEventFilterAsync_Succeeds()
+	{
+		var result = await client
+		.Filters
+		.GetAllEventFiltersAsync(default);
+
+		result.Should().NotBeNull();
+		result.Items.Should().NotBeEmpty();
+
+		foreach (var item in result.Items)
+		{
+			var detailedResult = await client
+			.Filters
+			.GetEventFilterAsync(item.Id, default);
+
+			detailedResult.Should().NotBeNull();
+		}
+	}
 }
