@@ -4,10 +4,8 @@ using System.Text.Json.Serialization;
 namespace Entuity.Api.Models.GetItems;
 
 
-public class DhcpServerDetailed : IGetItem
+public class DhcpServerDetailed : Entity<int>, IGetItem
 {
-	public int Id { get; set; }
-
 	public string Name { get; set; } = string.Empty;
 
 	public string IpAddress { get; set; } = string.Empty;
