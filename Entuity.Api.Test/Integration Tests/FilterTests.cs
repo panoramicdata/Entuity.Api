@@ -156,6 +156,36 @@ public class FilterTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task FiltersController_UpdateIncidentFilterAsync_Succeeds()
+	{
+		var newIncidentFilter = new IncidentFilterCreate { Name = "Test Incident Filter" };
+		var result = await client
+			.Filters
+			.CreateIncidentFilterAsync(newIncidentFilter, default);
+		result.Should().NotBeNull();
+
+		// Get Incident Filter ID
+		var allIncidentFilters = await client
+			.Filters.GetAllIncidentFiltersAsync(default);
+		var createdIncidentFilter = allIncidentFilters.Items.FirstOrDefault(filter => filter.Name == newIncidentFilter.Name);
+
+		createdIncidentFilter.Should().NotBeNull();
+
+		// Update
+		var updatedIncidentFilter = new IncidentFilterUpdate { Name = "Updated Incident Filter" };
+		var response = client
+			.Filters
+			.UpdateIncidentFilterAsync(createdIncidentFilter!.Id, updatedIncidentFilter, default);
+
+		response.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResult = await client
+			.Filters
+			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
+	}
+
+	[Fact]
 	public async Task FiltersController_DeleteIncidentFilterAsync_Succeeds()
 	{
 		var newIncidentFilter = new IncidentFilterCreate { Name = "Test Incident Filter 2" };

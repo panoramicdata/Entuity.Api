@@ -41,6 +41,11 @@ public interface IFilters
 	[Get("/api/incidentFilters/{id}")]
 	Task<IncidentFilterDetailed> GetIncidentFilterAsync(string id, CancellationToken cancellationToken);
 
+	[Put("/api/incidentFilters/{id}")]
+	Task<IncidentFilterUpdate> UpdateIncidentFilterAsync(string id,
+		[Body] IncidentFilterUpdate request,
+		CancellationToken cancellationToken);
+
 	[Delete("/api/incidentFilters/{id}")]
 	Task<Message> DeleteIncidentFilterAsync(string id,
 		CancellationToken cancellationToken);
