@@ -66,7 +66,9 @@ public class FilterTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task FiltersController_UpdateDomainFilterAsync_Succeeds()
 	{
-		var newDomainFilter = new DomainFilterCreate { Name = "Test Domain Filter 2" };
+		var randomName = Guid.NewGuid().ToString();
+
+		var newDomainFilter = new DomainFilterCreate { Name = randomName };
 
 		var result = await client
 			.Filters
@@ -83,7 +85,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 		createdDomainFilter.Should().NotBeNull();
 
 		// Update
-		var updatedDomainFilter = new DomainFilterUpdate { Name = "Updated Domain Filter" };
+		var updatedDomainFilter = new DomainFilterUpdate { Name = randomName + "- Updated" };
 
 		var response = client
 			.Filters
