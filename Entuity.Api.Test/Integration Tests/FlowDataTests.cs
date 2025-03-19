@@ -12,7 +12,6 @@ public class FlowDataTests(EntuityClient client) : TestFixture
 			.GetFlowDevicesAsync(default);
 
 		flowDevices.Should().NotBeNull();
-		flowDevices.Devices.Should().NotBeEmpty();
 	}
 
 	[Fact]

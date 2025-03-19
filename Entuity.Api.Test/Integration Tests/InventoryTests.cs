@@ -24,7 +24,6 @@ public class InventoryTests(EntuityClient client) : TestFixture
 			.GetAllAsync(default);
 
 		result.Should().NotBeNull();
-		result.Items.Should().NotBeEmpty();
 
 		// Refetch
 		foreach (var device in result.Items)

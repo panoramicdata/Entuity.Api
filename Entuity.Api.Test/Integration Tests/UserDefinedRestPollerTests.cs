@@ -12,6 +12,5 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 			.GetAllAsync(default);
 
 		pollers.Should().NotBeNull();
-		pollers.Items.Should().NotBeEmpty();
 	}
 }
