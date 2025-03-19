@@ -1,4 +1,5 @@
-﻿using Entuity.Api.Models.GetItems;
+﻿using Entuity.Api.Models;
+using Entuity.Api.Models.GetItems;
 using Entuity.Api.Models.UpdateItems;
 using Refit;
 
@@ -8,6 +9,12 @@ public interface ISettings
 {
 	[Get("/api/settings/globalUserSettings")]
 	Task<GlobalUserSettings> GetGlobalUserSettingsAsync(CancellationToken cancellationToken);
+
+	[Put("/api/settings/globalUserSettings")]
+	Task<GlobalUserSettings> UpdateGlobalUserSettingsAsync([Body] GlobalUserSettingsUpdate settings, CancellationToken cancellationToken);
+
+	[Post("/api/settings/globalUserSettings/resetAllUsersSettings")]
+	Task<Message> ResetGlobalUsersSettingsAsync(CancellationToken cancellationToken);
 
 	[Get("/api/settings/globalPasswordComplexitySettings")]
 	Task<GlobalPasswordComplexitySettings> GetGlobalPasswordComplexitySettingsAsync(CancellationToken cancellationToken);
