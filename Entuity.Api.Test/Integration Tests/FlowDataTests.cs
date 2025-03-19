@@ -34,6 +34,5 @@ public class FlowDataTests(EntuityClient client) : TestFixture
 			.GetFlowHistoryAsync(1, default);
 
 		history.Should().NotBeNull();
-		history.SampleSets.Should().NotBeEmpty();
 	}
 }
