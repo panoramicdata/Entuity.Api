@@ -13,7 +13,6 @@ public class MaintenanceCreate
 	/// </summary>
 	public required string Name { get; set; }
 
-
 	/// <summary>
 	/// Specified description of this maintenance schedule. Maximum of 255 characters
 	/// </summary>

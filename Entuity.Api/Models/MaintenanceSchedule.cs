@@ -1,5 +1,4 @@
-﻿using Entuity.Api.Enums;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models;
 
@@ -39,9 +38,8 @@ public class MaintenanceSchedule
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public int? DaysSecondsTo { get; set; }
 
-	/// <inheritdoc cref="Enums.RecurrenceKind"/>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public RecurrenceKind? RecurrenceKind { get; set; }
+	public string? RecurrenceKind { get; set; }
 
 	/// <summary>
 	/// String description of valid days. Section of days are separated by a comma ",", and if there are 2 or more consecutive days then the first and last days are given with a hyphen "-" in between (e.g. "1, 5, 6-7, 10-22").
