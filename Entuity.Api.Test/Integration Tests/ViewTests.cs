@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Entuity.Api.Models.PostItems;
+using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class ViewTests(EntuityClient client) : TestFixture
@@ -28,6 +29,58 @@ public class ViewTests(EntuityClient client) : TestFixture
 
 			viewDetailed.Should().NotBeNull();
 		}
+	}
+
+	[Fact]
+	public async Task ViewsController_CreateAsync_Succeeds()
+	{
+		var newView = new ViewCreate
+		{
+			Name = "Test View"
+		};
+
+		var response = await client
+			.Views
+			.CreateAsync(newView, default);
+
+		response.Should().NotBeNull();
+
+		// Get the Id of the created view
+		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
+
+		id.Should().NotBeNull();
+
+		// Clean up
+		await client
+			.Views
+			.DeleteAsync(id!, default);
+	}
+
+	[Fact]
+	public async Task ViewsController_DeleteAsync_Succeeds()
+	{
+		var newView = new ViewCreate
+		{
+			Name = "Test View"
+		};
+
+		var response = await client
+			.Views
+			.CreateAsync(newView, default);
+
+		response.Should().NotBeNull();
+
+		// Get the Id of the created view
+		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
+
+		id.Should().NotBeNull();
+
+		// Clean up
+		var deleteResponse = await client
+			.Views
+			.DeleteAsync(id!, default);
+
+		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
 	}
 
 	[Fact]
