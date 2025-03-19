@@ -1,5 +1,7 @@
-﻿using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Models;
+using Entuity.Api.Models.Collections;
 using Entuity.Api.Models.GetItems;
+using Entuity.Api.Models.PostItems;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -9,6 +11,12 @@ public interface IServices
 	[Get("/api/service")]
 	public Task<Response<Service>> GetAllAsync(CancellationToken cancellationToken);
 
+	[Post("/api/service")]
+	public Task<ServiceDetailed> CreateAsync([Body] ServiceCreate service, CancellationToken cancellationToken);
+
 	[Get("/api/service/{serviceId}")]
 	public Task<ServiceDetailed> GetAsync(int serviceId, CancellationToken cancellationToken);
+
+	[Delete("/api/service/{serviceId}")]
+	public Task<Message> DeleteAsync(int serviceId, CancellationToken cancellationToken);
 }

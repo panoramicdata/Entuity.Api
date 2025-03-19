@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Entuity.Api.Models.PostItems;
+using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
@@ -31,5 +32,42 @@ public class ServiceTests(EntuityClient client) : TestFixture
 
 			detailedService.Should().NotBeNull();
 		}
+	}
+
+	[Fact]
+	public async Task ServicesController_CreateAsync_Succeeds()
+	{
+		var newService = new ServiceCreate { ServiceName = "Test Service" };
+
+		var createResponse = await client
+			.Services
+			.CreateAsync(newService, default);
+
+		createResponse.Should().NotBeNull();
+
+		// Attempt Delete
+		var deleteResponse = await client
+			.Services
+			.DeleteAsync(createResponse.Info.ServiceId, default);
+	}
+
+	[Fact]
+	public async Task ServicesController_DeleteAsync_Succeeds()
+	{
+		var newService = new ServiceCreate { ServiceName = "Test Service" };
+
+		var createResponse = await client
+			.Services
+			.CreateAsync(newService, default);
+
+		createResponse.Should().NotBeNull();
+
+		// Attempt Delete
+		var deleteResponse = await client
+			.Services
+			.DeleteAsync(createResponse.Info.ServiceId, default);
+
+		deleteResponse.Should().NotBeNull();
+		deleteResponse.Content.Should().Contain("ok");
 	}
 }
