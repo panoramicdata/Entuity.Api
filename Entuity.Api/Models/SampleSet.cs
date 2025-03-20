@@ -1,4 +1,6 @@
-﻿namespace Entuity.Api.Models;
+﻿using Entuity.Api.Models.FlowData.Get;
+
+namespace Entuity.Api.Models;
 
 public class SampleSet
 {

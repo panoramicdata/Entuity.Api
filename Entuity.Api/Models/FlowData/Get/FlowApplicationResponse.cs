@@ -1,6 +1,4 @@
-﻿using Entuity.Api.Models;
-
-namespace Entuity.Api.Collections;
+﻿namespace Entuity.Api.Models.FlowData.Get;
 
 public class FlowApplicationResponse
 {

@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Collections;
+﻿using Entuity.Api.Models.FlowData.Get;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
