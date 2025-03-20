@@ -1,7 +1,6 @@
-﻿using Entuity.Api.Models;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Collections;
+namespace Entuity.Api.Models.EventsData.Get;
 
 public class EventsResponse
 {

@@ -1,5 +1,5 @@
 ﻿using Entuity.Api.Collections;
-using Entuity.Api.Models.GetItems;
+using Entuity.Api.Models.EventsData.Get;
 using Entuity.Api.QueryParameters;
 using Refit;
 
