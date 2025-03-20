@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.PostItems;
+namespace Entuity.Api.Models.DataAccessTemplatesData.Post;
 
 public class DataAccessTemplateCreate
 {

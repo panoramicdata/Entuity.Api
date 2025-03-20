@@ -1,7 +1,6 @@
 ﻿using Entuity.Api.Collections;
-using Entuity.Api.Models;
-using Entuity.Api.Models.GetItems;
-using Entuity.Api.Models.PostItems;
+using Entuity.Api.Models.DataAccessTemplatesData.Get;
+using Entuity.Api.Models.DataAccessTemplatesData.Post;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;

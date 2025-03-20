@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.GetItems;
+﻿using Entuity.Api.Models.DataAccessTemplatesData.Get;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.DataAccessTemplatesData.Post;
 
 public class DataAccessTemplateCreationResponse : DataAccessTemplate
 {
