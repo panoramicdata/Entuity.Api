@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models.PostItems;
-using Entuity.Api.Models.UpdateItems;
+﻿using Entuity.Api.Models.ZonesData.Post;
+using Entuity.Api.Models.ZonesData.Update;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;

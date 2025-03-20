@@ -1,8 +1,8 @@
 ﻿using Entuity.Api.Collections;
 using Entuity.Api.Models;
-using Entuity.Api.Models.GetItems;
-using Entuity.Api.Models.PostItems;
-using Entuity.Api.Models.UpdateItems;
+using Entuity.Api.Models.ZonesData.Get;
+using Entuity.Api.Models.ZonesData.Post;
+using Entuity.Api.Models.ZonesData.Update;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;

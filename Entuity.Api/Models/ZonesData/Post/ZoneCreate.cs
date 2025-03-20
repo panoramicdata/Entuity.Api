@@ -1,17 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.UpdateItems;
+namespace Entuity.Api.Models.ZonesData.Post;
 
-public class ZoneUpdate
+public class ZoneCreate
 {
-	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public string? Name { get; set; }
-
-	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public int? Flags { get; set; }
-
-	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public string? Description { get; set; }
+	public required string Name { get; set; }
 
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? V4Interface { get; set; }
@@ -33,4 +26,5 @@ public class ZoneUpdate
 
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public IEnumerable<string>? DnsServers { get; set; }
+
 }

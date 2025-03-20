@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Collections;
-using Entuity.Api.Models.GetItems;
 using Entuity.Api.Models.ViewsData.Get;
 using Entuity.Api.Models.ViewsData.Post;
+using Entuity.Api.Models.ZonesData.Get;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
