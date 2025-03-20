@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.GetItems;
+﻿namespace Entuity.Api.Models.FiltersData.Get;
 
 public class DomainFilterDetailed
 {

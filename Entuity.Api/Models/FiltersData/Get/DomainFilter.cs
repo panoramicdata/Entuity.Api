@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.FiltersData.Get;
 
 public class DomainFilter : Entity<string>, IGetItem
 {

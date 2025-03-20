@@ -1,7 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
-
+namespace Entuity.Api.Models.FiltersData.Get;
 
 public class IncidentFilterDetailed : IGetItem
 {

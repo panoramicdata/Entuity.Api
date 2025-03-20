@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.PostItems;
+namespace Entuity.Api.Models.FiltersData.Post;
 
 public class IncidentFilterCreate
 {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.UpdateItems;
+namespace Entuity.Api.Models.FiltersData.Update;
 
 public class IncidentFilterUpdate
 {
