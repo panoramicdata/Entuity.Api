@@ -1,5 +1,6 @@
-﻿using Entuity.Api.Models.PostItems;
-using Entuity.Api.Models.UpdateItems;
+﻿using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
+using Entuity.Api.Models.ConfigurationData.ServerGroups.Post;
+using Entuity.Api.Models.ConfigurationData.ServerGroups.Update;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;

@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.PostItems;
+﻿namespace Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
 
 /// <summary>
 /// Contains ID's of servers to be removed from the server group

@@ -1,9 +1,9 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Get;
 
 /// <summary>
-/// 
+/// Server group membership
 /// </summary>
 public class ServerGroupMembership : IGetItem
 {

@@ -1,8 +1,8 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.ConfigurationData.ServerGroupsSummaryInfo.Get;
 
-public class ServerGroup : IGetItem
+public class ServerGroupSummaryInformation : IGetItem
 {
 	public bool SyncUsers { get; set; }
 
@@ -21,5 +21,16 @@ public class ServerGroup : IGetItem
 	public string CreatedBy { get; set; } = string.Empty;
 
 	public bool SyncPaused { get; set; }
-}
 
+	public int ConfigurationChangeId { get; set; }
+
+	public int LastModifiedSec { get; set; }
+
+	public string LastModifiedBy { get; set; } = string.Empty;
+
+	public int MemberCount { get; set; }
+
+	public required SyncStatus SyncStatus { get; set; }
+
+	public string SyncStatusCategory { get; set; } = string.Empty;
+}
