@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.GetItems;
+﻿using Entuity.Api.Models.InformationData.Get;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;

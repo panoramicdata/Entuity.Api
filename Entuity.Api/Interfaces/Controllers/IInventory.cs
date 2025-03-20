@@ -1,5 +1,5 @@
 ﻿using Entuity.Api.Collections;
-using Entuity.Api.Models.GetItems;
+using Entuity.Api.Models.InventoryData.Get;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;

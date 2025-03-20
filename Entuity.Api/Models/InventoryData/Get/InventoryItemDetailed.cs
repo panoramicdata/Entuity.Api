@@ -2,7 +2,7 @@
 using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.InventoryData.Get;
 
 public class InventoryItemDetailed : Entity<string>, IGetItem
 {
