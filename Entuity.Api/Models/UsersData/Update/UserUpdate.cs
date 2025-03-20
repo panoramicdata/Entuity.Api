@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.UpdateItems;
+namespace Entuity.Api.Models.UsersData.Update;
 
 /// <summary>
 /// Represents the properties that can be updated on a user.

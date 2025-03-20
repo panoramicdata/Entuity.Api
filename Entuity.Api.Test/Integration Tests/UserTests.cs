@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models.PostItems;
-using Entuity.Api.Models.UpdateItems;
+﻿using Entuity.Api.Models.UsersData.Post;
+using Entuity.Api.Models.UsersData.Update;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
@@ -11,7 +11,7 @@ public class UserTests(EntuityClient client) : TestFixture
 		//Assert
 		var users = await client
 			.Users
-			.GetAllAsync(CancellationToken.None);
+			.GetAllAsync(default);
 
 		users.Should().NotBeNull();
 	}

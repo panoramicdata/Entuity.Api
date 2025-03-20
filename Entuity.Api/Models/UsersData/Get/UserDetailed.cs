@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.UsersData.Get;
 
 public class UserDetailed : Entity<int>
 {

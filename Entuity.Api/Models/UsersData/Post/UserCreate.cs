@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.PostItems;
+﻿namespace Entuity.Api.Models.UsersData.Post;
 
 /// <summary>
 /// Represents the properties required to create a user.
