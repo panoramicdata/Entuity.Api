@@ -23,4 +23,7 @@ public interface IViews
 
 	[Put("/api/views/{viewId}/objects")]
 	Task<Response<ViewObject>> UpdateObjectsAsync(string viewId, [Query(CollectionFormat.Multi)] List<int> id, CancellationToken cancellationToken);
+
+	[Delete("/api/views/{viewId}/objects")]
+	Task<Response<ViewObject>> DeleteObjectsAsync(string viewId, [Query(CollectionFormat.Multi)] List<int> id, CancellationToken cancellationToken);
 }

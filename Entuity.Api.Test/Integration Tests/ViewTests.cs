@@ -134,4 +134,48 @@ public class ViewTests(EntuityClient client) : TestFixture
 			.Views
 			.DeleteAsync(id!, default);
 	}
+
+	[Fact]
+	public async Task ViewsController_DeleteObjectsAsync_Succeeds()
+	{
+		var newView = new ViewCreate
+		{
+			Name = "Test View"
+		};
+
+		var response = await client
+			.Views
+			.CreateAsync(newView, default);
+
+		response.Should().NotBeNull();
+
+		// Get the Id of the created view
+		var id = response
+			.Items
+			.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
+
+		id.Should().NotBeNull();
+
+
+		// Update the view
+		var updateResponse = await client
+			.Views
+			.UpdateObjectsAsync(id!, [1, 2, 3], default);
+
+		updateResponse.Should().NotBeNull();
+
+
+		// Delete the objects 1 and 2
+		var deleteResponse = await client
+			.Views
+			.DeleteObjectsAsync(id!, [1, 2], default);
+
+		deleteResponse.Should().NotBeNull();
+		deleteResponse.Items.Should().HaveCount(1);
+
+		// Clean up
+		await client
+			.Views
+			.DeleteAsync(id!, default);
+	}
 }
