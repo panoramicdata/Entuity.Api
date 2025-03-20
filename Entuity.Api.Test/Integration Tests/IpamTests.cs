@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.PostItems;
+﻿using Entuity.Api.Models.IpamData.Post;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
