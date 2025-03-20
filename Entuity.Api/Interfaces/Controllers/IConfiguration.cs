@@ -26,4 +26,13 @@ public interface IConfiguration
 
 	[Get("/api/cfg/serverGroupsSummaryInfo")]
 	public Task<Response<ServerGroupSummaryInformation>> GetServerGroupsSummaryInfoAsync(CancellationToken cancellationToken);
+
+	[Get("/api/cfg/serverGroupMembership/{serverGroupId}")]
+	public Task<Response<ServerGroupMembership>> GetServerGroupMembershipsAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
+	public Task<Response<ServerGroupMembership>> AddServerGroupMembershipAsync(Guid serverGroupId, [Body] ServerGroupMembershipAdd serverGroupMembership, CancellationToken cancellationToken);
+
+	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
+	public Task<Response<ServerGroupMembership>> RemoveServerGroupMembershipAsync(Guid serverGroupId, [Body] ServerGroupMembershipRemove serverGroupMembership, CancellationToken cancellationToken);
 }

@@ -113,12 +113,89 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetServerGroupsSummaryInformation_Succeeds()
+	public async Task ConfigurationController_GetServerGroupsSummaryInformationAsync_Succeeds()
 	{
 		var response = await client
 		.Configuration
 		.GetServerGroupsSummaryInfoAsync(default);
 
 		response.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ConfigurationController_GetServerGroupMembershipsAsync_Succeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetServerGroupsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var serverGroup in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.GetServerGroupMembershipsAsync(serverGroup.ServerGroupId, default);
+
+			response.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
+	public async Task ConfigurationController_AddServerGroupMembershipsAsync_Succeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetServerGroupsAsync(default); ;
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var serverGroup in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.GetServerGroupMembershipsAsync(serverGroup.ServerGroupId, default);
+
+			response.Should().NotBeNull();
+
+			// Add server to a group
+			var addResponse = await client
+				.Configuration
+				.AddServerGroupMembershipAsync(serverGroup.ServerGroupId, new ServerGroupMembershipAdd
+				{
+					MembersAdded = [Guid.NewGuid()]
+				}, default);
+
+			addResponse.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
+	public async Task ConfigurationController_RemoveServerGroupMembershipsAsync_Succeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetServerGroupsAsync(default); ;
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var serverGroup in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.GetServerGroupMembershipsAsync(serverGroup.ServerGroupId, default);
+
+			response.Should().NotBeNull();
+
+			// Add server to a group
+			var addResponse = await client
+				.Configuration
+				.RemoveServerGroupMembershipAsync(serverGroup.ServerGroupId, new ServerGroupMembershipRemove
+				{
+					MembersRemoved = [Guid.NewGuid()]
+				}, default);
+
+			addResponse.Should().NotBeNull();
+		}
 	}
 }
