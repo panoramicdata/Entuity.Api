@@ -1,7 +1,6 @@
-﻿using Entuity.Api.Models.GetItems;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Collections;
+namespace Entuity.Api.Models.IncidentsData.Get;
 
 public class IncidentResponse
 {

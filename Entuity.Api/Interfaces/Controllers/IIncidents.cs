@@ -1,5 +1,5 @@
 ﻿using Entuity.Api.Collections;
-using Entuity.Api.Models.GetItems;
+using Entuity.Api.Models.IncidentsData.Get;
 using Entuity.Api.QueryParameters;
 using Refit;
 
@@ -7,9 +7,9 @@ namespace Entuity.Api.Interfaces.Controllers;
 
 /// <summary>
 /// Incidents
-/// see https://support.entuity.com/hc/en-us/articles/13819730123293-Incidents-RESTful-API
-/// see https://support.entuity.com/hc/en-us/articles/13819715590813-Incident-Types-RESTful-API
-/// see https://support.entuity.com/hc/en-us/articles/13819723797405-Incident-Details-RESTful-API
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13819730123293-Incidents-RESTful-API'/></para>
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13819715590813-Incident-Types-RESTful-API'/></para>
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13819723797405-Incident-Details-RESTful-API'/></para>
 /// </summary>
 public interface IIncidents
 {
