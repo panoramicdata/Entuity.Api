@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.UpdateItems;
+namespace Entuity.Api.Models.SettingsData.Update;
 
 /// <summary>
 /// Holds details that can be updated for Global Password Complexity Settings.

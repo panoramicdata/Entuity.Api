@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Models;
-using Entuity.Api.Models.GetItems;
-using Entuity.Api.Models.UpdateItems;
+using Entuity.Api.Models.SettingsData.Get;
+using Entuity.Api.Models.SettingsData.Update;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;

@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.UpdateItems;
+﻿using Entuity.Api.Models.SettingsData.Update;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;

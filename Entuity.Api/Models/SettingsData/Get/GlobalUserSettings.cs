@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.GetItems;
+﻿namespace Entuity.Api.Models.SettingsData.Get;
 
 /// <summary>
 /// Holds details about Global User Settings.
