@@ -99,4 +99,39 @@ public class ViewTests(EntuityClient client) : TestFixture
 			viewObjects.Should().NotBeNull();
 		}
 	}
+
+	[Fact]
+	public async Task ViewsController_UpdateObjectsAsync_Succeeds()
+	{
+		var newView = new ViewCreate
+		{
+			Name = "Test View"
+		};
+
+		var response = await client
+			.Views
+			.CreateAsync(newView, default);
+
+		response.Should().NotBeNull();
+
+		// Get the Id of the created view
+		var id = response
+			.Items
+			.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
+
+		id.Should().NotBeNull();
+
+
+		// Update the view
+		var updateResponse = await client
+			.Views
+			.UpdateObjectsAsync(id!, [1, 2, 3], default);
+
+		updateResponse.Should().NotBeNull();
+
+		// Clean up
+		await client
+			.Views
+			.DeleteAsync(id!, default);
+	}
 }

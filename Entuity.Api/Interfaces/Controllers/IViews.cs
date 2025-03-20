@@ -20,4 +20,7 @@ public interface IViews
 
 	[Get("/api/views/{id}/objects")]
 	Task<Response<ViewObject>> GetObjectsAsync(string id, CancellationToken cancellationToken);
+
+	[Put("/api/views/{viewId}/objects")]
+	Task<Response<ViewObject>> UpdateObjectsAsync(string viewId, [Query(CollectionFormat.Multi)] List<int> id, CancellationToken cancellationToken);
 }
