@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.UpdateItems;
+namespace Entuity.Api.Models.MaintenanceData.Update;
 
 /// <summary>
 /// Holds optional fields for updating a maintenance schedule

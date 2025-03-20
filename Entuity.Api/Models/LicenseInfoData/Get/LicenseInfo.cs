@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.LicenseInfoData.Get;
 
 public class LicenseInfo : IGetItem
 {

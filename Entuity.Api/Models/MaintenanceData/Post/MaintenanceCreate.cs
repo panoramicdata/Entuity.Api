@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.PostItems;
+namespace Entuity.Api.Models.MaintenanceData.Post;
 
 /// <summary>
 /// A Model that contains required properties used to create a Maintenance Schedule.

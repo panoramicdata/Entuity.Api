@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.MaintenanceData.Get;
 
 /// <summary>
 /// Detailed information about a maintenance schedule
