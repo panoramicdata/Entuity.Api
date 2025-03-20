@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Interfaces;
 using System.Collections;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.ServicesData.Get;
 
 
 public class Service : IGetItem

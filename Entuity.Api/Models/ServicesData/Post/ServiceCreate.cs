@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Enums;
 
-namespace Entuity.Api.Models.PostItems;
+namespace Entuity.Api.Models.ServicesData.Post;
 
 /// <summary>
 /// Holds the required and optional properties used to create a new Service

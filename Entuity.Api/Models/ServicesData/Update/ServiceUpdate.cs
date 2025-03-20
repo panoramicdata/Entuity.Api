@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Enums;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.UpdateItems;
+namespace Entuity.Api.Models.ServicesData.Update;
 
 /// <summary>
 /// A Model that contains optional properties used to update a Service.
