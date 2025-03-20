@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.UserGroupsData.Get;
 
 /// <summary>
 /// Holds information about a User Group.

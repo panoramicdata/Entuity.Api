@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.PostItems;
+﻿namespace Entuity.Api.Models.UserGroupsData.Post;
 
 /// <summary>
 /// Holds details required to create a User Group.
