@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.PostItems;
+﻿namespace Entuity.Api.Models.ViewsData.Post;
 
 public class ViewCreate
 {

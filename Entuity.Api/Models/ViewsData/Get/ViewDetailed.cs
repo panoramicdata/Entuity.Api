@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.ViewsData.Get;
 
 public class ViewDetailed : Entity<string>, IGetItem
 {
