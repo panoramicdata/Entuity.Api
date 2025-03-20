@@ -1,6 +1,5 @@
-﻿using Entuity.Api.Models;
-using Entuity.Api.Models.Collections;
-using Entuity.Api.Models.GetItems;
+﻿using Entuity.Api.Models.Collections;
+using Entuity.Api.Models.Servers.Get;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -27,5 +26,5 @@ public interface IServers
 	/// <exception cref="Exceptions.ApiException">Thrown when fails to make API call</exception>
 	/// <returns></returns>
 	[Get("/api/servers/{serverId}")]
-	Task<ServerDetails> GetServerDetailsAsync(string serverId, CancellationToken cancellationToken);
+	Task<ServerDetailed> GetServerDetailsAsync(string serverId, CancellationToken cancellationToken);
 }

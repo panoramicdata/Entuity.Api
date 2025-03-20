@@ -7,7 +7,7 @@ public class Configuration
 
 	public IEnumerable<User> Users { get; set; } = [];
 
-	public IEnumerable<UserGroup> UserGroups { get; set; } = [];
+	public IEnumerable<object> UserGroups { get; set; } = [];
 
 	public IEnumerable<UserGroupView> Views { get; set; } = [];
 
