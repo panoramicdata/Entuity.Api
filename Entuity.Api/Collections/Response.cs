@@ -1,7 +1,7 @@
 ﻿using Entuity.Api.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.Collections;
+namespace Entuity.Api.Collections;
 
 /// <summary>
 /// A model that represents a multiple item response

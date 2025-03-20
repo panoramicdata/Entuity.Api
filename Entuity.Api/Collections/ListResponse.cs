@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.Collections;
+namespace Entuity.Api.Collections;
 
 /// <summary>
 /// Defines a list of items that can be returned from the API.

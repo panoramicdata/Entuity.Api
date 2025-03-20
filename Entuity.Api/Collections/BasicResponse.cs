@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.Collections;
+﻿namespace Entuity.Api.Collections;
 
 public class BasicResponse<T>
 {

@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Collections;
 using Entuity.Api.Models.Servers.Get;
 using Refit;
 

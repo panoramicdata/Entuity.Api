@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Models.AutoDiscoveryData.Get;
 
-namespace Entuity.Api.Models.Collections;
+namespace Entuity.Api.Collections;
 
 public class AutoDiscoveryResponse
 {

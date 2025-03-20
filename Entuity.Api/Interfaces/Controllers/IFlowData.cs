@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Collections;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;

@@ -1,4 +1,6 @@
-﻿namespace Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Models;
+
+namespace Entuity.Api.Collections;
 
 public class FlowDataDeviceResponse
 {

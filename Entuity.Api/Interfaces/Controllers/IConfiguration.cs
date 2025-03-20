@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models;
-using Entuity.Api.Models.Collections;
+﻿using Entuity.Api.Collections;
+using Entuity.Api.Models;
 using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
 using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Get;
 using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
