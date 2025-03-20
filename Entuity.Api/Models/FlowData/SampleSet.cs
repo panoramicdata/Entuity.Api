@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Models.FlowData.Get;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.FlowData;
 
 public class SampleSet
 {

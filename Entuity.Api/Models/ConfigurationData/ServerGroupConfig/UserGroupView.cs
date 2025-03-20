@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig;
 
 public class UserGroupView
 {

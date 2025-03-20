@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models;
+﻿namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig;
 public class User
 {
 	public string UserName { get; set; } = string.Empty;

@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Models.WebhooksData.Get;
 
-namespace Entuity.Api.Models;
+namespace Entuity.Api.Models.WebhooksData;
 
 public class Eventmapping
 {
