@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.GetItems;
+namespace Entuity.Api.Models.WebhooksData.Get;
 
 /// <summary>
 /// Represents a container of endpoints returned from a get webhook group endpoints http method

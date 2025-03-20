@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.GetItems;
+﻿using Entuity.Api.Models.WebhooksData.Get;
 
 namespace Entuity.Api.Models;
 
