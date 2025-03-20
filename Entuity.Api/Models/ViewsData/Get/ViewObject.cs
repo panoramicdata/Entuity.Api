@@ -1,7 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.ZonesData.Get;
-
+namespace Entuity.Api.Models.ViewsData.Get;
 
 public class ViewObject : Entity<int>, IGetItem
 {
