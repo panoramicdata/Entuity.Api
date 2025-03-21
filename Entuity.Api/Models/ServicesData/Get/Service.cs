@@ -1,5 +1,4 @@
 ﻿using Entuity.Api.Interfaces;
-using System.Collections;
 
 namespace Entuity.Api.Models.ServicesData.Get;
 
@@ -54,6 +53,6 @@ public class Service : IGetItem
 	/// <summary>
 	/// Lists any children services associated with this service.
 	/// </summary>
-	public IEnumerable? SubServices { get; set; }
+	public IEnumerable<object?>? SubServices { get; set; }
 }
 

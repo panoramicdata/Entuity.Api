@@ -1,5 +1,6 @@
 ﻿using Entuity.Api.Models.ServicesData.Post;
 using Entuity.Api.Models.ServicesData.Update;
+using Entuity.Api.QueryParameters;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
@@ -16,6 +17,78 @@ public class ServiceTests(EntuityClient client) : TestFixture
 
 		services.Should().NotBeNull();
 
+	}
+
+	[Fact]
+	public async Task ServicesController_GetAllAsyncWithViewPathParameter_Succeeds()
+	{
+		var services = await client
+			.Services
+			.GetAllAsync(
+			new ServicesFilter
+			{
+				ViewPath = "My Network/test"
+			}, default);
+
+
+		services.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ServicesController_GetAllAsyncWithIndirectParameter_Succeeds()
+	{
+		var services = await client
+			.Services
+			.GetAllAsync(
+			new ServicesFilter
+			{
+				Indirect = true
+			}, default);
+
+
+		services.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ServicesController_GetAllAsyncWithSubServicesParameter_Succeeds()
+	{
+		var services = await client
+			.Services
+			.GetAllAsync(
+			new ServicesFilter
+			{
+				SubServices = true
+			}, default);
+
+		services.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ServicesController_GetAllAsyncWithSubConsolidateParameter_Succeeds()
+	{
+		var services = await client
+			.Services
+			.GetAllAsync(
+			new ServicesFilter
+			{
+				Consolidate = true
+			}, default);
+
+		services.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ServicesController_GetAllAsyncWithSubMaxDepthParameter_Succeeds()
+	{
+		var services = await client
+			.Services
+			.GetAllAsync(
+			new ServicesFilter
+			{
+				MaxDepth = 5
+			}, default);
+
+		services.Should().NotBeNull();
 	}
 
 	[Fact]
