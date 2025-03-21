@@ -3,6 +3,7 @@ using Entuity.Api.Models;
 using Entuity.Api.Models.ServicesData.Get;
 using Entuity.Api.Models.ServicesData.Post;
 using Entuity.Api.Models.ServicesData.Update;
+using Entuity.Api.QueryParameters;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -11,6 +12,9 @@ public interface IServices
 {
 	[Get("/api/service")]
 	public Task<Response<Service>> GetAllAsync(CancellationToken cancellationToken);
+
+	[Get("/api/service")]
+	public Task<Response<Service>> GetAllAsync([Query] ServicesFilter parameters, CancellationToken cancellationToken);
 
 	[Post("/api/service")]
 	public Task<ServiceDetailed> CreateAsync([Body] ServiceCreate service, CancellationToken cancellationToken);
