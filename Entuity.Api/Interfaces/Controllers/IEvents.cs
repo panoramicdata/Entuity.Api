@@ -39,6 +39,4 @@ public interface IEvents
 	/// <returns></returns>
 	[Get("/api/eventTypes")]
 	Task<Response<EventsType>> GetAllTypesAsync(CancellationToken cancellationToken);
-
-	//Getting events by ID is not supported
 }
