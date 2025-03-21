@@ -27,9 +27,22 @@ public interface IViews
 	[Get("/api/views/{id}")]
 	Task<ViewDetailed> GetAsync(string id, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Updates a View by id, returns the updated View
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="view"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Put("/api/views/{id}")]
 	Task<ViewDetailed> UpdateAsync(string id, [Body] ViewUpdate view, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Deletes a View by id
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Delete("/api/views/{id}")]
 	Task<IApiResponse> DeleteAsync(string id, CancellationToken cancellationToken);
 
