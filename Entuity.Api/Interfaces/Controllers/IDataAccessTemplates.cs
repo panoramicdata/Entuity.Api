@@ -20,9 +20,21 @@ public interface IDataAccessTemplates
 	[Get("/api/dataAccessTemplates")]
 	Task<Response<DataAccessTemplate>> GetAllAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Create a new Data Access Template
+	/// </summary>
+	/// <param name="dataAccessTemplateCreate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Post("/api/dataAccessTemplates")]
 	Task<DataAccessTemplateCreationResponse> CreateAsync([Body] DataAccessTemplateCreate dataAccessTemplateCreate, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Delete a Data Access Template by Name
+	/// </summary>
+	/// <param name="name"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Delete("/api/dataAccessTemplates/{name}")]
 	Task<IApiResponse> DeleteAsync(string name, CancellationToken cancellationToken);
 }
