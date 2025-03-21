@@ -3,7 +3,10 @@ using System.Collections;
 
 namespace Entuity.Api.Models.ServicesData.Get;
 
-
+/// <summary>
+/// Represents a service in the Entuity system.
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838522122269-Services-Hierarchy-RESTful-API#get'/></para>
+/// </summary>
 public class Service : IGetItem
 {
 	/// <summary>
@@ -16,7 +19,9 @@ public class Service : IGetItem
 	/// </summary>
 	public Guid ServerId { get; set; }
 
-
+	/// <summary>
+	/// Name of the service
+	/// </summary>
 	public string ServiceName { get; set; } = string.Empty;
 
 	/// <summary>
