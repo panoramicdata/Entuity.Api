@@ -1,6 +1,7 @@
 ﻿using Entuity.Api.Collections;
 using Entuity.Api.Models.ViewsData.Get;
 using Entuity.Api.Models.ViewsData.Post;
+using Entuity.Api.Models.ViewsData.Update;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -25,6 +26,9 @@ public interface IViews
 	/// <returns></returns>
 	[Get("/api/views/{id}")]
 	Task<ViewDetailed> GetAsync(string id, CancellationToken cancellationToken);
+
+	[Put("/api/views/{id}")]
+	Task<ViewDetailed> UpdateAsync(string id, [Body] ViewUpdate view, CancellationToken cancellationToken);
 
 	[Delete("/api/views/{id}")]
 	Task<IApiResponse> DeleteAsync(string id, CancellationToken cancellationToken);

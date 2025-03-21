@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models.ViewsData.Post;
+using Entuity.Api.Models.ViewsData.Update;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
@@ -49,6 +50,40 @@ public class ViewTests(EntuityClient client) : TestFixture
 		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
 
 		id.Should().NotBeNull();
+
+		// Clean up
+		await client
+			.Views
+			.DeleteAsync(id!, default);
+	}
+
+	[Fact]
+	public async Task ViewsController_UpdateAsync_Succeeds()
+	{
+		var newView = new ViewCreate
+		{
+			Name = "Test View"
+		};
+
+		var response = await client
+			.Views
+			.CreateAsync(newView, default);
+
+		response.Should().NotBeNull();
+
+		// Get the Id of the created view
+		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
+
+		id.Should().NotBeNull();
+
+		// Update the name
+		var updateResponse = await client
+			.Views
+			.UpdateAsync(id!,
+			new ViewUpdate { Name = "Updated Test View" },
+			default);
+
+		updateResponse.Should().NotBeNull();
 
 		// Clean up
 		await client
