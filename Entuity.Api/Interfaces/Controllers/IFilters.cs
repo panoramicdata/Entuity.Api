@@ -9,22 +9,52 @@ namespace Entuity.Api.Interfaces.Controllers;
 
 public interface IFilters
 {
+	/// <summary>
+	/// Get all Domain Filters
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/domainFilters")]
 	Task<Response<DomainFilter>> GetAllDomainFiltersAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Create new Domain Filter
+	/// </summary>
+	/// <param name="request"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Post("/api/domainFilters")]
 	Task<DomainFilterDetailed> CreateDomainFilterAsync(
 		[Body] DomainFilterCreate request,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get Domain Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/domainFilters/{id}")]
 	Task<DomainFilterDetailed> GetDomainFilterAsync(string id, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Update Domain Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="request"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Put("/api/domainFilters/{id}")]
 	Task<DomainFilterDetailed> UpdateDomainFilterAsync(string id,
 		[Body] DomainFilterUpdate request,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Delete Domain Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Delete("/api/domainFilters/{id}")]
 	Task<Message> DeleteDomainFilterAsync(string id,
 		CancellationToken cancellationToken);
