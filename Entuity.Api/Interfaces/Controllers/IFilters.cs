@@ -109,24 +109,54 @@ public interface IFilters
 	Task<Message> DeleteIncidentFilterAsync(string id,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get all Event Filters
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/eventFilters")]
 	Task<Response<EventFilterSimple>> GetAllEventFiltersAsync(
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Create new Event Filter
+	/// </summary>
+	/// <param name="request"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Post("/api/eventFilters")]
 	Task<EventFilterDetailed> CreateEventFilterAsync(
 		[Body] EventFilterCreate request,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get Event Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/eventFilters/{id}")]
 	Task<EventFilterDetailed> GetEventFilterAsync(string id,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Update Event Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="request"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Put("/api/eventFilters/{id}")]
 	Task<EventFilterDetailed> UpdateEventFilterAsync(string id,
 		[Body] EventFilterUpdate request,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Delete Event Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Delete("/api/eventFilters/{id}")]
 	Task<Message> DeleteEventFilterAsync(string id,
 		CancellationToken cancellationToken);
