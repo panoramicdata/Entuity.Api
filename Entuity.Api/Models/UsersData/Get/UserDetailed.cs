@@ -2,6 +2,10 @@
 
 namespace Entuity.Api.Models.UsersData.Get;
 
+/// <summary>
+/// Detailed information about a user.
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13829714893085-User-Details-RESTful-API#get'/></para>
+/// </summary>
 public class UserDetailed : Entity<int>
 {
 	/// <summary>

@@ -7,21 +7,51 @@ using Refit;
 namespace Entuity.Api.Interfaces.Controllers;
 public interface IUsers
 {
+	/// <summary>
+	/// Get all Users
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/users")]
 	Task<Response<UserSimple>> GetAllAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Create a new User
+	/// </summary>
+	/// <param name="userCreate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Post("/api/users")]
 	Task<Response<UserSimple>> CreateAsync([Body] UserCreate userCreate,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get a User by Id
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/users/{id}")]
 	Task<UserDetailed> GetAsync(int id,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Update a User by Id
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="userUpdate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Put("/api/users/{id}")]
 	Task<UserDetailed> UpdateAsync(int id, [Body] UserUpdate userUpdate,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Delete a User by Id
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Delete("/api/users/{id}")]
 	Task<Response<UserSimple>> DeleteAsync(int id,
 		CancellationToken cancellationToken);
