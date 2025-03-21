@@ -59,23 +59,52 @@ public interface IFilters
 	Task<Message> DeleteDomainFilterAsync(string id,
 		CancellationToken cancellationToken);
 
-
+	/// <summary>
+	/// Get all Incident Filters
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/incidentFilters")]
 	Task<Response<IncidentFilterSimple>> GetAllIncidentFiltersAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Create new Incident Filter
+	/// </summary>
+	/// <param name="request"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Post("/api/incidentFilters")]
 	Task<IncidentFilterDetailed> CreateIncidentFilterAsync(
 		[Body] IncidentFilterCreate request,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get Incident Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/incidentFilters/{id}")]
 	Task<IncidentFilterDetailed> GetIncidentFilterAsync(string id, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Update Incident Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="request"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Put("/api/incidentFilters/{id}")]
 	Task<IncidentFilterUpdate> UpdateIncidentFilterAsync(string id,
 		[Body] IncidentFilterUpdate request,
 		CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Delete Incident Filter by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Delete("/api/incidentFilters/{id}")]
 	Task<Message> DeleteIncidentFilterAsync(string id,
 		CancellationToken cancellationToken);
