@@ -13,4 +13,10 @@ public class DomainFilterUpdate
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? Name { get; set; }
+
+	/// <summary>
+	/// Array of rules defining a filter
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public IEnumerable<FilterRule>? Rules { get; set; }
 }
