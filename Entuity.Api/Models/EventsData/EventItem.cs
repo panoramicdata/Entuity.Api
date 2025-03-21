@@ -2,7 +2,11 @@
 
 namespace Entuity.Api.Models.EventsData;
 
-public class Event : Entity<int>
+/// <summary>
+/// Represents an event.
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13819749116957-Events-RESTful-API'/></para>
+/// </summary>
+public class EventItem : Entity<int>
 {
 	/// <summary>
 	/// Event Description
