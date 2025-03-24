@@ -6,5 +6,6 @@
 /// </summary>
 public class AttributeMappings
 {
+	/// <inheritdoc cref="UserDefinedRestPollersData.NameToMapping"/>
 	public required NameToMapping NameToMapping { get; set; }
 }

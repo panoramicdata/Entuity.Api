@@ -1,5 +1,11 @@
-﻿namespace Entuity.Api.Models.UserDefinedRestPollersData;
+﻿using System.Text.Json.Serialization;
 
+namespace Entuity.Api.Models.UserDefinedRestPollersData;
+
+/// <summary>
+/// Information on the attributes added by this step
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838639545373-User-Defined-REST-Pollers-RESTful-API#post'/></para>
+/// </summary>
 public class StepInformation
 {
 	/// <summary>
@@ -22,15 +28,44 @@ public class StepInformation
 	/// </summary>
 	public string DataType { get; set; } = string.Empty;
 
-	public string DisplayType { get; set; } = string.Empty;
+	/// <summary>
+	/// How the value will be displayed in the UI. A displayType can allow the data to be shown including e.g. appropriate units and formatting
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? DisplayType { get; set; }
 
-	public string Visibility { get; set; } = string.Empty;
+	/// <summary>
+	/// Visibility level for this attribute. Can be one of "SHORTLISTED", "VISIBLE", "ADVANCED" or "HIDDEN"
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? Visibility { get; set; }
 
-	public bool Enumerable { get; set; }
+	/// <summary>
+	/// If true this attribute will be considered to have a limited enumeration of values. This makes it eligible for example for being used as the data to drive the groupings of a generic pie chart
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public bool? Enumerable { get; set; }
 
-	public bool Searchable { get; set; }
+	/// <summary>
+	/// If true this attribute will be considered a valid choice for display on a chart, if false it will not. If omitted then a default will be determined based upon the data type (numeric values are graphable, strings are not)
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public bool? Searchable { get; set; }
 
-	public object StatusMap { get; set; }
+	/// <summary>
+	/// If true this attribute will be searchable using the search tool
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public object? StatusMap { get; set; }
 
-	public EventInfo EventInformation { get; set; }
+	/// <inheritdoc cref='EventInfo'/>
+	[JsonPropertyName("eventInfo")]
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public EventInfo? EventInformation { get; set; }
+
+	/// <summary>
+	/// List of thresholds for events on this attribute
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public IEnumerable<EventThreshold>? EventThresholds { get; set; }
 }

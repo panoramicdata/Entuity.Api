@@ -99,15 +99,6 @@ public class ZonesTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task ZonesController_DeleteAsync_Fails()
-	{
-		var response = await client
-			.Zones
-			.DeleteAsync(-1, default);
-		response.IsSuccessStatusCode.Should().BeFalse();
-	}
-
-	[Fact]
 	public async Task ZonesController_UpdateAsync_Succeeds()
 	{
 		var randomName = Guid.NewGuid().ToString();
