@@ -1,6 +1,7 @@
 ﻿using Entuity.Api.Collections;
 using Entuity.Api.Models.UserDefinedRestPollersData.Get;
 using Entuity.Api.Models.UserDefinedRestPollersData.Post;
+using Entuity.Api.Models.UserDefinedRestPollersData.Update;
 using Refit;
 using System.Collections;
 
@@ -33,6 +34,16 @@ public interface IUserDefinedRestPollers
 	/// <returns></returns>
 	[Get("/api/ud/pollers/{pollerId}")]
 	public Task<RestPollerDetailed> GetAsync(int pollerId, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Update a user defined REST poller by ID
+	/// </summary>
+	/// <param name="pollerId"></param>
+	/// <param name="poller"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/ud/pollers/{pollerId}")]
+	public Task<RestPollerDetailed> UpdateAsync(int pollerId, [Body] RestPollerUpdate poller, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Delete a user defined REST poller by ID
