@@ -1,7 +1,7 @@
 ﻿namespace Entuity.Api.Models.UserDefinedRestPollersData;
 
 /// <summary>
-/// holds details of this poller's definition
+/// Holds details of this poller's definition
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838655745565-User-Defined-REST-Poller-Details-RESTful-API#get'/></para>
 /// </summary>
 public class PollerDefinition
@@ -26,8 +26,14 @@ public class PollerDefinition
 	/// </summary>
 	public string PollerName { get; set; } = string.Empty;
 
+	/// <summary>
+	/// The version of the poller
+	/// </summary>
 	public double Version { get; set; }
 
+	/// <summary>
+	/// The revision number of the poller. This is incremented each time a user edits this poller
+	/// </summary>
 	public int Revision { get; set; }
 
 	/// <summary>
@@ -50,8 +56,14 @@ public class PollerDefinition
 	/// </summary>
 	public required FilterDefinition FilterDefinition { get; set; }
 
+	/// <summary>
+	/// Frequency (in seconds) that the data will be polled at. Usually restricted to the following values: 60, 300, 600, 900, 1200, 1800, 3600, 21600, 43200, 86400
+	/// </summary>
 	public int ObtainRate { get; set; }
 
+	/// <summary>
+	/// Length of time (in seconds) which polled data will be retained. Usually restricted to the following values: 3600, 86400, 604800, 1209600, 3024000, 16934400
+	/// </summary>
 	public int KeepTime { get; set; }
 
 	/// <summary>
