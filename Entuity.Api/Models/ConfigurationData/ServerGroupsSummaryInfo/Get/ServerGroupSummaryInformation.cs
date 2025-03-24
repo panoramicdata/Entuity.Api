@@ -4,7 +4,7 @@ namespace Entuity.Api.Models.ConfigurationData.ServerGroupsSummaryInfo.Get;
 
 /// <summary>
 /// Provides summary information for a Config Set
-/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840342484253-Config-Sets-Summary-Info-RESTful-API#get'/></para>
+/// <para>See <a href=''/></para>
 /// </summary>
 public class ServerGroupSummaryInformation : IGetItem
 {
@@ -73,9 +73,7 @@ public class ServerGroupSummaryInformation : IGetItem
 	/// </summary>
 	public int MemberCount { get; set; }
 
-	/// <summary>
-	/// 
-	/// </summary>
+	/// <inheritdoc cref="ServerGroupsSummaryInfo.SyncStatus"/>
 	public required SyncStatus SyncStatus { get; set; }
 
 	/// <summary>
