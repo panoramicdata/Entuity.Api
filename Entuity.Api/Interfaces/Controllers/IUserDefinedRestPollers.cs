@@ -26,6 +26,15 @@ public interface IUserDefinedRestPollers
 	public Task<IApiResponse<IEnumerable>> CreateAsync([Body] RestPollerCreate poller, CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Get a user defined REST poller by ID
+	/// </summary>
+	/// <param name="pollerId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/ud/pollers/{pollerId}")]
+	public Task<RestPollerDetailed> GetAsync(int pollerId, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Delete a user defined REST poller by ID
 	/// </summary>
 	/// <param name="pollerId"></param>

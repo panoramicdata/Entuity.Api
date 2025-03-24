@@ -14,6 +14,11 @@ public class EventThreshold
 	public required string Name { get; set; }
 
 	/// <summary>
+	/// Display name for this threshold
+	/// </summary>
+	public required string DisplayName { get; set; }
+
+	/// <summary>
 	/// Description of this threshold
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -32,12 +37,14 @@ public class EventThreshold
 	/// <summary>
 	/// Minimum value for this threshold
 	/// </summary>
-	public int MinimumValue { get; set; }
+	[JsonPropertyName("minValue")]
+	public double MinimumValue { get; set; }
 
 	/// <summary>
 	/// Maximum value for this threshold
 	/// </summary>
-	public int MaxiumumValue { get; set; }
+	[JsonPropertyName("maxValue")]
+	public double MaxiumumValue { get; set; }
 
 	/// <summary>
 	/// Default value for this threshold

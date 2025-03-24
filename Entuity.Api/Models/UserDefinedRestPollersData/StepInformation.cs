@@ -47,6 +47,12 @@ public class StepInformation
 	public bool? Enumerable { get; set; }
 
 	/// <summary>
+	/// If true this attribute will be considered to have a limited enumeration of values. This makes it eligible for example for being used as the data to drive the groupings of a generic pie chart
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public bool? Graphable { get; set; }
+
+	/// <summary>
 	/// If true this attribute will be considered a valid choice for display on a chart, if false it will not. If omitted then a default will be determined based upon the data type (numeric values are graphable, strings are not)
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

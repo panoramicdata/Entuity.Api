@@ -16,6 +16,26 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task UserDefinedRestPollersController_GetAsync_Succeeds()
+	{
+		var pollers = await client
+			.UserDefinedRestPollers
+			.GetAllAsync(default);
+
+		pollers.Should().NotBeNull();
+
+		// Foreach poller, get the detailed information
+		foreach (var poller in pollers.Items)
+		{
+			var pollerDetails = await client
+				.UserDefinedRestPollers
+				.GetAsync(poller.PollerId, default);
+
+			pollerDetails.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
 	public async Task UserDefinedRestPollersController_PostAsync_Succeeds()
 	{
 		var newPoller = new RestPollerCreate
