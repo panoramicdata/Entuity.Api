@@ -3,7 +3,8 @@
 namespace Entuity.Api.Models.MaintenanceData;
 
 /// <summary>
-/// An Object that describes a schedule
+/// An Object that describes a maintenance schedule
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13835539462429-Maintenance-List-RESTful-API#get'/></para>
 /// </summary>
 public class MaintenanceSchedule
 {

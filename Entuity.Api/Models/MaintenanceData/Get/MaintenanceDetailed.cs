@@ -4,7 +4,7 @@ namespace Entuity.Api.Models.MaintenanceData.Get;
 
 /// <summary>
 /// Detailed information about a maintenance schedule
-/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13835574526109-Maintenance-Details-RESTful-API#get'/></para>
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13835574526109-Maintenance-Details-RESTful-API'/></para>
 /// </summary>
 public class MaintenanceDetailed : Entity<int>, IGetItem
 {
