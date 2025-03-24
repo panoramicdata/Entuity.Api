@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Entuity.Api.QueryParameters;
+using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
@@ -31,6 +32,32 @@ public class FlowDataTests(EntuityClient client) : TestFixture
 		var history = await client
 			.FlowData
 			.GetFlowHistoryAsync(1, default);
+
+		history.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task FlowDataController_GetFlowHistoryAsyncWithStartTimeFilter_Succeeds()
+	{
+		// Get history for the last 30 minutes
+		var history = await client
+			.FlowData
+			.GetFlowHistoryAsync(1,
+			new FlowDataHistoryFilter { StartTime = -1800 },
+			default);
+
+		history.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task FlowDataController_GetFlowHistoryAsyncWithIntervalFilter_Succeeds()
+	{
+		// Get history for the last 30 minutes
+		var history = await client
+			.FlowData
+			.GetFlowHistoryAsync(1,
+			new FlowDataHistoryFilter { Interval = 300 },
+			default);
 
 		history.Should().NotBeNull();
 	}

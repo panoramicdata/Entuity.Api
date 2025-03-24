@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models.FlowData.Get;
+using Entuity.Api.QueryParameters;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -30,5 +31,17 @@ public interface IFlowData
 	[Get("/api/flowHistory/{id}")]
 	public Task<FlowHistoryResponse> GetFlowHistoryAsync(
 		[AliasAs("id")] int deviceId,
+		CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get the flow data history for a device.
+	/// </summary>
+	/// <param name="deviceId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/flowHistory/{id}")]
+	public Task<FlowHistoryResponse> GetFlowHistoryAsync(
+		[AliasAs("id")] int deviceId,
+		[Query] FlowDataHistoryFilter filter,
 		CancellationToken cancellationToken);
 }
