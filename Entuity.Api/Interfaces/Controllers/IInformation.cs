@@ -8,7 +8,11 @@ namespace Entuity.Api.Interfaces.Controllers;
 /// </summary>
 public interface IInformation
 {
-
+	/// <summary>
+	/// Get information about the installed version of Entuity
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/info")]
-	Task<ApiInformation> GetAsync(CancellationToken cancellationToken);
+	Task<EntuityVersionInformation> GetAsync(CancellationToken cancellationToken);
 }
