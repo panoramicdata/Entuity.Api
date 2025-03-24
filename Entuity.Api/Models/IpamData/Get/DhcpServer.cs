@@ -3,6 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.IpamData.Get;
 
+/// <summary>
+/// Represents a DHCP server
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840169160093-IPAM-DHCP-Servers-RESTful-API#get'/></para>
+/// </summary>
 public class DhcpServer : Entity<int>, IGetItem
 {
 	/// <summary>
