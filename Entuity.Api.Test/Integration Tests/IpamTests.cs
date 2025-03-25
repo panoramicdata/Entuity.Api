@@ -6,6 +6,16 @@ namespace Entuity.Api.Test.Integration_Tests;
 public class IpamTests(EntuityClient client) : TestFixture
 {
 	[Fact]
+	public async Task IpamController_GetIpamAsync_Succeeds()
+	{
+		var ipam = await client
+		.Ipam
+		.GetIpamSettingsAndStatus(default);
+
+		ipam.Should().NotBeNull();
+	}
+
+	[Fact]
 	public async Task IpamController_GetAllDhcpServersAsync_Succeeds()
 	{
 		var dhcpServers = await client
