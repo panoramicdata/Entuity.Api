@@ -16,6 +16,26 @@ public class DataAccessTemplatesTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task DataAccessTemplatesController_GetAsync_Succeeds()
+	{
+		// Arrange
+		var response = await client
+			.DataAccessTemplates
+			.GetAllAsync(default);
+
+		response.Should().NotBeNull();
+
+		foreach (var item in response.Items)
+		{
+			var result = await client
+				.DataAccessTemplates
+				.GetAsync(item.Name, default);
+
+			result.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
 	public async Task DataAccessTemplatesController_CreateAsync_Succeeds()
 	{
 		var dataAccessTemplateCreate = new DataAccessTemplateCreate
