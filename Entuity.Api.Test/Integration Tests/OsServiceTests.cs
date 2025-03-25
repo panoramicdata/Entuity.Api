@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Entuity.Api.Models.OsServiceData.Post;
+using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class OsServiceTests(EntuityClient client) : TestFixture
@@ -30,5 +31,73 @@ public class OsServiceTests(EntuityClient client) : TestFixture
 
 			osServiceResponse.Should().NotBeNull();
 		}
+	}
+
+	[Fact]
+	public async Task OsServicesController_CreateAsync_Succeeds()
+	{
+		var newRules = new OsServiceCollectionCreate
+		{
+			ServiceRules = [
+				new(){
+					ServiceName = "TestService",
+					Description = "Test Description",
+					FilterUsing = 0,
+					OperatingSystem = 0
+				}]
+		};
+
+		var response = await client
+			.OsServices
+			.CreateAsync(newRules, default);
+
+		response.Should().NotBeNull();
+
+		// Find ID of created rule
+		var createdRule = response
+			.ServiceRules
+			.FirstOrDefault(x => x.ServiceName == "TestService");
+
+		createdRule.Should().NotBeNull();
+
+		// Delete created rule
+		var deleteResponse = await client
+			.OsServices
+			.DeleteAsync(createdRule!.Id, default);
+	}
+
+	[Fact]
+	public async Task OsServicesController_DeleteAsync_Succeeds()
+	{
+		var newRules = new OsServiceCollectionCreate
+		{
+			ServiceRules = [
+				new(){
+					ServiceName = "TestServiceTwo",
+					Description = "Test Description",
+					FilterUsing = 0,
+					OperatingSystem = 0
+				}]
+		};
+
+		var response = await client
+			.OsServices
+			.CreateAsync(newRules, default);
+
+		response.Should().NotBeNull();
+
+		// Find ID of created rule
+		var createdRule = response
+			.ServiceRules
+			.FirstOrDefault(x => x.ServiceName == "TestServiceTwo");
+
+		createdRule.Should().NotBeNull();
+
+		// Delete created rule
+		var deleteResponse = await client
+			.OsServices
+			.DeleteAsync(createdRule!.Id, default);
+
+		deleteResponse.Should().NotBeNull();
 	}
 }
