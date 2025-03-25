@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models.OsServiceData.Post;
+using Entuity.Api.Models.OsServiceData.Update;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
@@ -59,6 +60,53 @@ public class OsServiceTests(EntuityClient client) : TestFixture
 			.FirstOrDefault(x => x.ServiceName == "TestService");
 
 		createdRule.Should().NotBeNull();
+
+		// Delete created rule
+		var deleteResponse = await client
+			.OsServices
+			.DeleteAsync(createdRule!.Id, default);
+	}
+
+	[Fact]
+	public async Task OsServicesController_UpdateAsync_Succeeds()
+	{
+		var newRules = new OsServiceCollectionCreate
+		{
+			ServiceRules = [
+				new(){
+					ServiceName = "TestServiceThree",
+					Description = "Test Description",
+					FilterUsing = 0,
+					OperatingSystem = 0
+				}]
+		};
+
+		var response = await client
+			.OsServices
+			.CreateAsync(newRules, default);
+
+		response.Should().NotBeNull();
+
+		// Find ID of created rule
+		var createdRule = response
+			.ServiceRules
+			.FirstOrDefault(x => x.ServiceName == "TestServiceThree");
+
+		createdRule.Should().NotBeNull();
+
+		// Update created rule
+		var updateResponse = await client
+			.OsServices
+			.UpdateAsync(createdRule!.Id, new OsServiceUpdate
+			{
+				ServiceName = "TestServiceThree",
+				Description = "Test Description Edited",
+				FilterUsing = 0,
+				OperatingSystem = 0,
+				Enabled = true
+			}, default);
+
+		updateResponse.Should().NotBeNull();
 
 		// Delete created rule
 		var deleteResponse = await client

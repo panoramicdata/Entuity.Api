@@ -1,6 +1,7 @@
 ﻿using Entuity.Api.Models;
 using Entuity.Api.Models.OsServiceData.Get;
 using Entuity.Api.Models.OsServiceData.Post;
+using Entuity.Api.Models.OsServiceData.Update;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -32,6 +33,16 @@ public interface IOsServices
 	/// <returns></returns>
 	[Get("/api/osService/{id}")]
 	Task<OsService> GetAsync(int id, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Update an OS Service rule by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="osServiceUpdate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/osService/{id}")]
+	Task<OsService> UpdateAsync(int id, [Body] OsServiceUpdate osServiceUpdate, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Delete an OS Service rule by ID

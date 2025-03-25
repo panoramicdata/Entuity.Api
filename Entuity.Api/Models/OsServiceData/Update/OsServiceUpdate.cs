@@ -1,13 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.OsServiceData.Post;
+namespace Entuity.Api.Models.OsServiceData.Update;
 
 /// <summary>
-/// Holds information for creating a new OS service rule.
-/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838606626333-OS-Services-Summary-RESTful-API#post'/></para>
+/// Holds information for updating an existing OS service rule.
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13871887786781-OS-Services-Detail-RESTful-API#put'/></para>
 /// </summary>
-/// <remarks>This object is used in the OsServiceCollectionCreate object to create rules</remarks>
-public class OsServiceCreate
+public class OsServiceUpdate
 {
 	/// <summary>
 	/// The OS Service name that is being filtered for in the rule
