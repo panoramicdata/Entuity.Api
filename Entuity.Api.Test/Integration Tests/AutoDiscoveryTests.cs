@@ -14,4 +14,15 @@ public class AutoDiscoveryTests(EntuityClient client) : TestFixture
 
 		result.Should().NotBeNull();
 	}
+
+	[Fact]
+	public async Task AutoDiscoveryController_GetAllProfilesAsync_Succeeds()
+	{
+		// Arrange
+		var result = await client
+			.AutoDiscovery
+			.GetAllProfilesAsync(default);
+
+		result.Should().NotBeNull();
+	}
 }

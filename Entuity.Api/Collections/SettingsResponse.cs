@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.AutoDiscoveryData.Get;
+﻿using Entuity.Api.Interfaces;
 
 namespace Entuity.Api.Collections;
 
@@ -6,10 +6,10 @@ namespace Entuity.Api.Collections;
 /// Response model for AutoDiscovery data
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13829479167517-Auto-Discovery-Status-RESTful-API#get'/></para>
 /// </summary>
-public class AutoDiscoveryResponse
+public class SettingsResponse<T> where T : IGetItem
 {
 	/// <summary>
 	/// AutoDiscovery settings
 	/// </summary>
-	public IEnumerable<AutoDiscovery> Settings { get; set; } = [];
+	public IEnumerable<T> Settings { get; set; } = [];
 }

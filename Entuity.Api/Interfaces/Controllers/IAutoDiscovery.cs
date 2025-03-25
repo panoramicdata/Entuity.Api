@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Collections;
+using Entuity.Api.Models.AutoDiscoveryData.Get;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -11,6 +12,13 @@ public interface IAutoDiscovery
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/autodiscovery")]
-	Task<AutoDiscoveryResponse> GetAllAsync(CancellationToken cancellationToken);
+	Task<SettingsResponse<AutoDiscovery>> GetAllAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get all AutoDiscovery profiles
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/autodiscoveryProfiles")]
+	Task<SettingsResponse<AutoDiscoveryProfile>> GetAllProfilesAsync(CancellationToken cancellationToken);
 }
