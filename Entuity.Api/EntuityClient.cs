@@ -39,6 +39,7 @@ public class EntuityClient : IDisposable
 		Incidents = Refit<IIncidents>(refitSettings);
 		LicenseInformation = Refit<ILicenseInfo>(refitSettings);
 		Maintenance = Refit<IMaintenance>(refitSettings);
+		OsServices = Refit<IOsServices>(refitSettings);
 		Users = Refit<IUsers>(refitSettings);
 		UserGroups = Refit<IUserGroups>(refitSettings);
 		UserDefinedRestPollers = Refit<IUserDefinedRestPollers>(refitSettings);
@@ -79,6 +80,8 @@ public class EntuityClient : IDisposable
 	public ILicenseInfo LicenseInformation { get; set; }
 
 	public IMaintenance Maintenance { get; set; }
+
+	public IOsServices OsServices { get; set; }
 
 	public IUsers Users { get; set; }
 
