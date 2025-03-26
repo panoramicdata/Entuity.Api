@@ -6,5 +6,6 @@ namespace Entuity.Api.Models.IpamData.Get;
 public class IpamSettingsAndStatusResponse
 {
 	public List<string> Statuses { get; set; } = null!;
+
 	public IpamSettings Settings { get; set; } = null!;
 }

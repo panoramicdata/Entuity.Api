@@ -9,6 +9,22 @@ namespace Entuity.Api.Interfaces.Controllers;
 public interface IIpam
 {
 	/// <summary>
+	/// Get IPAM Settings and Status
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/ipam")]
+	public Task<IpamSettingsAndStatusResponse> GetIpamSettingsAndStatus(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Start a scan of IPAM networks
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/ipam")]
+	public Task<Message> StartScanOfIpamNetworksAsync(CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get all DHCP servers.
 	/// </summary>
 	/// <param name="cancellationToken"></param>
@@ -54,7 +70,4 @@ public interface IIpam
 
 	[Delete("/api/ipam/network/{id}")]
 	public Task<IApiResponse> DeleteNetworkAsync(int id, CancellationToken cancellationToken);
-
-	[Get("/api/ipam")]
-	public Task<IpamSettingsAndStatusResponse> GetIpamSettingsAndStatus(CancellationToken cancellationToken);
 }

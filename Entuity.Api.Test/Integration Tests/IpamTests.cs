@@ -16,6 +16,16 @@ public class IpamTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task IpamController_StartScanOfIpamNetworksAsync_Succeeds()
+	{
+		var response = await client.
+			Ipam
+			.StartScanOfIpamNetworksAsync(default);
+
+		response.Should().NotBeNull();
+	}
+
+	[Fact]
 	public async Task IpamController_GetAllDhcpServersAsync_Succeeds()
 	{
 		var dhcpServers = await client
