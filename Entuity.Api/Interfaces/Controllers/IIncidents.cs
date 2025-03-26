@@ -1,5 +1,7 @@
 ﻿using Entuity.Api.Collections;
+using Entuity.Api.Models;
 using Entuity.Api.Models.IncidentsData.Get;
+using Entuity.Api.Models.IncidentsData.Update;
 using Entuity.Api.QueryParameters;
 using Refit;
 
@@ -30,6 +32,16 @@ public interface IIncidents
 	/// <returns></returns>
 	[Get("/api/incidents")]
 	Task<IncidentResponse> GetAllAsync([Query] IncidentsFilter filter, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Updates an Incident by its ID
+	/// </summary>
+	/// <param name="incidentId"></param>
+	/// <param name="incidentUpdate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/incidents/{incidentId}")]
+	Task<Message> UpdateAsync(int incidentId, [Body] IncidentUpdate incidentUpdate, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Returns a collection of all types of Incidents

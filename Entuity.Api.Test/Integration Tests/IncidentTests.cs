@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Enums;
+using Entuity.Api.Models.IncidentsData.Update;
 using Entuity.Api.QueryParameters;
 using FluentAssertions;
 
@@ -7,12 +8,22 @@ namespace Entuity.Api.Test.Integration_Tests;
 public class IncidentTests(EntuityClient client) : TestFixture
 {
 	[Fact]
-	public async Task IncidentsController_GetAll_Succeeds()
+	public async Task IncidentsController_GetAllAsync_Succeeds()
 	{
 		// Arrange
 		var result = await client
 			.Incidents
 			.GetAllAsync(default);
+
+		result.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task IncidentsController_UpdateAsync_Succeeds()
+	{
+		var result = await client
+			.Incidents
+			.UpdateAsync(1, new IncidentUpdate(), default);
 
 		result.Should().NotBeNull();
 	}
