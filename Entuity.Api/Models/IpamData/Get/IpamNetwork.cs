@@ -3,10 +3,10 @@
 namespace Entuity.Api.Models.IpamData.Get;
 
 /// <summary>
-/// Represents a Network
+/// Represents an IPAM Network
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13839913797661-IPAM-Networks-RESTful-API#get'/></para>
 /// </summary>
-public class Network : Entity<int>, IGetItem
+public class IpamNetwork : Entity<int>, IGetItem
 {
 	/// <summary>
 	/// User-specified name of the network.

@@ -1,8 +1,13 @@
-﻿using System.Text.Json;
+﻿using Entuity.Api.Models.IpamData.Get;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.IpamData.Get;
+namespace Entuity.Api.JsonConverters;
 
+/// <summary>
+/// Converter used to aid the deserialization of IpamSettingsAndStatusResponse
+/// </summary>
+/// <remarks>Converts from a nested Heterogenouos Array to an <see cref="IpamSettingsAndStatusResponse">IPAM Settings and Status Response Object</see> form</remarks>
 public class IpamSettingsAndStatusResponseConverter
 	: JsonConverter<IpamSettingsAndStatusResponse>
 {
@@ -14,7 +19,7 @@ public class IpamSettingsAndStatusResponseConverter
 		if (reader.TokenType != JsonTokenType.StartArray)
 			throw new JsonException("Expected StartArray token");
 
-		// Read first element: array of strings
+		// Read first element: array of strings defining statuses
 		reader.Read();
 		var statuses = JsonSerializer.Deserialize<List<string>>(ref reader, options)
 			?? throw new JsonException("Could not get statuses");

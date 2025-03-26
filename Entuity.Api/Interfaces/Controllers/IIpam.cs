@@ -25,6 +25,12 @@ public interface IIpam
 	[Post("/api/ipam")]
 	public Task<Message> StartScanOfIpamNetworksAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Update IPAM settings
+	/// </summary>
+	/// <param name="ipamSettings"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Put("/api/ipam")]
 	public Task<IpamSettings> UpdateIpamSettingsAsync([Body] IpamSettingsUpdate ipamSettings, CancellationToken cancellationToken);
 
@@ -63,18 +69,48 @@ public interface IIpam
 	[Delete("/api/ipam/dhcp/{id}")]
 	public Task<IApiResponse> DeleteDhcpServerAsync(int id, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get all IPAM networks
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/ipam/network")]
-	public Task<ListResponse<Network>> GetAllNetworksAsync(CancellationToken cancellationToken);
+	public Task<ListResponse<IpamNetwork>> GetAllNetworksAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Create a new IPAM network
+	/// </summary>
+	/// <param name="network"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Post("/api/ipam/network")]
 	public Task<Message> CreateNetworkAsync([Body] NetworkCreate network, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get IPAM network by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/ipam/network/{id}")]
-	public Task<Network> GetNetworkAsync(int id, CancellationToken cancellationToken);
+	public Task<IpamNetwork> GetNetworkAsync(int id, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Update IPAM network by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="network"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Put("/api/ipam/network/{id}")]
-	public Task<Network> UpdateNetworkAsync(int id, [Body] IpamNetworkUpdate network, CancellationToken cancellationToken);
+	public Task<IpamNetwork> UpdateNetworkAsync(int id, [Body] IpamNetworkUpdate network, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Delete IPAM network by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Delete("/api/ipam/network/{id}")]
 	public Task<IApiResponse> DeleteNetworkAsync(int id, CancellationToken cancellationToken);
 
