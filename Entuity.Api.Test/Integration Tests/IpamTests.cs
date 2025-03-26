@@ -213,6 +213,49 @@ public class IpamTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task IpamController_UpdateNetworkAsync_Succeeds()
+	{
+		var network = new NetworkCreate
+		{
+			Name = "Test Network",
+			IpRange = "10.44.5.0/24",
+			Description = "",
+			UsageMedium = 0
+		};
+
+		var response = await client
+			.Ipam
+			.CreateNetworkAsync(network, default);
+
+		response.Should().NotBeNull();
+
+		// Get all Networks 
+		var networks = await client
+			.Ipam
+			.GetAllNetworksAsync(default);
+
+		var networkId = networks.FirstOrDefault(n => n.Name == network.Name)?
+			.Id;
+
+		networkId.Should().NotBeNull();
+
+		// Update network
+		var updateNetwork = new IpamNetworkUpdate
+		{
+			Name = "Updated Network",
+			IpRange = "10.44.5.0/24",
+			Description = "Updated Description",
+		};
+
+		updateNetwork.Should().NotBeNull();
+
+		// Attempt delete
+		var deleteResponse = await client
+			.Ipam
+			.DeleteNetworkAsync((int)networkId!, default);
+	}
+
+	[Fact]
 	public async Task IpamController_DeleteNetworkAsync_Succeeds()
 	{
 		var network = new NetworkCreate

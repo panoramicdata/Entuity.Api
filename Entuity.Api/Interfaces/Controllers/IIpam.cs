@@ -72,6 +72,9 @@ public interface IIpam
 	[Get("/api/ipam/network/{id}")]
 	public Task<Network> GetNetworkAsync(int id, CancellationToken cancellationToken);
 
+	[Put("/api/ipam/network/{id}")]
+	public Task<Network> UpdateNetworkAsync(int id, [Body] IpamNetworkUpdate network, CancellationToken cancellationToken);
+
 	[Delete("/api/ipam/network/{id}")]
 	public Task<IApiResponse> DeleteNetworkAsync(int id, CancellationToken cancellationToken);
 }
