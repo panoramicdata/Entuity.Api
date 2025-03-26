@@ -2,6 +2,7 @@
 using Entuity.Api.Models;
 using Entuity.Api.Models.IpamData.Get;
 using Entuity.Api.Models.IpamData.Post;
+using Entuity.Api.Models.IpamData.Update;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -23,6 +24,9 @@ public interface IIpam
 	/// <returns></returns>
 	[Post("/api/ipam")]
 	public Task<Message> StartScanOfIpamNetworksAsync(CancellationToken cancellationToken);
+
+	[Put("/api/ipam")]
+	public Task<IpamSettings> UpdateIpamSettingsAsync([Body] IpamSettingsUpdate ipamSettings, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get all DHCP servers.

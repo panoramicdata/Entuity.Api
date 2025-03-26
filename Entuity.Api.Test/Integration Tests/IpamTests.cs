@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models.IpamData.Post;
+using Entuity.Api.Models.IpamData.Update;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
@@ -23,6 +24,38 @@ public class IpamTests(EntuityClient client) : TestFixture
 			.StartScanOfIpamNetworksAsync(default);
 
 		response.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task IpamController_UpdateIpamSettingsAsync_Succeeds()
+	{
+		var response = await client
+			.Ipam
+			.GetIpamSettingsAndStatus(default);
+
+		response.Should().NotBeNull();
+
+		var currentActiveTimeFrameHours = response.Settings.ActiveTimeframeHours;
+
+		var update = new IpamSettingsUpdate
+		{
+			ActiveTimeframeHours = currentActiveTimeFrameHours + 1
+		};
+
+		var updatedResponse = await client
+			.Ipam
+			.UpdateIpamSettingsAsync(update, default);
+
+		updatedResponse.Should().NotBeNull();
+
+		// Revert back to original value
+		update.ActiveTimeframeHours = currentActiveTimeFrameHours;
+
+		var revertResponse = await client
+			.Ipam
+			.UpdateIpamSettingsAsync(update, default);
+
+		revertResponse.Should().NotBeNull();
 	}
 
 	[Fact]
