@@ -77,4 +77,13 @@ public interface IIpam
 
 	[Delete("/api/ipam/network/{id}")]
 	public Task<IApiResponse> DeleteNetworkAsync(int id, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// List scanned IP addresses pages for a specific network
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/ipam/network/{id}/address")]
+	public Task<IEnumerable<string>> GetScannedIpAddressPagesAsync(int id, CancellationToken cancellationToken);
 }

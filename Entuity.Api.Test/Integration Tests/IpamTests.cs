@@ -289,4 +289,23 @@ public class IpamTests(EntuityClient client) : TestFixture
 
 		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
 	}
+
+	[Fact]
+	public async Task IpamController_GetScannedIpAddressPagesAsync_Succeeds()
+	{
+		var networks = await client
+			.Ipam
+			.GetAllNetworksAsync(default);
+
+		networks.Should().NotBeNull();
+
+		foreach (var network in networks)
+		{
+			var scannedIpAddressPages = await client
+				.Ipam
+				.GetScannedIpAddressPagesAsync(network.Id, default);
+
+			scannedIpAddressPages.Should().NotBeNull();
+		}
+	}
 }
