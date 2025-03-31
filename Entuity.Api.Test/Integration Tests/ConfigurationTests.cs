@@ -1,4 +1,5 @@
-﻿using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
+﻿using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Post;
+using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
 using Entuity.Api.Models.ConfigurationData.ServerGroups.Post;
 using Entuity.Api.Models.ConfigurationData.ServerGroups.Update;
 using FluentAssertions;
@@ -108,6 +109,94 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		var deleteResponse = await client
 			.Configuration
 			.DeleteServerGroupAsync(response.ServerGroupId, default);
+
+		deleteResponse.Should().NotBeNull();
+		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
+	}
+
+	[Fact]
+	public async Task ConfigurationController_GetServerGroupUsersAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetServerGroupsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Count.Should().BePositive();
+
+		// Get first server Group
+
+		var serverGroup = serverGroups.Items.First();
+		var response = await client
+			.Configuration
+			.GetServerGroupUsersAsync(serverGroup.ServerGroupId, default);
+		response.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ConfigurationController_CreateUserOnServerGroupAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetServerGroupsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Count.Should().BePositive();
+
+		// Get first server Group
+		var serverGroup = serverGroups.Items.First();
+
+		var newUser = new ConfigSetUserCreate()
+		{
+			UserName = "TestUser",
+			Password = "TestPassword"
+		};
+
+		var response = await client
+			.Configuration
+			.CreateUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Attempt Delete
+
+		var deleteResponse = await client
+			.Configuration
+			.DeleteUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser.UserName, default);
+	}
+
+	[Fact]
+	public async Task ConfigurationController_DeleteUserOnServerGroupAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetServerGroupsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Count.Should().BePositive();
+
+		// Get first server Group
+		var serverGroup = serverGroups.Items.First();
+
+		var newUser = new ConfigSetUserCreate()
+		{
+			UserName = "TestUser2",
+			Password = "TestPassword2"
+		};
+
+		var response = await client
+			.Configuration
+			.CreateUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Attempt Delete
+
+		var deleteResponse = await client
+			.Configuration
+			.DeleteUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser.UserName, default);
 
 		deleteResponse.Should().NotBeNull();
 		deleteResponse.ErrorCode.Should().Contain("SUCCESS");

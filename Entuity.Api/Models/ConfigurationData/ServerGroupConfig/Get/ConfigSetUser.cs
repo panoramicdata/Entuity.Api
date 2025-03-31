@@ -1,10 +1,12 @@
-﻿namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig;
+﻿using Entuity.Api.Interfaces;
+
+namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
 
 /// <summary>
 /// Represents a User in the system.
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840304434077-Config-Sets-Config-Set-Details-RESTful-API#get'/></para>
 /// </summary>
-public class User
+public class ConfigSetUser : IGetItem
 {
 	/// <summary>
 	/// Username of a user in the config set

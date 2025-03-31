@@ -19,7 +19,7 @@ public class Configuration
 	/// <summary>
 	/// Collection of users
 	/// </summary>
-	public IEnumerable<User> Users { get; set; } = [];
+	public IEnumerable<ConfigSetUser> Users { get; set; } = [];
 
 	/// <summary>
 	/// Collection of user groups

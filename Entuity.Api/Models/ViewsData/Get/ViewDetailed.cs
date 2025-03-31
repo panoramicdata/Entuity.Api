@@ -66,7 +66,7 @@ public class ViewDetailed : Entity<string>, IGetItem
 	/// <summary>
 	/// Group Access Permissions
 	/// </summary>
-	public IEnumerable<AccessGroup> AccessGroups { get; set; } = [];
+	public IEnumerable<ViewAccessGroup> AccessGroups { get; set; } = [];
 
 	/// <summary>
 	/// Groups having implicit access by virtue of inheriting access through other group permissions, such as having access to the parent View. This may be indirect, e.g. access to the grandparent or great-grandparent

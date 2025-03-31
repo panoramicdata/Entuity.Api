@@ -1,6 +1,7 @@
 ﻿using Entuity.Api.Collections;
-using Entuity.Api.Models;
+using Entuity.Api.Models.ConfigurationData;
 using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
+using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Post;
 using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Get;
 using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
 using Entuity.Api.Models.ConfigurationData.ServerGroups.Get;
@@ -13,8 +14,10 @@ namespace Entuity.Api.Interfaces.Controllers;
 
 public interface IConfiguration
 {
+	#region Server Group Configuration
+
 	/// <summary>
-	/// Get all Server Groups
+	/// Get all Server Group configuration sets
 	/// </summary>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
@@ -22,7 +25,7 @@ public interface IConfiguration
 	public Task<Response<ServerGroup>> GetServerGroupsAsync(CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Create new Server Group
+	/// Create new Server Group configuration set
 	/// </summary>
 	/// <param name="serverGroup"></param>
 	/// <param name="cancellationToken"></param>
@@ -31,7 +34,7 @@ public interface IConfiguration
 	public Task<ServerGroup> CreateServerGroupAsync([Body] ServerGroupCreate serverGroup, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Get a Server Group by ID
+	/// Get a Server Group configuration set by ID
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
@@ -40,16 +43,16 @@ public interface IConfiguration
 	public Task<ServerGroup> GetServerGroupAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Delete a Server Group by ID
+	/// Delete a Server Group configuration set by ID
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Delete("/api/cfg/serverGroups/{serverGroupId}")]
-	public Task<DeleteResponse> DeleteServerGroupAsync(Guid serverGroupId, CancellationToken cancellationToken);
+	public Task<ConfigurationChangeResponse> DeleteServerGroupAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Update a Server Group by ID
+	/// Update a Server Group config set by ID
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="serverGroup"></param>
@@ -66,6 +69,36 @@ public interface IConfiguration
 	/// <returns></returns>
 	[Get("/api/cfg/serverGroupConfig/{serverGroupId}")]
 	public Task<ServerGroupConfiguration> GetServerGroupConfigurationAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get the users for a server group config set by ID
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/users")]
+	public Task<Response<ConfigSetUser>> GetServerGroupUsersAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Create a user on a server group config set by server ID
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/cfg/serverGroupConfig/{serverGroupId}/users")]
+	public Task<ConfigurationChangeResponse> CreateUserOnServerGroupAsync(Guid serverGroupId, [Body] ConfigSetUserCreate user, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Delete a user from a server group config set by ID
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="userName"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Delete("/api/cfg/serverGroupConfig/{serverGroupId}/users/{userName}")]
+	public Task<ConfigurationChangeResponse> DeleteUserOnServerGroupAsync(Guid serverGroupId, string userName, CancellationToken cancellationToken);
+
+	#endregion
 
 	/// <summary>
 	/// Get all Server Group Summary Information

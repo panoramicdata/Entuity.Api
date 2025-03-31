@@ -17,7 +17,7 @@ public class ViewUpdate
 	/// Array of access objects, specifying view access permissions
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public IEnumerable<AccessGroup>? AccessGroups { get; set; }
+	public IEnumerable<ViewAccessGroup>? AccessGroups { get; set; }
 
 	/// <summary>
 	/// A way to aggregate base views: One of NONE (default), UNION or INTERSECTION
