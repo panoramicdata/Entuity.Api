@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.ConfigurationData.ServerGroups.Post;
+namespace Entuity.Api.Models.ConfigurationData.ConfigurationSet.Post;
 
 /// <summary>
 /// Holds Information required to create a new Config Set

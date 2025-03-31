@@ -1,12 +1,12 @@
 ﻿using Entuity.Api.Collections;
 using Entuity.Api.Models.ConfigurationData;
+using Entuity.Api.Models.ConfigurationData.ConfigurationSet.Get;
+using Entuity.Api.Models.ConfigurationData.ConfigurationSet.Post;
+using Entuity.Api.Models.ConfigurationData.ConfigurationSet.Update;
 using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
 using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Post;
 using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Get;
 using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
-using Entuity.Api.Models.ConfigurationData.ServerGroups.Get;
-using Entuity.Api.Models.ConfigurationData.ServerGroups.Post;
-using Entuity.Api.Models.ConfigurationData.ServerGroups.Update;
 using Entuity.Api.Models.ConfigurationData.ServerGroupsSummaryInfo.Get;
 using Refit;
 
