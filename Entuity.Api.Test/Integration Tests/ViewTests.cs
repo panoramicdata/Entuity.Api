@@ -35,9 +35,11 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_CreateAsync_Succeeds()
 	{
+		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+
 		var newView = new ViewCreate
 		{
-			Name = "Test View"
+			Name = $"Test View {randomGuid}"
 		};
 
 		var response = await client
@@ -60,9 +62,11 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_UpdateAsync_Succeeds()
 	{
+		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+
 		var newView = new ViewCreate
 		{
-			Name = "Test View"
+			Name = $"Test View {randomGuid}"
 		};
 
 		var response = await client
@@ -94,9 +98,11 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_DeleteAsync_Succeeds()
 	{
+		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+
 		var newView = new ViewCreate
 		{
-			Name = "Test View"
+			Name = $"Test View {randomGuid}"
 		};
 
 		var response = await client
@@ -138,9 +144,11 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_UpdateObjectsAsync_Succeeds()
 	{
+		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+
 		var newView = new ViewCreate
 		{
-			Name = "Test View"
+			Name = $"Test View {randomGuid}"
 		};
 
 		var response = await client
@@ -173,9 +181,11 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_DeleteObjectsAsync_Succeeds()
 	{
+		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+
 		var newView = new ViewCreate
 		{
-			Name = "Test View"
+			Name = $"Test View {randomGuid}"
 		};
 
 		var response = await client

@@ -51,7 +51,7 @@ public class UserGroupView
 	/// <summary>
 	/// User groups that have access to this view
 	/// </summary>
-	public IEnumerable<ViewAccessGroup> UserGroups { get; set; } = [];
+	public IEnumerable<ServerGroupUserGroup> UserGroups { get; set; } = [];
 
 	/// <summary>
 	/// Longitude of the View, as specified for Geographical Map mode

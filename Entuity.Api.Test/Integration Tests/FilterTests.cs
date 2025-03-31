@@ -138,7 +138,9 @@ public class FilterTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task FiltersController_CreateIncidentFilterAsync_Succeeds()
 	{
-		var newIncidentFilter = new IncidentFilterCreate { Name = "Test Incident Filter" };
+		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+
+		var newIncidentFilter = new IncidentFilterCreate { Name = $"Test Incident Filter {randomGuid}" };
 		var result = await client
 			.Filters
 			.CreateIncidentFilterAsync(newIncidentFilter, default);
@@ -159,7 +161,10 @@ public class FilterTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task FiltersController_UpdateIncidentFilterAsync_Succeeds()
 	{
-		var newIncidentFilter = new IncidentFilterCreate { Name = "Test Incident Filter" };
+		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+
+		var newIncidentFilter = new IncidentFilterCreate { Name = $"Test Incident Filter {randomGuid}" };
+
 		var result = await client
 			.Filters
 			.CreateIncidentFilterAsync(newIncidentFilter, default);
@@ -173,7 +178,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 		createdIncidentFilter.Should().NotBeNull();
 
 		// Update
-		var updatedIncidentFilter = new IncidentFilterUpdate { Name = "Updated Incident Filter" };
+		var updatedIncidentFilter = new IncidentFilterUpdate { Name = $"Updated Incident Filter {randomGuid}" };
 		var response = client
 			.Filters
 			.UpdateIncidentFilterAsync(createdIncidentFilter!.Id, updatedIncidentFilter, default);
