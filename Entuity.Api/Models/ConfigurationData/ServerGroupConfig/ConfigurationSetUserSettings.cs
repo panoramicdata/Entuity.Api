@@ -4,7 +4,7 @@
 /// Individual user settings, e.g. timeout, account locking, password expiry
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840473167517-Config-Sets-Users-RESTful-API#post'/></para>
 /// </summary>
-public class ConfigSetUserSettings
+public class ConfigurationSetUserSettings
 {
 	/// <summary>
 	/// Number of minutes of inactivity after which the user will be logged out

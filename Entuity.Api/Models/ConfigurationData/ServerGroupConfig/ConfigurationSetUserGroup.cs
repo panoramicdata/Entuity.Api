@@ -1,6 +1,6 @@
 ﻿namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig;
 
-public class ServerGroupUserGroup
+public class ConfigurationSetUserGroup
 {
 	public string GroupName { get; set; } = string.Empty;
 

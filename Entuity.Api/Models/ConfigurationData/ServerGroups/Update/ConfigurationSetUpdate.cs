@@ -6,7 +6,7 @@ namespace Entuity.Api.Models.ConfigurationData.ServerGroups.Update;
 /// Update a server group.
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840302882845-Config-Sets-Update-and-Delete-Config-Sets-RESTful-API#put1'/></para>
 /// </summary>
-public class ServerGroupUpdate
+public class ConfigurationSetUpdate
 {
 	/// <summary>
 	/// Name of the config set

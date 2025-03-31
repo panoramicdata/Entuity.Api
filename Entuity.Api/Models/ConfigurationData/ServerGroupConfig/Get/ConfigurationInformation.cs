@@ -4,7 +4,7 @@
 /// Holds Settings for the server group
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840304434077-Config-Sets-Config-Set-Details-RESTful-API#get'/></para>
 /// </summary>
-public class Configuration
+public class ConfigurationInformation
 {
 	/// <summary>
 	/// Any global user settings that apply to this config set
@@ -19,7 +19,7 @@ public class Configuration
 	/// <summary>
 	/// Collection of users
 	/// </summary>
-	public IEnumerable<ConfigSetUser> Users { get; set; } = [];
+	public IEnumerable<ConfigurationSetUser> Users { get; set; } = [];
 
 	/// <summary>
 	/// Collection of user groups

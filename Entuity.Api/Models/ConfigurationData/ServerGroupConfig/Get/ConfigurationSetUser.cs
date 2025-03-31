@@ -3,10 +3,10 @@
 namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
 
 /// <summary>
-/// Represents a User in the system.
+/// Represents a User in a Configuration Set
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840304434077-Config-Sets-Config-Set-Details-RESTful-API#get'/></para>
 /// </summary>
-public class ConfigSetUser : IGetItem
+public class ConfigurationSetUser : IGetItem
 {
 	/// <summary>
 	/// Username of a user in the config set

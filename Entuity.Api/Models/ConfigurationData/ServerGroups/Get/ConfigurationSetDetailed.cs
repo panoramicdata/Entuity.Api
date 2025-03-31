@@ -1,10 +1,12 @@
-﻿namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
+﻿using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
+
+namespace Entuity.Api.Models.ConfigurationData.ServerGroups.Get;
 
 /// <summary>
-/// Holds Configuration for a Server Group
+/// Holds detailed information about a Configuration Set
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840304434077-Config-Sets-Config-Set-Details-RESTful-API#get'/></para>
 /// </summary>
-public class ServerGroupConfiguration
+public class ConfigurationSetDetailed
 {
 	/// <summary>
 	/// If sync of users is enabled in this config set, either 'true' or 'false'.
@@ -52,7 +54,7 @@ public class ServerGroupConfiguration
 	public bool SyncPaused { get; set; }
 
 	/// <inheritdoc cref="Get.Configuration"/>
-	public required Configuration Configuration { get; set; }
+	public required ConfigurationInformation Configuration { get; set; }
 
 	/// <summary>
 	/// ID of the current configuration change, referred to in the table under the Sync History tab on the Multi-Server Configuration page. Each time a config set is updated, the set gains a new configuration change ID. This ID is an auto-incrementing number

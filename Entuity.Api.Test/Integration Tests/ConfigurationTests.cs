@@ -9,21 +9,21 @@ namespace Entuity.Api.Test.Integration_Tests;
 public class ConfigurationTests(EntuityClient client) : TestFixture
 {
 	[Fact]
-	public async Task ConfigurationController_GetServerGroupsAsync_Succeeds()
+	public async Task ConfigurationController_GetAllConfigurationSetsAsync_Succeeds()
 	{
 		var response = await client
 			.Configuration
-			.GetServerGroupsAsync(default);
+			.GetAllConfigurationSetsAsync(default);
 
 		response.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetServerGroupAsync_Succeeds()
+	public async Task ConfigurationController_GetConfigurationSetAsync_Succeeds()
 	{
 		var response = await client
 			.Configuration
-			.GetServerGroupsAsync(default);
+			.GetAllConfigurationSetsAsync(default);
 
 		response.Should().NotBeNull();
 
@@ -31,73 +31,73 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		{
 			var serverGroupResponse = await client
 				.Configuration
-				.GetServerGroupAsync(serverGroup.ServerGroupId, default);
+				.GetConfigurationSetAsync(serverGroup.ServerGroupId, default);
 
 			serverGroupResponse.Should().NotBeNull();
 		}
 	}
 
 	[Fact]
-	public async Task ConfigurationController_CreateServerGroupAsync_Succeeds()
+	public async Task ConfigurationController_CreateConfigurationSetAsync_Succeeds()
 	{
-		var serverGroup = new ServerGroupCreate
+		var serverGroup = new ConfigurationSetCreate
 		{
 			ServerGroupName = "Test Server Group",
 		};
 
 		var response = await client
 			.Configuration
-			.CreateServerGroupAsync(serverGroup, default);
+			.CreateConfigurationSetAsync(serverGroup, default);
 
 		response.Should().NotBeNull();
 
 		// Attempt Delete
-		var deleteResponse = await client
+		_ = await client
 			.Configuration
-			.DeleteServerGroupAsync(response.ServerGroupId, default);
+			.DeleteConfigurationSetAsync(response.ServerGroupId, default);
 	}
 
 	[Fact]
-	public async Task ConfigurationController_DeleteServerGroupAsync_Succeeds()
+	public async Task ConfigurationController_DeleteConfigurationSetAsync_Succeeds()
 	{
-		var serverGroup = new ServerGroupCreate
+		var configSet = new ConfigurationSetCreate
 		{
 			ServerGroupName = "Test Server Group",
 		};
 
 		var response = await client
 			.Configuration
-			.CreateServerGroupAsync(serverGroup, default);
+			.CreateConfigurationSetAsync(configSet, default);
 
 		response.Should().NotBeNull();
 
 		// Attempt Delete
 		var deleteResponse = await client
 			.Configuration
-			.DeleteServerGroupAsync(response.ServerGroupId, default);
+			.DeleteConfigurationSetAsync(response.ServerGroupId, default);
 
 		deleteResponse.Should().NotBeNull();
 		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
 	}
 
 	[Fact]
-	public async Task ConfigurationController_UpdateServerGroupAsync_Succeeds()
+	public async Task ConfigurationController_UpdateConfigurationSetAsync_Succeeds()
 	{
-		var serverGroup = new ServerGroupCreate
+		var configSet = new ConfigurationSetCreate
 		{
 			ServerGroupName = "Test Server Group",
 		};
 
 		var response = await client
 			.Configuration
-			.CreateServerGroupAsync(serverGroup, default);
+			.CreateConfigurationSetAsync(configSet, default);
 
 		response.Should().NotBeNull();
 
 		// Attempt Update
 		var updateResponse = await client
 			.Configuration
-			.UpdateServerGroupAsync(response.ServerGroupId, new ServerGroupUpdate
+			.UpdateConfigurationSetAsync(response.ServerGroupId, new ConfigurationSetUpdate
 			{
 				ServerGroupName = "Updated Server Group",
 			}, default);
@@ -108,7 +108,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Attempt Delete
 		var deleteResponse = await client
 			.Configuration
-			.DeleteServerGroupAsync(response.ServerGroupId, default);
+			.DeleteConfigurationSetAsync(response.ServerGroupId, default);
 
 		deleteResponse.Should().NotBeNull();
 		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
@@ -119,7 +119,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetServerGroupsAsync(default);
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 		serverGroups.Count.Should().BePositive();
@@ -138,7 +138,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetServerGroupsAsync(default);
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 		serverGroups.Count.Should().BePositive();
@@ -146,7 +146,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Get first server Group
 		var serverGroup = serverGroups.Items.First();
 
-		var newUser = new ConfigSetUserCreate()
+		var newUser = new ConfigurationSetUserCreate()
 		{
 			UserName = "TestUser",
 			Password = "TestPassword"
@@ -161,7 +161,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 		// Attempt Delete
 
-		var deleteResponse = await client
+		_ = await client
 			.Configuration
 			.DeleteUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser.UserName, default);
 	}
@@ -171,7 +171,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetServerGroupsAsync(default);
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 		serverGroups.Count.Should().BePositive();
@@ -179,7 +179,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Get first server Group
 		var serverGroup = serverGroups.Items.First();
 
-		var newUser = new ConfigSetUserCreate()
+		var newUser = new ConfigurationSetUserCreate()
 		{
 			UserName = "TestUser2",
 			Password = "TestPassword2"
@@ -207,7 +207,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetServerGroupsAsync(default);
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 		foreach (var serverGroup in serverGroups.Items)
@@ -235,7 +235,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetServerGroupsAsync(default);
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 
@@ -254,7 +254,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetServerGroupsAsync(default); ;
+			.GetAllConfigurationSetsAsync(default); ;
 
 		serverGroups.Should().NotBeNull();
 
@@ -283,7 +283,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetServerGroupsAsync(default); ;
+			.GetAllConfigurationSetsAsync(default); ;
 
 		serverGroups.Should().NotBeNull();
 

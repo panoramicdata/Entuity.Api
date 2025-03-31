@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Post;
-public class ConfigSetUserCreate
+public class ConfigurationSetUserCreate
 {
 	// <summary>
 	/// Username of a user in the config set
@@ -13,7 +13,7 @@ public class ConfigSetUserCreate
 	/// </summary>
 	public required string Password { get; set; }
 
-	/// <inheritdoc cref="ConfigSetUserSettings"/>
+	/// <inheritdoc cref="ConfigurationSetUserSettings"/>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public ConfigSetUserSettings? Settings { get; set; }
+	public ConfigurationSetUserSettings? Settings { get; set; }
 }
