@@ -27,7 +27,7 @@ public class ObjectTests(EntuityClient client) : TestFixture
 		{
 			var detailed = await client
 				.Objects
-				.GetObjectAssociationDetailsAsync(1, association, default);
+				.GetObjectAssociationsDetailedAsync(1, association, default);
 
 			detailed.Should().NotBeNull();
 		}
@@ -41,5 +41,24 @@ public class ObjectTests(EntuityClient client) : TestFixture
 			.GetObjectAttributesAsync(1, default);
 
 		attributes.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ObjectsController_GetObjectAttributeDetailsAsync_Succeeds()
+	{
+		var attributes = await client
+			.Objects
+			.GetObjectAttributesAsync(1, default);
+
+		attributes.Should().NotBeNull();
+
+		foreach (var attribute in attributes.Items)
+		{
+			var detailed = await client
+				.Objects
+				.GetObjectAttributeDetailsAsync(1, attribute, default);
+
+			detailed.Should().NotBeNull();
+		}
 	}
 }
