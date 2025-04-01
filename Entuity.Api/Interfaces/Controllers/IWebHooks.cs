@@ -46,8 +46,13 @@ public interface IWebHooks
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/webhooks/events")]
-	Task<Response<CustomWebhookEvent>> GetCustomWebhookEventsAsync(CancellationToken cancellationToken);
+	Task<Response<CustomWebhookEvent>> GetAllCustomWebhookEventsAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get all Custom Webhook Payloads
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/webhooks/payloads")]
-	Task<Response<WebhookPayloadCollection>> GetWebhookPayloadsAsync(CancellationToken cancellationToken);
+	Task<Response<CustomWebhookPayloadCollection>> GetAllCustomWebhookPayloadsAsync(CancellationToken cancellationToken);
 }

@@ -97,7 +97,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	{
 		var webHookEvents = await client
 			.WebHooks
-			.GetCustomWebhookEventsAsync(default);
+			.GetAllCustomWebhookEventsAsync(default);
 
 		webHookEvents.Should().NotBeNull();
 	}
@@ -107,7 +107,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	{
 		var webHookPayloads = await client
 			.WebHooks
-			.GetWebhookPayloadsAsync(default);
+			.GetAllCustomWebhookPayloadsAsync(default);
 
 		webHookPayloads.Should().NotBeNull();
 	}

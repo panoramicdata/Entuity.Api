@@ -4,7 +4,11 @@ using System.Text.Json.Serialization;
 namespace Entuity.Api.Collections;
 
 /// <summary>
-/// A model that represents a multiple item response
+/// Represents a Multi Item response consisting of:
+/// <list type="bullet">
+/// <item>Items - The collection of items</item>
+/// <item>Count - The amount of items in this response</item>
+/// </list>
 /// </summary>
 /// <typeparam name="T">The Type that is returned in Items e.g. Server</typeparam>
 public class Response<T> where T : IGetItem
