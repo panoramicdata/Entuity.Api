@@ -32,8 +32,13 @@ public interface IWebHooks
 	[Get("/api/webhooks/rules/{ruleId}")]
 	Task<CustomWebhookRule> GetCustomWebhookRuleDetailsAsync(int ruleId, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get all Custom Webhook Endpoints
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/webhooks/endpoints")]
-	Task<Response<WebhookEndpoint>> GetWebhookEndpointsAsync(CancellationToken cancellationToken);
+	Task<Response<CustomWebhookEndpoint>> GetCustomWebhookEndpointsAsync(CancellationToken cancellationToken);
 
 	[Get("/api/webhooks/events")]
 	Task<Response<WebhookEvent>> GetWebhookEventsAsync(CancellationToken cancellationToken);

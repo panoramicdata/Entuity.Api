@@ -87,7 +87,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	{
 		var webHookEndpoints = await client
 			.WebHooks
-			.GetWebhookEndpointsAsync(default);
+			.GetCustomWebhookEndpointsAsync(default);
 
 		webHookEndpoints.Should().NotBeNull();
 	}
