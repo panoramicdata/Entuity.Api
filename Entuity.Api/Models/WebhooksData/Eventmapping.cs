@@ -10,7 +10,7 @@ public class Eventmapping
 
 	public string EventDetails { get; set; } = string.Empty;
 
-	public required WebhookEvent WebhookEvent { get; set; }
+	public required CustomWebhookEvent WebhookEvent { get; set; }
 
 	public int EventID { get; set; }
 
