@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Post;
+namespace Entuity.Api.Models.ConfigurationData.SummaryInformation.Post;
+
 public class ConfigurationSetUserCreate
 {
 	// <summary>

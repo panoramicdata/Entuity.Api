@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Entuity.Api.Models.ConfigurationData.ConfigurationSet.Update;
+namespace Entuity.Api.Models.ConfigurationData.Sets.Update;
 
 /// <summary>
 /// Update a server group.

@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig;
+﻿namespace Entuity.Api.Models.ConfigurationData.Sets;
 
 public class ConfigurationSetUserGroup
 {

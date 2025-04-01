@@ -1,7 +1,7 @@
-﻿using Entuity.Api.Models.ConfigurationData.ConfigurationSet.Post;
-using Entuity.Api.Models.ConfigurationData.ConfigurationSet.Update;
-using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Post;
-using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
+﻿using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
+using Entuity.Api.Models.ConfigurationData.Sets.Post;
+using Entuity.Api.Models.ConfigurationData.Sets.Update;
+using Entuity.Api.Models.ConfigurationData.SummaryInformation.Post;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;

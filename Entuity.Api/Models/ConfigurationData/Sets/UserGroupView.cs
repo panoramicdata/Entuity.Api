@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig;
+namespace Entuity.Api.Models.ConfigurationData.Sets;
 
 /// <summary>
 /// Holds information about a User Group

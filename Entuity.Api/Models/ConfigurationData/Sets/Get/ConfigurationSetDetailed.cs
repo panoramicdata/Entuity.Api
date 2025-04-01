@@ -1,6 +1,4 @@
-﻿using Entuity.Api.Models.ConfigurationData.ServerGroupConfig.Get;
-
-namespace Entuity.Api.Models.ConfigurationData.ConfigurationSet.Get;
+﻿namespace Entuity.Api.Models.ConfigurationData.Sets.Get;
 
 /// <summary>
 /// Holds detailed information about a Configuration Set

@@ -1,4 +1,4 @@
-﻿namespace Entuity.Api.Models.ConfigurationData.ServerGroupConfig;
+﻿namespace Entuity.Api.Models.ConfigurationData.SummaryInformation;
 
 /// <summary>
 /// Individual user settings, e.g. timeout, account locking, password expiry
