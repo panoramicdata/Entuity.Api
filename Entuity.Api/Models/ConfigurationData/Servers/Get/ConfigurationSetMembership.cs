@@ -1,12 +1,12 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Get;
+namespace Entuity.Api.Models.ConfigurationData.Servers.Get;
 
 /// <summary>
-/// Server group membership
+/// Represents a server that is assigned to a specific Config Set
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840499938589-Config-Sets-Servers-RESTful-API#get'/></para>
 /// </summary>
-public class ServerGroupMembership : IGetItem
+public class ConfigurationSetMembership : IGetItem
 {
 	/// <summary>
 	/// Unique server identifier

@@ -1,12 +1,13 @@
 ﻿using Entuity.Api.Interfaces;
+using Entuity.Api.Models.ConfigurationData.ServerGroupsSummaryInfo;
 
-namespace Entuity.Api.Models.ConfigurationData.ServerGroupsSummaryInfo.Get;
+namespace Entuity.Api.Models.ConfigurationData.SummaryInformation.Get;
 
 /// <summary>
 /// Provides summary information for a Config Set
 /// <para>See <a href=''/></para>
 /// </summary>
-public class ServerGroupSummaryInformation : IGetItem
+public class ConfigurationSetSummaryInformation : IGetItem
 {
 	/// <summary>
 	/// If sync of users is enabled in this config set, either 'true' or 'false'

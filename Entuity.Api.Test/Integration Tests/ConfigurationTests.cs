@@ -1,7 +1,7 @@
-﻿using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
+﻿using Entuity.Api.Models.ConfigurationData.Configuration.Post;
+using Entuity.Api.Models.ConfigurationData.Servers.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Update;
-using Entuity.Api.Models.ConfigurationData.SummaryInformation.Post;
 using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
@@ -269,7 +269,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 			// Add server to a group
 			var addResponse = await client
 				.Configuration
-				.AddServerGroupMembershipAsync(serverGroup.ServerGroupId, new ServerGroupMembershipAdd
+				.AddServerGroupMembershipAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipAdd
 				{
 					MembersAdded = [Guid.NewGuid()]
 				}, default);
@@ -298,7 +298,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 			// Add server to a group
 			var addResponse = await client
 				.Configuration
-				.RemoveServerGroupMembershipAsync(serverGroup.ServerGroupId, new ServerGroupMembershipRemove
+				.RemoveServerGroupMembershipAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipRemove
 				{
 					MembersRemoved = [Guid.NewGuid()]
 				}, default);

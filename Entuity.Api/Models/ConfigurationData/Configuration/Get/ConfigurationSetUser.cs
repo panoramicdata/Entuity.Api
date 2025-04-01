@@ -1,6 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 
-namespace Entuity.Api.Models.ConfigurationData.SummaryInformation.Get;
+namespace Entuity.Api.Models.ConfigurationData.Configuration.Get;
 
 /// <summary>
 /// Represents a User in a Configuration Set

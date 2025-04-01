@@ -1,13 +1,13 @@
 ﻿using Entuity.Api.Collections;
 using Entuity.Api.Models.ConfigurationData;
-using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Get;
-using Entuity.Api.Models.ConfigurationData.ServerGroupMembership.Post;
-using Entuity.Api.Models.ConfigurationData.ServerGroupsSummaryInfo.Get;
+using Entuity.Api.Models.ConfigurationData.Configuration.Get;
+using Entuity.Api.Models.ConfigurationData.Configuration.Post;
+using Entuity.Api.Models.ConfigurationData.Servers.Get;
+using Entuity.Api.Models.ConfigurationData.Servers.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Get;
 using Entuity.Api.Models.ConfigurationData.Sets.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Update;
 using Entuity.Api.Models.ConfigurationData.SummaryInformation.Get;
-using Entuity.Api.Models.ConfigurationData.SummaryInformation.Post;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -108,7 +108,7 @@ public interface IConfiguration
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/cfg/serverGroupsSummaryInfo")]
-	public Task<Response<ServerGroupSummaryInformation>> GetServerGroupsSummaryInfoAsync(CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetSummaryInformation>> GetServerGroupsSummaryInfoAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get the server group memberships for a server group by ID
@@ -117,7 +117,7 @@ public interface IConfiguration
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/cfg/serverGroupMembership/{serverGroupId}")]
-	public Task<Response<ServerGroupMembership>> GetServerGroupMembershipsAsync(Guid serverGroupId, CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetMembership>> GetServerGroupMembershipsAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Add a new server group membership for a server group by ID
@@ -127,7 +127,7 @@ public interface IConfiguration
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
-	public Task<Response<ServerGroupMembership>> AddServerGroupMembershipAsync(Guid serverGroupId, [Body] ServerGroupMembershipAdd serverGroupMembership, CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetMembership>> AddServerGroupMembershipAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipAdd serverGroupMembership, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Remove a server group membership for a server group by ID
@@ -137,5 +137,5 @@ public interface IConfiguration
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
-	public Task<Response<ServerGroupMembership>> RemoveServerGroupMembershipAsync(Guid serverGroupId, [Body] ServerGroupMembershipRemove serverGroupMembership, CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetMembership>> RemoveServerGroupMembershipAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipRemove serverGroupMembership, CancellationToken cancellationToken);
 }

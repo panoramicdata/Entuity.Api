@@ -1,4 +1,4 @@
-﻿using Entuity.Api.Models.ConfigurationData.SummaryInformation.Get;
+﻿using Entuity.Api.Models.ConfigurationData.Configuration.Get;
 
 namespace Entuity.Api.Models.ConfigurationData.Sets;
 
