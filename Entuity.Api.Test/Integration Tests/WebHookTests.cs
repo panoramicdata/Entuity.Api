@@ -59,7 +59,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	{
 		var webHookRules = await client
 			.WebHooks
-			.GetWebhookRulesAsync(default);
+			.GetCustomWebhookRulesAsync(default);
 
 		webHookRules.Should().NotBeNull();
 	}
@@ -69,7 +69,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	{
 		var webHookRules = await client
 			.WebHooks
-			.GetWebhookRulesAsync(default);
+			.GetCustomWebhookRulesAsync(default);
 
 		webHookRules.Should().NotBeNull();
 
@@ -77,7 +77,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 		{
 			var rule = await client
 				.WebHooks
-				.GetWebhookRuleAsync(webHookRule.RuleID, default);
+				.GetCustomWebhookRuleAsync(webHookRule.RuleID, default);
 			rule.Should().NotBeNull();
 		}
 	}

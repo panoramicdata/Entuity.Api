@@ -15,11 +15,22 @@ public interface IWebHooks
 	[Get("/api/webhooks/groups/{groupName}/endpoints")]
 	public Task<Response<EndpointContainer>> GetWebhookGroupEndpointsAsync(string groupName, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get all Custom Webhook Rules
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/webhooks/rules")]
-	Task<Response<WebhookRule>> GetWebhookRulesAsync(CancellationToken cancellationToken);
+	Task<Response<CustomWebhookRule>> GetCustomWebhookRulesAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get a Custom Webhook Rule by Id
+	/// </summary>
+	/// <param name="ruleId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/webhooks/rules/{ruleId}")]
-	Task<WebhookRule> GetWebhookRuleAsync(int ruleId, CancellationToken cancellationToken);
+	Task<CustomWebhookRule> GetCustomWebhookRuleAsync(int ruleId, CancellationToken cancellationToken);
 
 	[Get("/api/webhooks/endpoints")]
 	Task<Response<WebhookEndpoint>> GetWebhookEndpointsAsync(CancellationToken cancellationToken);
