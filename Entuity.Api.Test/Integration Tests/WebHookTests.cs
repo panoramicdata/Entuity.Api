@@ -77,7 +77,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 		{
 			var rule = await client
 				.WebHooks
-				.GetCustomWebhookRuleAsync(webHookRule.RuleID, default);
+				.GetCustomWebhookRuleDetailsAsync(webHookRule.RuleID, default);
 			rule.Should().NotBeNull();
 		}
 	}
