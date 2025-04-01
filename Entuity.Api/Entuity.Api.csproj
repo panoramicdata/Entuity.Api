@@ -53,5 +53,8 @@
 	<ItemGroup>
 		<EditorConfigFiles Remove="C:\Users\DavidBond\Source\Repos\panoramicdata\Entuity.Api\Entuity.Api\.editorconfig" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Models\ObjectsData\Get\" />
+	</ItemGroup>
 
 </Project>
