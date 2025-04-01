@@ -13,5 +13,15 @@ public interface IObjects
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/objects/{swID}/associations")]
-	public Task<BasicResponse<string>> GetObjectAssociations(int swID, CancellationToken cancellationToken);
+	public Task<BasicResponse<string>> GetObjectAssociationsAsync(int swID, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get all Attributes for a specific Object
+	/// </summary>
+	/// <remarks>For more information about this endpoint, see this <a href='https://support.entuity.com/hc/en-us/articles/13830000316189-Object-Attributes-RESTful-API#get'>documentation</a></remarks>
+	/// <param name="swID"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/objects/{swID}/attributes")]
+	public Task<BasicResponse<string>> GetObjectAttributesAsync(int swID, CancellationToken cancellationToken);
 }

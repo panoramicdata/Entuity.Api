@@ -9,8 +9,18 @@ public class ObjectTests(EntuityClient client) : TestFixture
 	{
 		var associations = await client
 			.Objects
-			.GetObjectAssociations(1, default);
+			.GetObjectAssociationsAsync(1, default);
 
 		associations.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task ObjectsController_GetObjectAttributesAsync_Succeeds()
+	{
+		var attributes = await client
+			.Objects
+			.GetObjectAttributesAsync(1, default);
+
+		attributes.Should().NotBeNull();
 	}
 }
