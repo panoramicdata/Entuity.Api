@@ -129,7 +129,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		var serverGroup = serverGroups.Items.First();
 		var response = await client
 			.Configuration
-			.GetServerGroupUsersAsync(serverGroup.ServerGroupId, default);
+			.GetConfigurationSetUsersAsync(serverGroup.ServerGroupId, default);
 		response.Should().NotBeNull();
 	}
 
@@ -154,7 +154,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 		var response = await client
 			.Configuration
-			.CreateUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser, default);
+			.AddUserToConfigurationSetAsync(serverGroup.ServerGroupId, newUser, default);
 
 		response.Should().NotBeNull();
 		response.ErrorCode.Should().Contain("SUCCESS");
@@ -163,7 +163,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 		_ = await client
 			.Configuration
-			.DeleteUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser.UserName, default);
+			.RemoveUserFromConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, default);
 	}
 
 	[Fact]
@@ -187,7 +187,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 		var response = await client
 			.Configuration
-			.CreateUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser, default);
+			.AddUserToConfigurationSetAsync(serverGroup.ServerGroupId, newUser, default);
 
 		response.Should().NotBeNull();
 		response.ErrorCode.Should().Contain("SUCCESS");
@@ -196,7 +196,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 		var deleteResponse = await client
 			.Configuration
-			.DeleteUserOnServerGroupAsync(serverGroup.ServerGroupId, newUser.UserName, default);
+			.RemoveUserFromConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, default);
 
 		deleteResponse.Should().NotBeNull();
 		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
@@ -214,7 +214,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		{
 			var response = await client
 				.Configuration
-				.GetServerGroupConfigurationAsync(serverGroup.ServerGroupId, default);
+				.GetConfigurationSetDetailsAsync(serverGroup.ServerGroupId, default);
 
 			response.Should().NotBeNull();
 		}
@@ -225,7 +225,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var response = await client
 		.Configuration
-		.GetServerGroupsSummaryInfoAsync(default);
+		.GetConfigurationSetSummaryInfoAsync(default);
 
 		response.Should().NotBeNull();
 	}
@@ -243,7 +243,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		{
 			var response = await client
 				.Configuration
-				.GetServerGroupMembershipsAsync(serverGroup.ServerGroupId, default);
+				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
 
 			response.Should().NotBeNull();
 		}
@@ -262,14 +262,14 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		{
 			var response = await client
 				.Configuration
-				.GetServerGroupMembershipsAsync(serverGroup.ServerGroupId, default);
+				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
 
 			response.Should().NotBeNull();
 
 			// Add server to a group
 			var addResponse = await client
 				.Configuration
-				.AddServerGroupMembershipAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipAdd
+				.AddConfigurationSetMembersAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipAdd
 				{
 					MembersAdded = [Guid.NewGuid()]
 				}, default);
@@ -291,14 +291,14 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		{
 			var response = await client
 				.Configuration
-				.GetServerGroupMembershipsAsync(serverGroup.ServerGroupId, default);
+				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
 
 			response.Should().NotBeNull();
 
 			// Add server to a group
 			var addResponse = await client
 				.Configuration
-				.RemoveServerGroupMembershipAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipRemove
+				.RemoveConfigurationSetMembersAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipRemove
 				{
 					MembersRemoved = [Guid.NewGuid()]
 				}, default);

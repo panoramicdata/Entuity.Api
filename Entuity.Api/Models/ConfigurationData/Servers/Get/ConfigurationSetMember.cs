@@ -3,10 +3,10 @@
 namespace Entuity.Api.Models.ConfigurationData.Servers.Get;
 
 /// <summary>
-/// Represents a server that is assigned to a specific Config Set
+/// Represents a server that is a member to a specific Config Set
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840499938589-Config-Sets-Servers-RESTful-API#get'/></para>
 /// </summary>
-public class ConfigurationSetMembership : IGetItem
+public class ConfigurationSetMember : IGetItem
 {
 	/// <summary>
 	/// Unique server identifier

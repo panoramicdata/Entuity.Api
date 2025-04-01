@@ -17,7 +17,7 @@ public interface IConfiguration
 	#region Configuration Sets
 
 	/// <summary>
-	/// Get all Server Group configuration sets
+	/// Get all Configuration Sets
 	/// </summary>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
@@ -25,7 +25,7 @@ public interface IConfiguration
 	public Task<Response<ConfigurationSet>> GetAllConfigurationSetsAsync(CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Create new Server Group configuration set
+	/// Create new Configuration Set
 	/// </summary>
 	/// <param name="serverGroup"></param>
 	/// <param name="cancellationToken"></param>
@@ -34,7 +34,7 @@ public interface IConfiguration
 	public Task<ConfigurationSet> CreateConfigurationSetAsync([Body] ConfigurationSetCreate serverGroup, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Get a Server Group configuration set by ID
+	/// Get a Configuration Set by ID
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
@@ -43,7 +43,7 @@ public interface IConfiguration
 	public Task<ConfigurationSet> GetConfigurationSetAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Delete a Server Group configuration set by ID
+	/// Delete a Configuration Set by ID
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
@@ -52,7 +52,7 @@ public interface IConfiguration
 	public Task<ConfigurationChangeResponse> DeleteConfigurationSetAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Update a Server Group config set by ID
+	/// Update a Configuration Set by ID
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="serverGroup"></param>
@@ -64,78 +64,76 @@ public interface IConfiguration
 	#endregion
 
 	/// <summary>
-	/// Get the server group configuration for a server group by ID
+	/// Get Details for a specific Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/cfg/serverGroupConfig/{serverGroupId}")]
-	public Task<ConfigurationSetDetailed> GetServerGroupConfigurationAsync(Guid serverGroupId, CancellationToken cancellationToken);
+	public Task<ConfigurationSetDetailed> GetConfigurationSetDetailsAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Get the users for a server group config set by ID
+	/// Get Users in a specific Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/users")]
-	public Task<Response<ConfigurationSetUser>> GetServerGroupUsersAsync(Guid serverGroupId, CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetUser>> GetConfigurationSetUsersAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Create a user on a server group config set by server ID
+	/// Add a user to a specific Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupConfig/{serverGroupId}/users")]
-	public Task<ConfigurationChangeResponse> CreateUserOnServerGroupAsync(Guid serverGroupId, [Body] ConfigurationSetUserCreate user, CancellationToken cancellationToken);
+	public Task<ConfigurationChangeResponse> AddUserToConfigurationSetAsync(Guid serverGroupId, [Body] ConfigurationSetUserCreate user, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Delete a user from a server group config set by ID
+	/// Remove a user from a specific Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="userName"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Delete("/api/cfg/serverGroupConfig/{serverGroupId}/users/{userName}")]
-	public Task<ConfigurationChangeResponse> DeleteUserOnServerGroupAsync(Guid serverGroupId, string userName, CancellationToken cancellationToken);
-
-
+	public Task<ConfigurationChangeResponse> RemoveUserFromConfigurationSetAsync(Guid serverGroupId, string userName, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Get all Server Group Summary Information
+	/// Get summary details about all Configuration Sets
 	/// </summary>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/cfg/serverGroupsSummaryInfo")]
-	public Task<Response<ConfigurationSetSummaryInformation>> GetServerGroupsSummaryInfoAsync(CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetSummaryInformation>> GetConfigurationSetSummaryInfoAsync(CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Get the server group memberships for a server group by ID
+	/// Get servers currently assigned to a specified Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Get("/api/cfg/serverGroupMembership/{serverGroupId}")]
-	public Task<Response<ConfigurationSetMembership>> GetServerGroupMembershipsAsync(Guid serverGroupId, CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetMember>> GetConfigurationSetMembershipsAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Add a new server group membership for a server group by ID
+	/// Add a server to a Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="serverGroupMembership"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
-	public Task<Response<ConfigurationSetMembership>> AddServerGroupMembershipAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipAdd serverGroupMembership, CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetMember>> AddConfigurationSetMembersAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipAdd serverGroupMembership, CancellationToken cancellationToken);
 
 	/// <summary>
-	/// Remove a server group membership for a server group by ID
+	/// Remove a server group membership from a Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
 	/// <param name="serverGroupMembership"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
-	public Task<Response<ConfigurationSetMembership>> RemoveServerGroupMembershipAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipRemove serverGroupMembership, CancellationToken cancellationToken);
+	public Task<Response<ConfigurationSetMember>> RemoveConfigurationSetMembersAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipRemove serverGroupMembership, CancellationToken cancellationToken);
 }
