@@ -6,11 +6,22 @@ namespace Entuity.Api.Interfaces.Controllers;
 
 public interface IWebHooks
 {
+	/// <summary>
+	/// Get all Custom Webhook Groups
+	/// </summary>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/webhooks/groups")]
-	Task<Response<WebhookGroup>> GetWebhookGroupsAsync(CancellationToken cancellationToken);
+	Task<Response<CustomWebhookGroup>> GetCustomWebhookGroupsAsync(CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get Custom Webhook Group by Name
+	/// </summary>
+	/// <param name="groupName"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/webhooks/groups/{groupName}")]
-	Task<WebhookGroup> GetWebhookGroupAsync(string groupName, CancellationToken cancellationToken);
+	Task<CustomWebhookGroup> GetCustomWebhookGroupAsync(string groupName, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get all Endpoints for a specific Custom Webhook Group

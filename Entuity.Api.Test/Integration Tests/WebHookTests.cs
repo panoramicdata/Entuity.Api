@@ -9,17 +9,17 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	{
 		var webHooks = await client
 			.WebHooks
-			.GetWebhookGroupsAsync(default);
+			.GetCustomWebhookGroupsAsync(default);
 
 		webHooks.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task WebHooksController_GetWebHookGroupAsync_Succeeds()
+	public async Task WebHooksController_GetCustomWebhookGroupAsync_Succeeds()
 	{
 		var webHooks = await client
 			.WebHooks
-			.GetWebhookGroupsAsync(default);
+			.GetCustomWebhookGroupsAsync(default);
 
 		webHooks.Should().NotBeNull();
 
@@ -27,7 +27,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 		{
 			var group = await client
 				.WebHooks
-				.GetWebhookGroupAsync(webHook.GroupName, default);
+				.GetCustomWebhookGroupAsync(webHook.GroupName, default);
 
 			group.Should().NotBeNull();
 		}
@@ -39,7 +39,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 		// Get all Webhooks
 		var webHooks = await client
 			.WebHooks
-			.GetWebhookGroupsAsync(default);
+			.GetCustomWebhookGroupsAsync(default);
 
 		webHooks.Should().NotBeNull();
 
@@ -118,7 +118,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 		// Get all Webhooks
 		var webHooks = await client
 			.WebHooks
-			.GetWebhookGroupsAsync(default);
+			.GetCustomWebhookGroupsAsync(default);
 
 		webHooks.Should().NotBeNull();
 
