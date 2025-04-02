@@ -34,7 +34,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task WebHookController_GetWebHookEndpointsAsync_Succeeds()
+	public async Task WebHookController_GetWebhookGroupEndpointsAsync_Succeeds()
 	{
 		// Get all Webhooks
 		var webHooks = await client
@@ -55,7 +55,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task WebHooksController_GetWebHookRulesAsync_Succeeds()
+	public async Task WebHooksController_GetCustomWebhookRulesAsync_Succeeds()
 	{
 		var webHookRules = await client
 			.WebHooks
@@ -65,7 +65,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task WebHooksController_GetWebHookAsync_Succeeds()
+	public async Task WebHooksController_GetCustomWebhookRuleDetailsAsync_Succeeds()
 	{
 		var webHookRules = await client
 			.WebHooks
@@ -83,7 +83,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task WebHooksController_GetWebHookEndpointsAsync_Succeeds()
+	public async Task WebHooksController_GetCustomWebhookEndpointsAsync_Succeeds()
 	{
 		var webHookEndpoints = await client
 			.WebHooks
@@ -93,7 +93,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task WebHooksController_GetWebHookEventsAsync_Succeeds()
+	public async Task WebHooksController_GetAllCustomWebhookEventsAsync_Succeeds()
 	{
 		var webHookEvents = await client
 			.WebHooks
@@ -103,12 +103,34 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task WebHookController_GetWebHookPayloadsAsync_Succeeds()
+	public async Task WebHookController_GetAllCustomWebhookPayloadsAsync_Succeeds()
 	{
 		var webHookPayloads = await client
 			.WebHooks
 			.GetAllCustomWebhookPayloadsAsync(default);
 
 		webHookPayloads.Should().NotBeNull();
+	}
+
+	[Fact]
+	public async Task WebHookController_GetCustomWebhookGroupEventDetailsAsync_Succeeds()
+	{
+		// Get all Webhooks
+		var webHooks = await client
+			.WebHooks
+			.GetWebhookGroupsAsync(default);
+
+		webHooks.Should().NotBeNull();
+
+		var firstGroup = webHooks.Items.FirstOrDefault();
+
+		firstGroup.Should().NotBeNull();
+
+		var events = await client
+			.WebHooks
+			.GetCustomWebhookGroupEventDetailsAsync(firstGroup!.GroupID, default);
+
+		events.Should().NotBeNull();
+
 	}
 }
