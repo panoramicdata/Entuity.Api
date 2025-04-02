@@ -146,7 +146,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Get first server Group
 		var serverGroup = serverGroups.Items.First();
 
-		var newUser = new ConfigurationSetUserCreate()
+		var newUser = new ConfigurationSetUserAdd()
 		{
 			UserName = "TestUser",
 			Password = "TestPassword"
@@ -179,7 +179,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Get first server Group
 		var serverGroup = serverGroups.Items.First();
 
-		var newUser = new ConfigurationSetUserCreate()
+		var newUser = new ConfigurationSetUserAdd()
 		{
 			UserName = "TestUser2",
 			Password = "TestPassword2"

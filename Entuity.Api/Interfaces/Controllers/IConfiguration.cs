@@ -88,7 +88,7 @@ public interface IConfiguration
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupConfig/{serverGroupId}/users")]
-	public Task<ConfigurationChangeResponse> AddUserToConfigurationSetAsync(Guid serverGroupId, [Body] ConfigurationSetUserCreate user, CancellationToken cancellationToken);
+	public Task<ConfigurationChangeResponse> AddUserToConfigurationSetAsync(Guid serverGroupId, [Body] ConfigurationSetUserAdd user, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Remove a user from a specific Configuration Set

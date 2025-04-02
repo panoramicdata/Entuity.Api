@@ -2,7 +2,11 @@
 
 namespace Entuity.Api.Models.ConfigurationData.Configuration.Post;
 
-public class ConfigurationSetUserCreate
+/// <summary>
+/// Holds information to add a User to a Configuration Set
+/// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13840473167517-Config-Sets-Users-RESTful-API#post'/></para>
+/// </summary>
+public class ConfigurationSetUserAdd
 {
 	// <summary>
 	/// Username of a user in the config set
