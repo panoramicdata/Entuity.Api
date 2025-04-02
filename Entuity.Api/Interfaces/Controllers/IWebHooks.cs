@@ -12,8 +12,14 @@ public interface IWebHooks
 	[Get("/api/webhooks/groups/{groupName}")]
 	Task<WebhookGroup> GetWebhookGroupAsync(string groupName, CancellationToken cancellationToken);
 
+	/// <summary>
+	/// Get all Endpoints for a specific Custom Webhook Group
+	/// </summary>
+	/// <param name="groupName"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
 	[Get("/api/webhooks/groups/{groupName}/endpoints")]
-	public Task<Response<EndpointContainer>> GetWebhookGroupEndpointsAsync(string groupName, CancellationToken cancellationToken);
+	public Task<Response<CustomWebhookGroupEndpointContainer>> GetCustomWebhookGroupEndpointsAsync(string groupName, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Gets information about events for a specific Custom Webhook Group

@@ -34,7 +34,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task WebHookController_GetWebhookGroupEndpointsAsync_Succeeds()
+	public async Task WebHookController_GetCustomWebhookGroupEndpointsAsync_Succeeds()
 	{
 		// Get all Webhooks
 		var webHooks = await client
@@ -48,7 +48,7 @@ public class WebHookTests(EntuityClient client) : TestFixture
 		{
 			var endpoints = await client
 				.WebHooks
-				.GetWebhookGroupEndpointsAsync(webHook.GroupName, default);
+				.GetCustomWebhookGroupEndpointsAsync(webHook.GroupName, default);
 
 			endpoints.Should().NotBeNull();
 		}
