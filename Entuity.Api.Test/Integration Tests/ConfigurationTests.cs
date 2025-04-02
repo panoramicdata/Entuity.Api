@@ -241,6 +241,32 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task ConfigurationController_AddOrUpdateConfigurationSetContentFilterAsync_Succeeds()
+	{
+		var guid = Guid.NewGuid().ToString();
+
+		var newContentFilter = new ConfigurationSetContentFilterCreate
+		{
+			Name = $"Test Filter {guid}"
+		};
+
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Items.Should().NotBeNull();
+
+		var firstGroup = serverGroups.Items.First();
+
+		var response = await client
+			.Configuration
+			.AddOrUpdateConfigurationSetContentFilterAsync(firstGroup.ServerGroupId, newContentFilter, default);
+
+		response.Should().NotBeNull();
+	}
+
+	[Fact]
 	public async Task ConfigurationController_GetAllConfigurationSetIncidentFiltersAsync_Succeeds()
 	{
 		var response = await client
@@ -258,6 +284,32 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 			contentFilters.Should().NotBeNull();
 		}
+	}
+
+	[Fact]
+	public async Task ConfigurationController_AddOrUpdateConfigurationSetIncidentFilterAsync_Succeeds()
+	{
+		var guid = Guid.NewGuid().ToString();
+
+		var newContentFilter = new ConfigurationSetIncidentFilterCreate
+		{
+			Name = $"Test Filter {guid}"
+		};
+
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Items.Should().NotBeNull();
+
+		var firstGroup = serverGroups.Items.First();
+
+		var response = await client
+			.Configuration
+			.AddOrUpdateConfigurationSetIncidentFilterAsync(firstGroup.ServerGroupId, newContentFilter, default);
+
+		response.Should().NotBeNull();
 	}
 
 	[Fact]
@@ -280,6 +332,31 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		}
 	}
 
+	[Fact]
+	public async Task ConfigurationController_AddOrUpdateConfigurationSetEventFilterAsync_Succeeds()
+	{
+		var guid = Guid.NewGuid().ToString();
+
+		var newContentFilter = new ConfigurationSetEventFilterCreate
+		{
+			Name = $"Test Filter {guid}"
+		};
+
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Items.Should().NotBeNull();
+
+		var firstGroup = serverGroups.Items.First();
+
+		var response = await client
+			.Configuration
+			.AddOrUpdateConfigurationSetEventFilterAsync(firstGroup.ServerGroupId, newContentFilter, default);
+
+		response.Should().NotBeNull();
+	}
 
 	[Fact]
 	public async Task ConfigurationController_GetConfigurationSetSummaryInfoAsync_Succeeds()
