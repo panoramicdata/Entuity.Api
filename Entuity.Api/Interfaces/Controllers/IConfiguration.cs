@@ -101,6 +101,33 @@ public interface IConfiguration
 	public Task<ConfigurationChangeResponse> RemoveUserFromConfigurationSetAsync(Guid serverGroupId, string userName, CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Get All Content Filters that are applied to a given Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/contentFilters")]
+	public Task<Response<ConfigurationSetContentFilter>> GetAllConfigurationSetContentFiltersAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get all Incident Filters that are applied to a given Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/incidentFilters")]
+	public Task<Response<ConfigurationSetIncidentFilter>> GetAllConfigurationSetIncidentFiltersAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Get all Event Filters that are applied to a given Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/eventFilters")]
+	public Task<Response<ConfigurationSetEventFilter>> GetAllConfigurationSetEventFiltersAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get summary details about all Configuration Sets
 	/// </summary>
 	/// <param name="cancellationToken"></param>

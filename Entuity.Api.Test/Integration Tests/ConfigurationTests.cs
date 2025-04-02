@@ -221,7 +221,68 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetServerGroupsSummaryInformationAsync_Succeeds()
+	public async Task ConfigurationController_GetAllConfigurationSetContentFiltersAsync_Succeeds()
+	{
+		var response = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		response.Should().NotBeNull();
+		response.Items.Should().NotBeNull();
+
+		foreach (var configSet in response.Items)
+		{
+			var contentFilters = await client
+				.Configuration
+				.GetAllConfigurationSetContentFiltersAsync(configSet.ServerGroupId, default);
+
+			contentFilters.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
+	public async Task ConfigurationController_GetAllConfigurationSetIncidentFiltersAsync_Succeeds()
+	{
+		var response = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		response.Should().NotBeNull();
+		response.Items.Should().NotBeNull();
+
+		foreach (var configSet in response.Items)
+		{
+			var contentFilters = await client
+				.Configuration
+				.GetAllConfigurationSetIncidentFiltersAsync(configSet.ServerGroupId, default);
+
+			contentFilters.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
+	public async Task ConfigurationController_GetAllConfigurationSetEventFiltersAsync_Succeeds()
+	{
+		var response = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		response.Should().NotBeNull();
+		response.Items.Should().NotBeNull();
+
+		foreach (var configSet in response.Items)
+		{
+			var contentFilters = await client
+				.Configuration
+				.GetAllConfigurationSetEventFiltersAsync(configSet.ServerGroupId, default);
+
+			contentFilters.Should().NotBeNull();
+		}
+	}
+
+
+	[Fact]
+	public async Task ConfigurationController_GetConfigurationSetSummaryInfoAsync_Succeeds()
 	{
 		var response = await client
 		.Configuration
