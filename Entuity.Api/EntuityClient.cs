@@ -29,6 +29,7 @@ public class EntuityClient : IDisposable
 
 		AutoDiscovery = Refit<IAutoDiscovery>(refitSettings);
 		Configuration = Refit<IConfiguration>(refitSettings);
+		CredentialManagement = Refit<ICredentialManagement>(refitSettings);
 		DataAccessTemplates = Refit<IDataAccessTemplates>(refitSettings);
 		FlowData = Refit<IFlowData>(refitSettings);
 		Filters = Refit<IFilters>(refitSettings);
@@ -59,6 +60,8 @@ public class EntuityClient : IDisposable
 	public IAutoDiscovery AutoDiscovery { get; set; }
 
 	public IConfiguration Configuration { get; set; }
+
+	public ICredentialManagement CredentialManagement { get; set; }
 
 	public IFlowData FlowData { get; set; }
 
