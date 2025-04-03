@@ -8,7 +8,7 @@ namespace Entuity.Api.Enums;
 /// </summary>
 public enum CredentialAuthenticationType
 {
-	[EnumMember("NONE")]
+	[EnumMember(Value = "NONE")]
 	None,
 
 	/// <summary>

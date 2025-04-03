@@ -191,4 +191,34 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 			.DeleteCredentialAsync(response.Id, default);
 	}
 
+	[Fact]
+	public async Task CredentialManagementController_DeleteCredentialAsync_Succeeds()
+	{
+		var newSnmpCredential = new NewCliCredentialAttributes()
+		{
+			CliAccessAttributes = new CliAccessCredential()
+			{
+				Method = CliAccessCredentialMethod.Ssh,
+				Username = "testusername",
+				Password1 = "passwordtest",
+			}
+		};
+
+		var response = await client
+			.CredentialManagement
+			.CreateCredentialAsync(
+			new CredentialCreate<NewCliCredentialAttributes>
+			{
+				Name = "Cli Test Credential 2",
+				Attributes = newSnmpCredential
+			}, default);
+
+		response.Should().NotBeNull();
+
+		var deleteResponse = await client
+			.CredentialManagement
+			.DeleteCredentialAsync(response.Id, default);
+
+		deleteResponse.Should().NotBeNull();
+	}
 }
