@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Enums;
+using Entuity.Api.JsonConverters;
 using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.CredentialManagementData.CredentialTypes;
@@ -10,12 +11,14 @@ namespace Entuity.Api.Models.CredentialManagementData.CredentialTypes;
 public class CliAccessCredential
 {
 	/// <inheritdoc cref="CliAccessCredentialMethod"/>
-	public CliAccessCredentialMethod Method { get; set; }
+
+	[JsonConverter(typeof(UpperCaseEnumConverter<CliAccessCredentialMethod>))]
+	public required CliAccessCredentialMethod Method { get; set; }
 
 	/// <summary>
 	/// THe port to connect
 	/// </summary>
-	public int Port { get; set; }
+	public string Port { get; set; } = string.Empty;
 
 	/// <summary>
 	/// The Username (if required)

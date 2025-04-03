@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Enums;
+using Entuity.Api.JsonConverters;
 using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.CredentialManagementData.CredentialTypes;
@@ -16,6 +17,7 @@ public class SnmpV3Credential
 
 	/// <inheritdoc cref="CredentialAuthenticationType"/>
 	[JsonPropertyName("authType")]
+	[JsonConverter(typeof(UpperCaseEnumConverter<CredentialAuthenticationType>))]
 	public required CredentialAuthenticationType AuthenticationType { get; set; }
 
 	/// <summary>
@@ -25,6 +27,7 @@ public class SnmpV3Credential
 	public required string AuthenticationPassword { get; set; }
 
 	/// <inheritdoc cref="CredentialEncryptionType"/>
+	[JsonConverter(typeof(UpperCaseEnumConverter<CredentialEncryptionType>))]
 	public required CredentialEncryptionType EncryptionType { get; set; }
 
 	/// <summary>
@@ -35,5 +38,6 @@ public class SnmpV3Credential
 	/// <summary>
 	///  An optional Context for the Credential
 	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public object? Context { get; set; }
 }

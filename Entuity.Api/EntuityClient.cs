@@ -23,8 +23,8 @@ public class EntuityClient : IDisposable
 			{
 				PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
 				Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) },
-				UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
-			})
+				UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+			}),
 		};
 
 		AutoDiscovery = Refit<IAutoDiscovery>(refitSettings);

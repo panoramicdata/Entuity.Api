@@ -1,5 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 using Entuity.Api.Models.CredentialManagementData.CredentialTypes;
+using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSets;
 
@@ -9,6 +10,7 @@ namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSe
 /// </summary>
 public class NewSshCredentialAttributes : ICredentialAttributeSet
 {
-	/// <inheritdoc cref="SshCredential"/>
-	public required SshCredential CliAccessAttributes { get; set; }
+	/// <inheritdoc cref="CliAccessCredential"/>
+	[JsonPropertyName("CliAccessAttributes")]
+	public required CliAccessCredential CliAccessAttributes { get; set; }
 }

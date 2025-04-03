@@ -1,4 +1,6 @@
 ﻿using Entuity.Api.Enums;
+using Entuity.Api.JsonConverters;
+using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.CredentialManagementData.CredentialTypes;
 
@@ -9,6 +11,7 @@ namespace Entuity.Api.Models.CredentialManagementData.CredentialTypes;
 public class NaviSecCredential
 {
 	/// <inheritdoc cref="NaviSecCredentialScope"/>
+	[JsonConverter(typeof(UpperCaseEnumConverter<NaviSecCredentialScope>))]
 	public NaviSecCredentialScope Scope { get; set; }
 
 	/// <summary>

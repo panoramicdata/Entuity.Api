@@ -1,5 +1,7 @@
 ﻿using Entuity.Api.Collections;
+using Entuity.Api.Models;
 using Entuity.Api.Models.CredentialManagementData.Get;
+using Entuity.Api.Models.CredentialManagementData.Post;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -13,4 +15,24 @@ public interface ICredentialManagement
 	/// <returns></returns>
 	[Get("/api/credential")]
 	Task<Response<Credential>> GetAllCredentialsAsync(CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Create a new Credential
+	/// </summary>
+	/// <typeparam name="TCredentialAttributes">The attributes of the new credential</typeparam>
+	/// <param name="credentialCreate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/credential")]
+	Task<Credential> CreateCredentialAsync<TCredentialAttributes>([Body] CredentialCreate<TCredentialAttributes> credentialCreate, CancellationToken cancellationToken)
+		where TCredentialAttributes : ICredentialAttributeSet;
+
+	/// <summary>
+	/// Delete a Credential by ID
+	/// </summary>
+	/// <param name="id"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Delete("/api/credential/{id}")]
+	Task<Message> DeleteCredentialAsync(int id, CancellationToken cancellationToken);
 }

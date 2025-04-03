@@ -1,5 +1,6 @@
 ﻿using Entuity.Api.Interfaces;
 using Entuity.Api.Models.CredentialManagementData.CredentialTypes;
+using System.Text.Json.Serialization;
 
 namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSets;
 
@@ -10,5 +11,6 @@ namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSe
 public class NewSnmpV1CredentialAttributes : ICredentialAttributeSet
 {
 	/// <inheritdoc cref="SnmpV1Credential"/>
+	[JsonPropertyName("SnmpV1Attributes")]
 	public required SnmpV1Credential SnmpV1Attributes { get; set; }
 }
