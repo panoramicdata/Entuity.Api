@@ -26,7 +26,7 @@ public class UserGroupView
 	/// <summary>
 	/// If View content is automatically (union/intersection) or manually determined
 	/// </summary>
-	public int ContentsType { get; set; }
+	public int? ContentsType { get; set; }
 
 	/// <summary>
 	/// Name of the domain filter applied to this View

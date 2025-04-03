@@ -125,7 +125,6 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		serverGroups.Count.Should().BePositive();
 
 		// Get first server Group
-
 		var serverGroup = serverGroups.Items.First();
 		var response = await client
 			.Configuration
@@ -203,7 +202,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetServerGroupConfigurationAsync_Succeeds()
+	public async Task ConfigurationController_GetConfigurationSetDetailsAsync_Succeeds()
 	{
 		var serverGroups = await client
 			.Configuration
@@ -216,6 +215,24 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 				.Configuration
 				.GetConfigurationSetDetailsAsync(serverGroup.ServerGroupId, default);
 
+			response.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
+	public async Task ConfigurationController_GetConfigurationSetViews_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var serverGroup in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.GetAllConfigurationSetViewsAsync(serverGroup.ServerGroupId, default);
 			response.Should().NotBeNull();
 		}
 	}

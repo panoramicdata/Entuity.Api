@@ -73,6 +73,15 @@ public interface IConfiguration
 	public Task<ConfigurationSetDetailed> GetConfigurationSetDetailsAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Get all Views assigned to a specific Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/views")]
+	public Task<Response<ConfigurationSetView>> GetAllConfigurationSetViewsAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get Users in a specific Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
