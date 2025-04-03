@@ -1,5 +1,7 @@
 ﻿using Entuity.Api.Collections;
+using Entuity.Api.Models.WebhooksData;
 using Entuity.Api.Models.WebhooksData.Get;
+using Entuity.Api.Models.WebhooksData.Post;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -15,6 +17,15 @@ public interface IWebHooks
 	Task<Response<CustomWebhookGroup>> GetCustomWebhookGroupsAsync(CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Create a new Custom Webhook Group
+	/// </summary>
+	/// <param name="group"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/webhooks/groups")]
+	Task<CustomWebhookGroupActionResponse> CreateCustomWebhookGroupAsync([Body] CustomWebhookGroupCreate group, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get Custom Webhook Group by Name
 	/// </summary>
 	/// <param name="groupName"></param>
@@ -22,6 +33,15 @@ public interface IWebHooks
 	/// <returns></returns>
 	[Get("/api/webhooks/groups/{groupName}")]
 	Task<CustomWebhookGroup> GetCustomWebhookGroupAsync(string groupName, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Delete a Custom Webhook Group by Name
+	/// </summary>
+	/// <param name="groupName"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Delete("/api/webhooks/groups/{groupName}")]
+	Task<CustomWebhookGroupActionResponse> DeleteCustomWebhookGroupAsync(string groupName, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get all Endpoints for a specific Custom Webhook Group

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Entuity.Api.Models.WebhooksData.Post;
+using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
@@ -31,6 +32,44 @@ public class WebHookTests(EntuityClient client) : TestFixture
 
 			group.Should().NotBeNull();
 		}
+	}
+
+	[Fact]
+	public async Task WebHookController_CreateCustomWebhookGroupAsync_Succeeds()
+	{
+		var webHookGroup = new CustomWebhookGroupCreate
+		{
+			GroupName = "TestGroup",
+			AuthenticationMethod = new()
+			{
+				AuthKey = "not used",
+				AuthType = "1",
+			}
+		};
+		var groupResponse = await client
+			.WebHooks
+			.CreateCustomWebhookGroupAsync(webHookGroup, default);
+
+		groupResponse.Should().NotBeNull();
+
+		// Get all Custom Webhook groups
+
+		var webHooks = await client
+			.WebHooks
+			.GetCustomWebhookGroupsAsync(default);
+
+		webHooks.Should().NotBeNull();
+
+		// Find the created group
+		var createdGroup = webHooks.Items
+			.FirstOrDefault(g => g.GroupName == webHookGroup.GroupName);
+
+		createdGroup.Should().NotBeNull();
+
+		// Delete
+		await client
+			.WebHooks
+			.DeleteCustomWebhookGroupAsync(webHookGroup.GroupName, default);
 	}
 
 	[Fact]
@@ -131,6 +170,5 @@ public class WebHookTests(EntuityClient client) : TestFixture
 			.GetCustomWebhookGroupEventDetailsAsync(firstGroup!.GroupID, default);
 
 		events.Should().NotBeNull();
-
 	}
 }
