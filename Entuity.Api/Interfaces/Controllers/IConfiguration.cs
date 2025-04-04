@@ -2,6 +2,7 @@
 using Entuity.Api.Models.ConfigurationData;
 using Entuity.Api.Models.ConfigurationData.Configuration.Get;
 using Entuity.Api.Models.ConfigurationData.Configuration.Post;
+using Entuity.Api.Models.ConfigurationData.Configuration.Update;
 using Entuity.Api.Models.ConfigurationData.Servers.Get;
 using Entuity.Api.Models.ConfigurationData.Servers.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Get;
@@ -98,6 +99,17 @@ public interface IConfiguration
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupConfig/{serverGroupId}/users")]
 	public Task<ConfigurationChangeResponse> AddUserToConfigurationSetAsync(Guid serverGroupId, [Body] ConfigurationSetUserAdd user, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Update a user in a specific Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="userName"></param>
+	/// <param name="user"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/cfg/serverGroupConfig/{serverGroupId}/users/{userName}")]
+	public Task<ConfigurationSetUser> UpdateUserInConfigurationSetAsync(Guid serverGroupId, string userName, [Body] ConfigurationSetUserUpdate user, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Remove a user from a specific Configuration Set

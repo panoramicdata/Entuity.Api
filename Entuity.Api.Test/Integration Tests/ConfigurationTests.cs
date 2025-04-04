@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Models.ConfigurationData.Configuration.Post;
+using Entuity.Api.Models.ConfigurationData.Configuration.Update;
 using Entuity.Api.Models.ConfigurationData.Servers.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Update;
@@ -160,6 +161,50 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 		// Attempt Delete
 
+		_ = await client
+			.Configuration
+			.RemoveUserFromConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, default);
+	}
+
+	[Fact]
+	public async Task ConfigurationController_UpdateUserInConfigurationSetAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Count.Should().BePositive();
+
+		// Get first server Group
+		var serverGroup = serverGroups.Items.First();
+
+		var newUser = new ConfigurationSetUserAdd()
+		{
+			UserName = "TestUser",
+			Password = "TestPassword"
+		};
+
+		var response = await client
+			.Configuration
+			.AddUserToConfigurationSetAsync(serverGroup.ServerGroupId, newUser, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Update
+		var update = new ConfigurationSetUserUpdate
+		{
+			Password = "UpdatedPassword"
+		};
+
+		var updateResponse = await client
+			.Configuration
+			.UpdateUserInConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, update, default);
+
+		updateResponse.Should().NotBeNull();
+
+		// Attempt Delete
 		_ = await client
 			.Configuration
 			.RemoveUserFromConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, default);
