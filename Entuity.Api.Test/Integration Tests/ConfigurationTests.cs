@@ -612,6 +612,35 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task ConfigurationController_AddServerGroupMembershipsAsyncWithFilter_Succeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default); ;
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var serverGroup in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
+
+			response.Should().NotBeNull();
+
+			// Add server to a group
+			var addResponse = await client
+				.Configuration
+				.AddConfigurationSetMembersAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipAdd
+				{
+					MembersAdded = [Guid.NewGuid()]
+				}, new() { ForceControl = true }, default);
+
+			addResponse.Should().NotBeNull();
+		}
+	}
+
+	[Fact]
 	public async Task ConfigurationController_RemoveServerGroupMembershipsAsync_Succeds()
 	{
 		var serverGroups = await client

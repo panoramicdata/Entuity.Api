@@ -9,6 +9,7 @@ using Entuity.Api.Models.ConfigurationData.Sets.Get;
 using Entuity.Api.Models.ConfigurationData.Sets.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Update;
 using Entuity.Api.Models.ConfigurationData.SummaryInformation.Get;
+using Entuity.Api.QueryParameters;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -290,6 +291,17 @@ public interface IConfiguration
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
 	public Task<Response<ConfigurationSetMember>> AddConfigurationSetMembersAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipAdd serverGroupMembership, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Add a server to a Configuration Set with a filter
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="serverGroupMembership"></param>
+	/// <param name="filter"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
+	public Task<Response<ConfigurationSetMember>> AddConfigurationSetMembersAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipAdd serverGroupMembership, [Query] ConfigurationSetMembershipAddFilter filter, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Remove a server group membership from a Configuration Set
