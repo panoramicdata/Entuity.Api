@@ -300,4 +300,13 @@ public interface IConfiguration
 	/// <returns></returns>
 	[Post("/api/cfg/serverGroupMembership/{serverGroupId}")]
 	public Task<Response<ConfigurationSetMember>> RemoveConfigurationSetMembersAsync(Guid serverGroupId, [Body] ConfigurationSetMembershipRemove serverGroupMembership, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Triggers the Synchronization of a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/cfg/serverGroupSync/{serverGroupId}")]
+	public Task<object> TriggerSyncOnConfigurationSetAsync(Guid serverGroupId, CancellationToken cancellationToken);
 }

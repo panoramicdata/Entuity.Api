@@ -809,4 +809,22 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		deleteResponse.Should().NotBeNull();
 		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
 	}
+
+	[Fact]
+	public async Task ConfigurationController_TriggerSyncOnConfigurationSetAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+		serverGroups.Should().NotBeNull();
+
+		foreach (var configSet in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.TriggerSyncOnConfigurationSetAsync(configSet.ServerGroupId, default);
+
+			response.Should().NotBeNull();
+		}
+	}
 }
