@@ -191,6 +191,27 @@ public interface IConfiguration
 	public Task<Response<ConfigurationSetUserGroup>> GetAllConfigurationSetUserGroupsAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Get a specific User Group associated with a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="userGroupName"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/userGroups/{userGroupName}")]
+	public Task<ConfigurationSetUserGroup> GetConfigurationSetUserGroupAsync(Guid serverGroupId, string userGroupName, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Update a user group in a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="userGroupName"></param>
+	/// <param name="userGroup"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/cfg/serverGroupConfig/{serverGroupId}/userGroups/{userGroupName}")]
+	public Task<ConfigurationSetUserGroup> UpdateConfigurationSetUserGroupAsync(Guid serverGroupId, string userGroupName, [Body] ConfigurationSetUserGroupMembershipUpdate userGroup, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get summary details about all Configuration Sets
 	/// </summary>
 	/// <param name="cancellationToken"></param>

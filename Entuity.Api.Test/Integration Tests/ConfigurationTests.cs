@@ -525,4 +525,86 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 			response.Should().NotBeNull();
 		}
 	}
+
+	[Fact]
+	public async Task ConfigurationController_GetConfigurationSetUserGroupAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var configSet in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.GetAllConfigurationSetUserGroupsAsync(configSet.ServerGroupId, default);
+
+			response.Should().NotBeNull();
+
+			var firstUserGroup = response.Items.FirstOrDefault();
+
+			firstUserGroup.Should().NotBeNull();
+
+			var userGroupResponse = await client
+				.Configuration
+				.GetConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup!.UserGroupName, default);
+
+			userGroupResponse.Should().NotBeNull();
+
+		}
+
+	}
+
+
+	[Fact]
+	public async Task ConfigurationController_UpdateConfigurationSetUserGroupAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var configSet in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.GetAllConfigurationSetUserGroupsAsync(configSet.ServerGroupId, default);
+
+			response.Should().NotBeNull();
+
+			var firstUserGroup = response.Items.FirstOrDefault();
+
+			firstUserGroup.Should().NotBeNull();
+
+			var userGroupResponse = await client
+				.Configuration
+				.GetConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup!.UserGroupName, default);
+
+			userGroupResponse.Should().NotBeNull();
+
+			// Hold the orignal members
+			var originalMembers = userGroupResponse.Members.ToList();
+
+			// Update the user group
+			var updateUserGroup = new ConfigurationSetUserGroupMembershipUpdate() { Members = ["a", "b"] };
+
+			var updateResponse = await client
+				.Configuration
+				.UpdateConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup.UserGroupName, updateUserGroup, default);
+
+			updateResponse.Should().NotBeNull();
+			updateResponse.Members.Should().NotBeNull();
+
+			// Revert
+			_ = await client
+				.Configuration
+				.UpdateConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup.UserGroupName, new ConfigurationSetUserGroupMembershipUpdate() { Members = originalMembers }, default);
+
+
+
+		}
+	}
 }
