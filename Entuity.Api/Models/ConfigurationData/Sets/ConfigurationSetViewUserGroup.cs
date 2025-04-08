@@ -1,6 +1,6 @@
 ﻿namespace Entuity.Api.Models.ConfigurationData.Sets;
 
-public class ConfigurationSetUserGroup
+public class ConfigurationSetViewUserGroup
 {
 	public string GroupName { get; set; } = string.Empty;
 

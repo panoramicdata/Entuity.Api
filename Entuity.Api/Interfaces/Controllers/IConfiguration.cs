@@ -182,6 +182,15 @@ public interface IConfiguration
 	#endregion
 
 	/// <summary>
+	/// Get all User Groups associated with a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupIdCancellationToken"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Get("/api/cfg/serverGroupConfig/{serverGroupId}/userGroups")]
+	public Task<Response<ConfigurationSetUserGroup>> GetAllConfigurationSetUserGroupsAsync(Guid serverGroupId, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get summary details about all Configuration Sets
 	/// </summary>
 	/// <param name="cancellationToken"></param>
