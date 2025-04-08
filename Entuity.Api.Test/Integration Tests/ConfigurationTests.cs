@@ -607,4 +607,73 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 
 		}
 	}
+
+	[Fact]
+	public async Task ConfigurationController_CreateConfigurationSetGroupMemberAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		var userGroups = await client
+			.Configuration
+			.GetAllConfigurationSetUserGroupsAsync(serverGroups.Items.First().ServerGroupId, default);
+
+		serverGroups.Should().NotBeNull();
+
+		var newUser = new ConfigurationSetUserGroupMemberCreate
+		{
+			Username = "TestUser"
+		};
+
+		var response = await client
+			.Configuration
+			.AddConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Delete user
+		_ = await client
+			.Configuration
+			.DeleteConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser.Username, default);
+	}
+
+	[Fact]
+	public async Task ConfigurationController_DeleteConfigurationSetGroupMemberAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		var userGroups = await client
+			.Configuration
+			.GetAllConfigurationSetUserGroupsAsync(serverGroups.Items.First().ServerGroupId, default);
+
+		serverGroups.Should().NotBeNull();
+
+		var newUser = new ConfigurationSetUserGroupMemberCreate
+		{
+			Username = "TestUser"
+		};
+
+		var response = await client
+			.Configuration
+			.AddConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Delete user
+		var deleteResponse = await client
+			.Configuration
+			.DeleteConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser.Username, default);
+
+		deleteResponse.Should().NotBeNull();
+		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
+	}
 }

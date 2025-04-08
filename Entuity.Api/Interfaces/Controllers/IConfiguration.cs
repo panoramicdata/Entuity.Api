@@ -212,6 +212,28 @@ public interface IConfiguration
 	public Task<ConfigurationSetUserGroup> UpdateConfigurationSetUserGroupAsync(Guid serverGroupId, string userGroupName, [Body] ConfigurationSetUserGroupMembershipUpdate userGroup, CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Add a user to a user group in a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="userGroupName"></param>
+	/// <param name="newUser"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/cfg/serverGroupConfig/{serverGroupId}/userGroups/{userGroupName}/members")]
+	public Task<ConfigurationChangeResponse> AddConfigurationSetUserGroupMemberAsync(Guid serverGroupId, string userGroupName, [Body] ConfigurationSetUserGroupMemberCreate newUser, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Delete a user from a user group from a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="userGroupName"></param>
+	/// <param name="memberName"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Delete("/api/cfg/serverGroupConfig/{serverGroupId}/userGroups/{userGroupName}/members/{memberName}")]
+	public Task<ConfigurationChangeResponse> DeleteConfigurationSetUserGroupMemberAsync(Guid serverGroupId, string userGroupName, string memberName, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get summary details about all Configuration Sets
 	/// </summary>
 	/// <param name="cancellationToken"></param>
