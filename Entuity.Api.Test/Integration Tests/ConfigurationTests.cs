@@ -356,6 +356,66 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task ConfigurationController_UpdateViewInConfigurationSetAsync_Succeeds()
+	{
+		var serverGroups = await client
+				.Configuration
+				.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		var newView = new ConfigurationSetViewCreate
+		{
+			ViewName = "TestView",
+			BaseViewType = 1,
+			BaseViewNames = ["All Objects"],
+			DomainFilter = "All Objects",
+			EventFilter = "All Events",
+			IncidentFilter = "All Incidents",
+
+		};
+
+		var firstGroup = serverGroups.Items.First();
+
+		var response = await client
+			.Configuration
+			.AddViewToConfigurationSetAsync(firstGroup.ServerGroupId, newView, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Get ID of the view
+
+		var viewResponse = await client
+			.Configuration
+			.GetAllConfigurationSetViewsAsync(firstGroup.ServerGroupId, default);
+
+		viewResponse.Should().NotBeNull();
+		viewResponse.Items.Should().NotBeNull();
+
+		var createdView = viewResponse.Items.FirstOrDefault(view => view.ViewName == newView.ViewName);
+
+		createdView.Should().NotBeNull();
+
+		// Update View
+		var viewUpdate = new ConfigurationSetViewUpdate
+		{
+			ViewName = "UpdatedTestView"
+		};
+
+		var updateResponse = await client
+			.Configuration
+			.UpdateViewInConfigurationSetAsync(firstGroup.ServerGroupId, createdView!.ViewUUID, viewUpdate, default);
+
+		updateResponse.Should().NotBeNull();
+
+		// Remove View from Configuration Set
+		_ = await client
+			.Configuration
+			.RemoveViewFromConfigurationSetAsync(firstGroup.ServerGroupId, updateResponse.ViewUUID, default);
+	}
+
+	[Fact]
 	public async Task ConfigurationController_GetAllConfigurationSetContentFiltersAsync_Succeeds()
 	{
 		var response = await client

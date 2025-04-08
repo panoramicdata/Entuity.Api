@@ -96,11 +96,22 @@ public interface IConfiguration
 	/// Removes a View from a Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>
-	/// <param name="viewName"></param>
+	/// <param name="viewNameOrViewId">Either the Name of the View or the View's UUID</param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
-	[Delete("/api/cfg/serverGroupConfig/{serverGroupId}/views/{viewName}")]
-	public Task<ConfigurationChangeResponse> RemoveViewFromConfigurationSetAsync(Guid serverGroupId, string viewName, CancellationToken cancellationToken);
+	[Delete("/api/cfg/serverGroupConfig/{serverGroupId}/views/{viewNameOrViewId}")]
+	public Task<ConfigurationChangeResponse> RemoveViewFromConfigurationSetAsync(Guid serverGroupId, string viewNameOrViewId, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Update a View in a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="viewId"></param>
+	/// <param name="view"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/cfg/serverGroupConfig/{serverGroupId}/views/{viewId}")]
+	public Task<ConfigurationSetView> UpdateViewInConfigurationSetAsync(Guid serverGroupId, string viewId, [Body] ConfigurationSetViewUpdate view, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get Users in a specific Configuration Set
