@@ -283,6 +283,79 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	}
 
 	[Fact]
+	public async Task ConfigurationController_AddViewToConfigurationSetAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		var newView = new ConfigurationSetViewCreate
+		{
+			ViewName = "TestView",
+			BaseViewType = 1,
+			BaseViewNames = ["All Objects"],
+			DomainFilter = "All Objects",
+			EventFilter = "All Events",
+			IncidentFilter = "All Incidents",
+
+		};
+
+		var firstGroup = serverGroups.Items.First();
+
+		var response = await client
+			.Configuration
+			.AddViewToConfigurationSetAsync(firstGroup.ServerGroupId, newView, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Remove View from Configuration Set
+		_ = await client
+			.Configuration
+			.RemoveViewFromConfigurationSetAsync(firstGroup.ServerGroupId, newView.ViewName, default);
+	}
+
+	[Fact]
+	public async Task ConfigurationController_RemoveViewFromConfigurationSetAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		var newView = new ConfigurationSetViewCreate
+		{
+			ViewName = "TestView",
+			BaseViewType = 1,
+			BaseViewNames = ["All Objects"],
+			DomainFilter = "All Objects",
+			EventFilter = "All Events",
+			IncidentFilter = "All Incidents",
+
+		};
+
+		var firstGroup = serverGroups.Items.First();
+
+		var response = await client
+			.Configuration
+			.AddViewToConfigurationSetAsync(firstGroup.ServerGroupId, newView, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain("SUCCESS");
+
+		// Remove View from Configuration Set
+		var removeResponse = await client
+			.Configuration
+			.RemoveViewFromConfigurationSetAsync(firstGroup.ServerGroupId, newView.ViewName, default);
+
+		removeResponse.Should().NotBeNull();
+		removeResponse.ErrorCode.Should().Contain("SUCCESS");
+	}
+
+	[Fact]
 	public async Task ConfigurationController_GetAllConfigurationSetContentFiltersAsync_Succeeds()
 	{
 		var response = await client

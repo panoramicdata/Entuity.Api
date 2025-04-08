@@ -83,6 +83,26 @@ public interface IConfiguration
 	public Task<Response<ConfigurationSetView>> GetAllConfigurationSetViewsAsync(Guid serverGroupId, CancellationToken cancellationToken);
 
 	/// <summary>
+	/// Adds a new View to a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="view"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/cfg/serverGroupConfig/{serverGroupId}/views")]
+	public Task<ConfigurationChangeResponse> AddViewToConfigurationSetAsync(Guid serverGroupId, [Body] ConfigurationSetViewCreate view, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Removes a View from a Configuration Set
+	/// </summary>
+	/// <param name="serverGroupId"></param>
+	/// <param name="viewName"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Delete("/api/cfg/serverGroupConfig/{serverGroupId}/views/{viewName}")]
+	public Task<ConfigurationChangeResponse> RemoveViewFromConfigurationSetAsync(Guid serverGroupId, string viewName, CancellationToken cancellationToken);
+
+	/// <summary>
 	/// Get Users in a specific Configuration Set
 	/// </summary>
 	/// <param name="serverGroupId"></param>

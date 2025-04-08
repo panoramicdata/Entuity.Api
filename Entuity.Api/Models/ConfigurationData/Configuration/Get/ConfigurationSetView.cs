@@ -50,8 +50,8 @@ public class ConfigurationSetView : IGetItem
 	/// </summary>
 	public string Owner { get; set; } = string.Empty;
 
-	/// <inheritdoc cref="ConfigurationSetViewUsergroup"/>
-	public IEnumerable<ConfigurationSetViewUsergroup> UserGroups { get; set; } = [];
+	/// <inheritdoc cref="ConfigurationSetViewUserGroup"/>
+	public IEnumerable<ConfigurationSetViewUserGroup> UserGroups { get; set; } = [];
 
 	/// <summary>
 	/// Longitude of the View's location, as specified for Geographical Map mode

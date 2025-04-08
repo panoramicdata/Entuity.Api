@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Entuity.Api.Models.ConfigurationData.Configuration;
+using System.Collections;
 
 namespace Entuity.Api.Models.ConfigurationData.Sets;
 
