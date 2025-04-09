@@ -856,4 +856,22 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 			response.Should().NotBeNull();
 		}
 	}
+
+	[Fact]
+	public async Task ConfigurationController_PopulateConfigurationSetDetailsAsync_Succeeds()
+	{
+		var serverGroups = await client
+			.Configuration
+			.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+
+		foreach (var configSet in serverGroups.Items)
+		{
+			var response = await client
+				.Configuration
+				.PopulateConfigurationSetDetailsAsync(configSet.ServerGroupId, new ConfigurationSetDetailedCreate(), default);
+			response.Should().NotBeNull();
+		}
+	}
 }

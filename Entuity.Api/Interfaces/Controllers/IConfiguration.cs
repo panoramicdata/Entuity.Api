@@ -68,11 +68,21 @@ public interface IConfiguration
 	/// <summary>
 	/// Get Details for a specific Configuration Set
 	/// </summary>
-	/// <param name="serverGroupId"></param>
+	/// <param name="ConfigurationsetId"></param>
 	/// <param name="cancellationToken"></param>
 	/// <returns></returns>
-	[Get("/api/cfg/serverGroupConfig/{serverGroupId}")]
-	public Task<ConfigurationSetDetailed> GetConfigurationSetDetailsAsync(Guid serverGroupId, CancellationToken cancellationToken);
+	[Get("/api/cfg/serverGroupConfig/{ConfigurationsetId}")]
+	public Task<ConfigurationSetDetailed> GetConfigurationSetDetailsAsync(Guid ConfigurationsetId, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Populate Details for a specific Configuration Set
+	/// </summary>
+	/// <param name="ConfigurationsetId"></param>
+	/// <param name="configurationSetCreate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/cfg/serverGroupConfig/{ConfigurationsetId}")]
+	public Task<ConfigurationSetDetailedCreateResponse> PopulateConfigurationSetDetailsAsync(Guid ConfigurationsetId, [Body] ConfigurationSetDetailedCreate configurationSetCreate, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Get all Views assigned to a specific Configuration Set
