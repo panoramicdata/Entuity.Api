@@ -1,4 +1,5 @@
 ﻿using Entuity.Api.Enums;
+using Entuity.Api.Models.EventsData.Post;
 using Entuity.Api.QueryParameters;
 using FluentAssertions;
 
@@ -6,6 +7,35 @@ namespace Entuity.Api.Test.Integration_Tests;
 
 public class EventTests(EntuityClient client) : TestFixture
 {
+	[Fact]
+	public async Task EventsController_CreateAsync_Succeeds()
+	{
+		var eventTypes = await client
+			.Events
+			.GetAllTypesAsync(default);
+
+		eventTypes.Should().NotBeNull();
+
+		// Create a new event
+		var randomGuid = Guid.NewGuid().ToString()[..5];
+		var newEvent = new EventCreate()
+		{
+			Reason = $"API test {randomGuid}",
+			Name = $"Event for Test {randomGuid}",
+			Source = $"Event Source for {randomGuid}",
+			EventTypeId = eventTypes.Items.First().Id,
+			ObjectKeyInfo = new() { SwId = 12345, CompId = new() { Ids = [4096, 0, 0, 0] } },
+			ExternalId = "12"
+		};
+
+		// Act
+		var result = await client
+			.Events
+			.CreateAsync(newEvent, default);
+
+		result.Should().NotBeNull();
+	}
+
 	[Fact]
 	public async Task EventsController_GetAllAsync_Succeeds()
 	{

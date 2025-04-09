@@ -1,5 +1,7 @@
 ﻿using Entuity.Api.Collections;
+using Entuity.Api.Models;
 using Entuity.Api.Models.EventsData.Get;
+using Entuity.Api.Models.EventsData.Post;
 using Entuity.Api.QueryParameters;
 using Refit;
 
@@ -30,6 +32,15 @@ public interface IEvents
 	/// <returns></returns>
 	[Get("/api/events")]
 	Task<EventsResponse> GetAllAsync([Query] EventsFilter parameters, CancellationToken cancellationToken);
+
+	/// <summary>
+	/// Create a new event
+	/// </summary>
+	/// <param name="eventCreate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Post("/api/events")]
+	Task<Message> CreateAsync([Body] EventCreate eventCreate, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Returns all Types of Events
