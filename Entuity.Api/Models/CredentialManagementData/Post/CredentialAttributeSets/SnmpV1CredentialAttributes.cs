@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSets;
 
 /// <summary>
-/// Holds the attributes for a new SSH Credential
+/// Holds the attributes for a new SNMPv1 Credential
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838476426525-Credential-Management-RESTful-API#post'/></para>
 /// </summary>
-public class NewSshCredentialAttributes : ICredentialAttributeSet
+public class SnmpV1CredentialAttributes : ICredentialAttributeSet
 {
-	/// <inheritdoc cref="CliAccessCredential"/>
-	[JsonPropertyName("CliAccessAttributes")]
-	public required CliAccessCredential CliAccessAttributes { get; set; }
+	/// <inheritdoc cref="SnmpV1Credential"/>
+	[JsonPropertyName("SnmpV1Attributes")]
+	public required SnmpV1Credential SnmpV1Attributes { get; set; }
 }

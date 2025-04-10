@@ -8,7 +8,7 @@ namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSe
 /// Holds the attributes for a new SNMPv3 Credential
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838476426525-Credential-Management-RESTful-API#post'/></para>
 /// </summary>
-public class NewSnmpV3CredentialAttributes : ICredentialAttributeSet
+public class SnmpV3CredentialAttributes : ICredentialAttributeSet
 {
 	/// <inheritdoc cref="SnmpV3Credential"/>
 	[JsonPropertyName("SnmpV3Attributes")]

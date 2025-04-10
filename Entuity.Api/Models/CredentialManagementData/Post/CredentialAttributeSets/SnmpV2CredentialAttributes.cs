@@ -5,12 +5,12 @@ using System.Text.Json.Serialization;
 namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSets;
 
 /// <summary>
-/// Holds the attributes for a new SNMPv1 Credential
+/// Holds the attributes for a new SNMPv2 Credential
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838476426525-Credential-Management-RESTful-API#post'/></para>
 /// </summary>
-public class NewSnmpV1CredentialAttributes : ICredentialAttributeSet
+public class SnmpV2CredentialAttributes : ICredentialAttributeSet
 {
-	/// <inheritdoc cref="SnmpV1Credential"/>
-	[JsonPropertyName("SnmpV1Attributes")]
-	public required SnmpV1Credential SnmpV1Attributes { get; set; }
+	/// <inheritdoc cref="SnmpV2Credential"/>
+	[JsonPropertyName("SnmpV2Attributes")]
+	public required SnmpV2Credential SnmpV2Attributes { get; set; }
 }

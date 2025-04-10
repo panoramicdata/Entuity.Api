@@ -2,6 +2,7 @@
 using Entuity.Api.Models;
 using Entuity.Api.Models.CredentialManagementData.Get;
 using Entuity.Api.Models.CredentialManagementData.Post;
+using Entuity.Api.Models.CredentialManagementData.Update;
 using Refit;
 
 namespace Entuity.Api.Interfaces.Controllers;
@@ -25,6 +26,19 @@ public interface ICredentialManagement
 	/// <returns></returns>
 	[Post("/api/credential")]
 	Task<Credential> CreateCredentialAsync<TCredentialAttributes>([Body] CredentialCreate<TCredentialAttributes> credentialCreate, CancellationToken cancellationToken)
+		where TCredentialAttributes : ICredentialAttributeSet;
+
+
+	/// <summary>
+	/// Updates a Credential by ID
+	/// </summary>
+	/// <typeparam name="TCredentialAttributes"></typeparam>
+	/// <param name="id"></param>
+	/// <param name="credentialUpdate"></param>
+	/// <param name="cancellationToken"></param>
+	/// <returns></returns>
+	[Put("/api/credential/{id}")]
+	Task<CredentialUpdateResponse> UpdateCredentialAsync<TCredentialAttributes>(int id, [Body] CredentialUpdate<TCredentialAttributes> credentialUpdate, CancellationToken cancellationToken)
 		where TCredentialAttributes : ICredentialAttributeSet;
 
 	/// <summary>

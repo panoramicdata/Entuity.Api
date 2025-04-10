@@ -8,7 +8,7 @@ namespace Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSe
 /// Holds the attributes for a new NaviSec Credential
 /// <para>See <a href='https://support.entuity.com/hc/en-us/articles/13838476426525-Credential-Management-RESTful-API#post'/></para>
 /// </summary>
-public class NewNaviSecCredentialAttributes : ICredentialAttributeSet
+public class NaviSecCredentialAttributes : ICredentialAttributeSet
 {
 	/// <inheritdoc cref="NaviSecCredential"/>
 	[JsonPropertyName("NaviSecAttributes")]
