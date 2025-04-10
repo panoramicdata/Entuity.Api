@@ -40,6 +40,7 @@ public class EntuityClient : IDisposable
 		Incidents = Refit<IIncidents>(refitSettings);
 		LicenseInformation = Refit<ILicenseInfo>(refitSettings);
 		Maintenance = Refit<IMaintenance>(refitSettings);
+		MerakiCloudControllers = Refit<IMerakiCloudControllers>(refitSettings);
 		OsServices = Refit<IOsServices>(refitSettings);
 		Objects = Refit<IObjects>(refitSettings);
 		Users = Refit<IUsers>(refitSettings);
@@ -84,6 +85,8 @@ public class EntuityClient : IDisposable
 	public ILicenseInfo LicenseInformation { get; set; }
 
 	public IMaintenance Maintenance { get; set; }
+
+	public IMerakiCloudControllers MerakiCloudControllers { get; set; }
 
 	public IOsServices OsServices { get; set; }
 
