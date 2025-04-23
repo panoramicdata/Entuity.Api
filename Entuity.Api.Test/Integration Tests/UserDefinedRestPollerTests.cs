@@ -1,4 +1,5 @@
-﻿using Entuity.Api.Models.UserDefinedRestPollersData.Post;
+﻿using Entuity.Api.Models.UserDefinedRestPollersData;
+using Entuity.Api.Models.UserDefinedRestPollersData.Post;
 using Entuity.Api.Models.UserDefinedRestPollersData.Update;
 using FluentAssertions;
 
@@ -332,5 +333,20 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 			.UserDefinedRestPollers
 			.DeleteAsync(pollerId, default);
 		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
+	}
+
+	[Fact]
+	public async Task UserDefinedRestPollersController_TestPollerAsync_Succeeds()
+	{
+		var testInformation = new RestPollerTestInformation()
+		{
+			Url = "https://localhost/api/service/1644"
+		};
+
+		var testResponse = await client
+			.UserDefinedRestPollers
+			.TestRestPollerAsync(testInformation, default);
+
+		testResponse.ReturnCode.Should().Be("OK");
 	}
 }

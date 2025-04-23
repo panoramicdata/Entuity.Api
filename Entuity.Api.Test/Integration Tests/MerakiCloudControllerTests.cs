@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
-public class MerakiCloudControllerTests(EntuityClient client)
+public class MerakiCloudControllerTests(EntuityClient client) : TestFixture
 {
 	[Fact]
 	public async Task MerakiCloudControllersController_GetAllAsync_Succeeds()
