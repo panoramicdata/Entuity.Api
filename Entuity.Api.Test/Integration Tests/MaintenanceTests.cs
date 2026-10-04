@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.MaintenanceData.Post;
+using Entuity.Api.Models.MaintenanceData.Post;
 using Entuity.Api.Models.MaintenanceData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class MaintenanceTests(EntuityClient client) : TestFixture

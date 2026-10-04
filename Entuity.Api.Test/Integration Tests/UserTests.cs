@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.UsersData.Post;
+using Entuity.Api.Models.UsersData.Post;
 using Entuity.Api.Models.UsersData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class UserTests(EntuityClient client) : TestFixture

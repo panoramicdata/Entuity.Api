@@ -1,7 +1,7 @@
-﻿using Entuity.Api.Enums;
+using Entuity.Api.Enums;
 using Entuity.Api.Models.EventsData.Post;
 using Entuity.Api.QueryParameters;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

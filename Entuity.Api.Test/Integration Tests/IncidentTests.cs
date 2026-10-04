@@ -1,7 +1,7 @@
-﻿using Entuity.Api.Enums;
+using Entuity.Api.Enums;
 using Entuity.Api.Models.IncidentsData.Update;
 using Entuity.Api.QueryParameters;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

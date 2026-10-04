@@ -1,7 +1,7 @@
-﻿using Entuity.Api.Models.ServicesData.Post;
+using Entuity.Api.Models.ServicesData.Post;
 using Entuity.Api.Models.ServicesData.Update;
 using Entuity.Api.QueryParameters;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

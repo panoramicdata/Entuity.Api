@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.OsServiceData.Post;
+using Entuity.Api.Models.OsServiceData.Post;
 using Entuity.Api.Models.OsServiceData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class OsServiceTests(EntuityClient client) : TestFixture

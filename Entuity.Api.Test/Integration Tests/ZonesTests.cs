@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.ZonesData.Post;
+using Entuity.Api.Models.ZonesData.Post;
 using Entuity.Api.Models.ZonesData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

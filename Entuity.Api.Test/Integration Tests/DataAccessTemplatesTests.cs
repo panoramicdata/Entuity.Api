@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models.DataAccessTemplatesData.Post;
-using FluentAssertions;
+using Entuity.Api.Models.DataAccessTemplatesData.Post;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class DataAccessTemplatesTests(EntuityClient client) : TestFixture

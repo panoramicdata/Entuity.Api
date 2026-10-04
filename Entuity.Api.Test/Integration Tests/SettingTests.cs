@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models.SettingsData.Update;
-using FluentAssertions;
+using Entuity.Api.Models.SettingsData.Update;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

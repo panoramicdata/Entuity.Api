@@ -1,7 +1,7 @@
-﻿using Entuity.Api.Models.UserDefinedRestPollersData;
+using Entuity.Api.Models.UserDefinedRestPollersData;
 using Entuity.Api.Models.UserDefinedRestPollersData.Post;
 using Entuity.Api.Models.UserDefinedRestPollersData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

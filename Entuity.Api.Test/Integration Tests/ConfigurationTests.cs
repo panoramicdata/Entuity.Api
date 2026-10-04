@@ -1,9 +1,9 @@
-﻿using Entuity.Api.Models.ConfigurationData.Configuration.Post;
+using Entuity.Api.Models.ConfigurationData.Configuration.Post;
 using Entuity.Api.Models.ConfigurationData.Configuration.Update;
 using Entuity.Api.Models.ConfigurationData.Servers.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Post;
 using Entuity.Api.Models.ConfigurationData.Sets.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

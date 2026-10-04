@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.ViewsData.Post;
+using Entuity.Api.Models.ViewsData.Post;
 using Entuity.Api.Models.ViewsData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class ViewTests(EntuityClient client) : TestFixture

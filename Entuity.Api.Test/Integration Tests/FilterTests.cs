@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.FiltersData.Post;
+using Entuity.Api.Models.FiltersData.Post;
 using Entuity.Api.Models.FiltersData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 

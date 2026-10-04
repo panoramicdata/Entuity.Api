@@ -1,5 +1,5 @@
-﻿using Entuity.Api.Models.UserGroupsData.Post;
-using FluentAssertions;
+using Entuity.Api.Models.UserGroupsData.Post;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class UserGroupTests(EntuityClient client) : TestFixture

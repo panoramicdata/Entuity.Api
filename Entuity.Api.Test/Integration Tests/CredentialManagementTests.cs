@@ -1,9 +1,9 @@
-﻿using Entuity.Api.Enums;
+using Entuity.Api.Enums;
 using Entuity.Api.Models.CredentialManagementData.CredentialTypes;
 using Entuity.Api.Models.CredentialManagementData.Post;
 using Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSets;
 using Entuity.Api.Models.CredentialManagementData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 public class CredentialManagementTests(EntuityClient client) : TestFixture

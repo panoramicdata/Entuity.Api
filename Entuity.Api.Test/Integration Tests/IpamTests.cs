@@ -1,6 +1,6 @@
-﻿using Entuity.Api.Models.IpamData.Post;
+using Entuity.Api.Models.IpamData.Post;
 using Entuity.Api.Models.IpamData.Update;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Entuity.Api.Test.Integration_Tests;
 
