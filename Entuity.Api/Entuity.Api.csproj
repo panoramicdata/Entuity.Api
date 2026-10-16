@@ -18,6 +18,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <AnalysisMode>All</AnalysisMode>
+    <NoWarn>$(NoWarn);CS1591;CS1573;CS1572;CS1574;CA1716;CA1311;CA1304</NoWarn>
     <Nullable>enable</Nullable>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

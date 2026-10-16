@@ -8,7 +8,7 @@ namespace Entuity.Api.Models.ConfigurationData.Configuration.Post;
 /// </summary>
 public class ConfigurationSetUserAdd
 {
-	// <summary>
+	/// <summary>
 	/// Username of a user in the config set
 	/// </summary>
 	public required string UserName { get; set; }

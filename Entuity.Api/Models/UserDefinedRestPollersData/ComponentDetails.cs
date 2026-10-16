@@ -10,27 +10,27 @@ public class ComponentDetails
 	/// <summary>
 	/// Name of the step. Must be unique within the poller and consists only of alphanumeric characters and underscores
 	/// </summary>
-	public string StepName { get; set; }
+	public required string StepName { get; set; }
 
 	/// <summary>
 	/// Example URL entered in the UI. Can be omitted or left blank for Rest API calls
 	/// </summary>
-	public string EndpointUrlSample { get; set; }
+	public required string EndpointUrlSample { get; set; }
 
 	/// <summary>
 	/// Host to connect to. Use "${host}" to automatically use the host of the device the poller is running under, or a fixed string to always connect to the same host
 	/// </summary>
-	public string Host { get; set; }
+	public required string Host { get; set; }
 
 	/// <summary>
 	/// Path part of the Rest API URL, including any query part and any interpolated values of the form ${placeholder}
 	/// </summary>
-	public string ApiPath { get; set; }
+	public required string ApiPath { get; set; }
 
 	/// <summary>
 	/// HTTP request method, either "GET" or "POST"
 	/// </summary>
-	public string MethodType { get; set; }
+	public required string MethodType { get; set; }
 
 	/// <summary>
 	/// Port number to connect to. Can be omitted for the default HTTP or HTTPS ports 80 / 443 based on the useSSL value
@@ -50,5 +50,5 @@ public class ComponentDetails
 	public string? PathToData { get; set; }
 
 	/// <inheritdoc cref="UserDefinedRestPollersData.AttributeMappings"/>
-	public AttributeMappings AttributeMappings { get; set; }
+	public required AttributeMappings AttributeMappings { get; set; }
 }
