@@ -28,6 +28,15 @@ public class AuthenticatedHttpClientHandler(EntuityClientOptions options) : Http
 		HttpRequestMessage request,
 		CancellationToken cancellationToken)
 	{
+		if (_options.IsReadOnly
+			&& request.Method != HttpMethod.Get
+			&& request.Method != HttpMethod.Head
+			&& request.Method != HttpMethod.Options)
+		{
+			throw new InvalidOperationException(
+				$"The client is read-only, so {request.Method} {request.RequestUri?.AbsolutePath} was not sent.");
+		}
+
 		// Generate a unique request id
 		var requestId = Guid.NewGuid();
 
