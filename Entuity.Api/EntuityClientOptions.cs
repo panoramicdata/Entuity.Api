@@ -26,6 +26,11 @@ public class EntuityClientOptions
 	public string? UserAgent { get; set; }
 
 	/// <summary>
+	/// When true, the client refuses every request other than GET, HEAD and OPTIONS, before it is sent. Defaults to false.
+	/// </summary>
+	public bool IsReadOnly { get; set; }
+
+	/// <summary>
 	/// An optional logger
 	/// </summary>
 	public ILogger? Logger { get; set; }
