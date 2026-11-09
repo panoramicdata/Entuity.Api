@@ -17,8 +17,8 @@
     <PackageVersion Include="xunit.analyzers" Version="2.2.0" />
     <PackageVersion Include="Xunit.DependencyInjection" Version="12.0.1" />
     <PackageVersion Include="Xunit.DependencyInjection.Logging" Version="12.0.0" />
-    <PackageVersion Include="xunit.v3" Version="4.0.2" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="4.0.2" />
+    <PackageVersion Include="xunit.v3" Version="4.0.3" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="4.0.3" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.12.0" />
   </ItemGroup>
 </Project>
