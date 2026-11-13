@@ -9,6 +9,8 @@
 Support for the REST API as documented here:
 https://support.entuity.com/hc/en-us/sections/360004560094-Entuity-RESTful-API
 
+Supports .NET 11.0.
+
 ## Example Usage
 ``` C#
 var entuityClient = new EntuityClient(new EntuityClientOptions
