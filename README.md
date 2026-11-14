@@ -6,6 +6,8 @@
 
 # Entuity.Api
 
+> **Need help with APIs or .NET?** Panoramic Data are experts in APIs and .NET, and we can help with your development. [Contact us](https://www.panoramicdata.com/contact-us) or see our [software services](https://www.panoramicdata.com/services/software).
+
 Support for the REST API as documented here:
 https://support.entuity.com/hc/en-us/sections/360004560094-Entuity-RESTful-API
 
