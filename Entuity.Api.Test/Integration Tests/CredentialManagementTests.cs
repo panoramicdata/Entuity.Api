@@ -1,4 +1,5 @@
 using Entuity.Api.Enums;
+using Entuity.Api.Interfaces;
 using Entuity.Api.Models.CredentialManagementData.CredentialTypes;
 using Entuity.Api.Models.CredentialManagementData.Post;
 using Entuity.Api.Models.CredentialManagementData.Post.CredentialAttributeSets;
@@ -11,9 +12,7 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_GetAllCredentialsAsync_ReturnsCredentials()
 	{
-		var response = await client
-			.CredentialManagement
-			.GetAllCredentialsAsync(default);
+		var response = await client.CredentialManagement.GetAllCredentialsAsync(default);
 
 		response.Should().NotBeNull();
 	}
@@ -21,91 +20,40 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv1Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV1CredentialAttributes
+		var id = await CreateCredentialAsync("SNMPv1 Test Credential", new SnmpV1CredentialAttributes
 		{
-			SnmpV1Attributes = new SnmpV1Credential
-			{
-				Community = "public",
-				WriteCommunity = "write"
-			}
-		};
+			SnmpV1Attributes = new SnmpV1Credential { Community = "public", WriteCommunity = "write" }
+		});
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<SnmpV1CredentialAttributes>
-			{
-				Name = "SNMPv1 Test Credential",
-				Attributes = newSnmpCredential
-			}, default);
-
-		response.Should().NotBeNull();
-
-		await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
+		await client.CredentialManagement.DeleteCredentialAsync(id, default);
 	}
 
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv2Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV2CredentialAttributes
+		var id = await CreateCredentialAsync("SNMPv2 Test Credential", new SnmpV2CredentialAttributes
 		{
-			SnmpV2Attributes = new SnmpV2Credential
-			{
-				Community = "public",
-				WriteCommunity = "write"
-			}
-		};
+			SnmpV2Attributes = new SnmpV2Credential { Community = "public", WriteCommunity = "write" }
+		});
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<SnmpV2CredentialAttributes>
-			{
-				Name = "SNMPv2 Test Credential",
-				Attributes = newSnmpCredential
-			}, default);
-
-		response.Should().NotBeNull();
-
-		await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
+		await client.CredentialManagement.DeleteCredentialAsync(id, default);
 	}
 
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv12Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV12CredentialAttributes
+		var id = await CreateCredentialAsync("SNMPv12 Test Credential", new SnmpV12CredentialAttributes
 		{
-			SnmpV12Attributes = new SnmpV12Credential
-			{
-				Community = "public",
-				WriteCommunity = "write"
-			}
-		};
+			SnmpV12Attributes = new SnmpV12Credential { Community = "public", WriteCommunity = "write" }
+		});
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<SnmpV12CredentialAttributes>
-			{
-				Name = "SNMPv12 Test Credential",
-				Attributes = newSnmpCredential
-			}, default);
-
-		response.Should().NotBeNull();
-
-		await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
+		await client.CredentialManagement.DeleteCredentialAsync(id, default);
 	}
 
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv3Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV3CredentialAttributes
+		var id = await CreateCredentialAsync("SNMPv12 Test Credential", new SnmpV3CredentialAttributes
 		{
 			SnmpV3Attributes = new SnmpV3Credential
 			{
@@ -115,28 +63,15 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 				EncryptionType = CredentialEncryptionType.None,
 				EncryptionPassword = "password"
 			}
-		};
+		});
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<SnmpV3CredentialAttributes>
-			{
-				Name = "SNMPv12 Test Credential",
-				Attributes = newSnmpCredential
-			}, default);
-
-		response.Should().NotBeNull();
-
-		await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
+		await client.CredentialManagement.DeleteCredentialAsync(id, default);
 	}
 
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_SshCredential_Succeeds()
 	{
-		var newSnmpCredential = new SshCredentialAttributes
+		var id = await CreateCredentialAsync("SNMPv12 Test Credential", new SshCredentialAttributes
 		{
 			CliAccessAttributes = new CliAccessCredential
 			{
@@ -145,124 +80,59 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 				Port = "22",
 				Password1 = "password",
 			}
-		};
+		});
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<SshCredentialAttributes>
-			{
-				Name = "SNMPv12 Test Credential",
-				Attributes = newSnmpCredential
-			}, default);
-
-		response.Should().NotBeNull();
-
-		await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
+		await client.CredentialManagement.DeleteCredentialAsync(id, default);
 	}
 
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CliCredential_Succeeds()
 	{
-		var newSnmpCredential = new NewCliCredentialAttributes
-		{
-			CliAccessAttributes = new CliAccessCredential
-			{
-				Method = CliAccessCredentialMethod.Ssh,
-				Username = "test",
-				Password1 = "password",
-			}
-		};
+		var id = await CreateCliCredentialAsync("Cli Test Credential", "test", "password");
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<NewCliCredentialAttributes>
-			{
-				Name = "Cli Test Credential",
-				Attributes = newSnmpCredential
-			}, default);
-
-		response.Should().NotBeNull();
-
-		await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
+		await client.CredentialManagement.DeleteCredentialAsync(id, default);
 	}
 
 	[Fact]
 	public async Task CredentialManagementController_DeleteCredentialAsync_Succeeds()
 	{
-		var newSnmpCredential = new NewCliCredentialAttributes
-		{
-			CliAccessAttributes = new CliAccessCredential
-			{
-				Method = CliAccessCredentialMethod.Ssh,
-				Username = "testusername",
-				Password1 = "passwordtest",
-			}
-		};
+		var id = await CreateCliCredentialAsync("Cli Test Credential 2", "testusername", "passwordtest");
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<NewCliCredentialAttributes>
-			{
-				Name = "Cli Test Credential 2",
-				Attributes = newSnmpCredential
-			}, default);
-
-		response.Should().NotBeNull();
-
-		var deleteResponse = await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
-
-		deleteResponse.Should().NotBeNull();
+		(await client.CredentialManagement.DeleteCredentialAsync(id, default)).Should().NotBeNull();
 	}
 
 	[Fact]
 	public async Task CredentialManagementController_UpdateCredentialAsync_Succeeds()
 	{
-		var newSnmpCredential = new NewCliCredentialAttributes
+		var id = await CreateCliCredentialAsync("Cli Test Credential 2", "testusername", "passwordtest");
+
+		var updateCredential = new CredentialUpdate<NewCliCredentialAttributes> { Name = "Updated Credential" };
+
+		(await client.CredentialManagement.UpdateCredentialAsync(id, updateCredential, default)).Should().NotBeNull();
+
+		(await client.CredentialManagement.DeleteCredentialAsync(id, default)).Should().NotBeNull();
+	}
+
+	private Task<int> CreateCliCredentialAsync(string name, string username, string password)
+		=> CreateCredentialAsync(name, new NewCliCredentialAttributes
 		{
 			CliAccessAttributes = new CliAccessCredential
 			{
 				Method = CliAccessCredentialMethod.Ssh,
-				Username = "testusername",
-				Password1 = "passwordtest",
+				Username = username,
+				Password1 = password,
 			}
-		};
+		});
 
-		var response = await client
-			.CredentialManagement
-			.CreateCredentialAsync(
-			new CredentialCreate<NewCliCredentialAttributes>
-			{
-				Name = "Cli Test Credential 2",
-				Attributes = newSnmpCredential
-			}, default);
-
-		// Update
-		var updateCredential = new CredentialUpdate<NewCliCredentialAttributes>
-		{
-			Name = "Updated Credential",
-		};
-
-		var updateResponse = await client
-			.CredentialManagement
-			.UpdateCredentialAsync(response.Id, updateCredential, default);
-
-		updateResponse.Should().NotBeNull();
+	private async Task<int> CreateCredentialAsync<TAttributes>(string name, TAttributes attributes)
+		where TAttributes : ICredentialAttributeSet
+	{
+		var response = await client.CredentialManagement.CreateCredentialAsync(
+			new CredentialCreate<TAttributes> { Name = name, Attributes = attributes },
+			default);
 
 		response.Should().NotBeNull();
 
-		var deleteResponse = await client
-			.CredentialManagement
-			.DeleteCredentialAsync(response.Id, default);
-
-		deleteResponse.Should().NotBeNull();
+		return response.Id;
 	}
 }

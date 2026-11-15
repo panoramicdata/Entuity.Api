@@ -9,546 +9,188 @@ namespace Entuity.Api.Test.Integration_Tests;
 
 public class ConfigurationTests(EntuityClient client) : TestFixture
 {
-	[Fact]
-	public async Task ConfigurationController_GetAllConfigurationSetsAsync_Succeeds()
-	{
-		var response = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		response.Should().NotBeNull();
-	}
+	private const string Success = "SUCCESS";
 
 	[Fact]
-	public async Task ConfigurationController_GetConfigurationSetAsync_Succeeds()
-	{
-		var response = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+	public Task ConfigurationController_GetAllConfigurationSetsAsync_Succeeds()
+		=> ForEachSetAsync(null);
 
-		response.Should().NotBeNull();
-
-		foreach (var serverGroup in response.Items)
-		{
-			var serverGroupResponse = await client
-				.Configuration
-				.GetConfigurationSetAsync(serverGroup.ServerGroupId, default);
-
-			serverGroupResponse.Should().NotBeNull();
-		}
-	}
+	[Fact]
+	public Task ConfigurationController_GetConfigurationSetAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetConfigurationSetAsync(id, default));
 
 	[Fact]
 	public async Task ConfigurationController_CreateConfigurationSetAsync_Succeeds()
 	{
-		var serverGroup = new ConfigurationSetCreate
-		{
-			ServerGroupName = "Test Server Group",
-		};
+		var id = await CreateSetAsync();
 
-		var response = await client
-			.Configuration
-			.CreateConfigurationSetAsync(serverGroup, default);
-
-		response.Should().NotBeNull();
-
-		// Attempt Delete
-		_ = await client
-			.Configuration
-			.DeleteConfigurationSetAsync(response.ServerGroupId, default);
+		_ = await client.Configuration.DeleteConfigurationSetAsync(id, default);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_DeleteConfigurationSetAsync_Succeeds()
 	{
-		var configSet = new ConfigurationSetCreate
-		{
-			ServerGroupName = "Test Server Group",
-		};
+		var id = await CreateSetAsync();
 
-		var response = await client
-			.Configuration
-			.CreateConfigurationSetAsync(configSet, default);
-
-		response.Should().NotBeNull();
-
-		// Attempt Delete
-		var deleteResponse = await client
-			.Configuration
-			.DeleteConfigurationSetAsync(response.ServerGroupId, default);
-
-		deleteResponse.Should().NotBeNull();
-		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
+		(await client.Configuration.DeleteConfigurationSetAsync(id, default)).ErrorCode.Should().Contain(Success);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_UpdateConfigurationSetAsync_Succeeds()
 	{
-		var configSet = new ConfigurationSetCreate
-		{
-			ServerGroupName = "Test Server Group",
-		};
+		var id = await CreateSetAsync();
 
-		var response = await client
-			.Configuration
-			.CreateConfigurationSetAsync(configSet, default);
-
-		response.Should().NotBeNull();
-
-		// Attempt Update
-		var updateResponse = await client
-			.Configuration
-			.UpdateConfigurationSetAsync(response.ServerGroupId, new ConfigurationSetUpdate
-			{
-				ServerGroupName = "Updated Server Group",
-			}, default);
+		var updateResponse = await client.Configuration.UpdateConfigurationSetAsync(
+			id,
+			new ConfigurationSetUpdate { ServerGroupName = "Updated Server Group" },
+			default);
 
 		updateResponse.Should().NotBeNull();
 		updateResponse.ServerGroupName.Should().Be("Updated Server Group");
 
-		// Attempt Delete
-		var deleteResponse = await client
-			.Configuration
-			.DeleteConfigurationSetAsync(response.ServerGroupId, default);
-
-		deleteResponse.Should().NotBeNull();
-		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
+		(await client.Configuration.DeleteConfigurationSetAsync(id, default)).ErrorCode.Should().Contain(Success);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_GetServerGroupUsersAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var groupId = await FirstSetIdAsync();
 
-		serverGroups.Should().NotBeNull();
-		serverGroups.Count.Should().BePositive();
-
-		// Get first server Group
-		var serverGroup = serverGroups.Items.First();
-		var response = await client
-			.Configuration
-			.GetConfigurationSetUsersAsync(serverGroup.ServerGroupId, default);
-		response.Should().NotBeNull();
+		(await client.Configuration.GetConfigurationSetUsersAsync(groupId, default)).Should().NotBeNull();
 	}
 
 	[Fact]
 	public async Task ConfigurationController_CreateUserOnServerGroupAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var (groupId, user) = await AddUserAsync("TestUser", "TestPassword");
 
-		serverGroups.Should().NotBeNull();
-		serverGroups.Count.Should().BePositive();
-
-		// Get first server Group
-		var serverGroup = serverGroups.Items.First();
-
-		var newUser = new ConfigurationSetUserAdd
-		{
-			UserName = "TestUser",
-			Password = "TestPassword"
-		};
-
-		var response = await client
-			.Configuration
-			.AddUserToConfigurationSetAsync(serverGroup.ServerGroupId, newUser, default);
-
-		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
-
-		// Attempt Delete
-
-		_ = await client
-			.Configuration
-			.RemoveUserFromConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, default);
+		_ = await client.Configuration.RemoveUserFromConfigurationSetAsync(groupId, user, default);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_UpdateUserInConfigurationSetAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var (groupId, user) = await AddUserAsync("TestUser", "TestPassword");
 
-		serverGroups.Should().NotBeNull();
-		serverGroups.Count.Should().BePositive();
-
-		// Get first server Group
-		var serverGroup = serverGroups.Items.First();
-
-		var newUser = new ConfigurationSetUserAdd
-		{
-			UserName = "TestUser",
-			Password = "TestPassword"
-		};
-
-		var response = await client
-			.Configuration
-			.AddUserToConfigurationSetAsync(serverGroup.ServerGroupId, newUser, default);
-
-		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
-
-		// Update
-		var update = new ConfigurationSetUserUpdate
-		{
-			Password = "UpdatedPassword"
-		};
-
-		var updateResponse = await client
-			.Configuration
-			.UpdateUserInConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, update, default);
+		var updateResponse = await client.Configuration.UpdateUserInConfigurationSetAsync(
+			groupId,
+			user,
+			new ConfigurationSetUserUpdate { Password = "UpdatedPassword" },
+			default);
 
 		updateResponse.Should().NotBeNull();
 
-		// Attempt Delete
-		_ = await client
-			.Configuration
-			.RemoveUserFromConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, default);
+		_ = await client.Configuration.RemoveUserFromConfigurationSetAsync(groupId, user, default);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_DeleteUserOnServerGroupAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var (groupId, user) = await AddUserAsync("TestUser2", "TestPassword2");
 
-		serverGroups.Should().NotBeNull();
-		serverGroups.Count.Should().BePositive();
+		var deleteResponse = await client.Configuration.RemoveUserFromConfigurationSetAsync(groupId, user, default);
 
-		// Get first server Group
-		var serverGroup = serverGroups.Items.First();
-
-		var newUser = new ConfigurationSetUserAdd
-		{
-			UserName = "TestUser2",
-			Password = "TestPassword2"
-		};
-
-		var response = await client
-			.Configuration
-			.AddUserToConfigurationSetAsync(serverGroup.ServerGroupId, newUser, default);
-
-		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
-
-		// Attempt Delete
-
-		var deleteResponse = await client
-			.Configuration
-			.RemoveUserFromConfigurationSetAsync(serverGroup.ServerGroupId, newUser.UserName, default);
-
-		deleteResponse.Should().NotBeNull();
-		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
+		deleteResponse.ErrorCode.Should().Contain(Success);
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetConfigurationSetDetailsAsync_Succeeds()
-	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-		foreach (var serverGroup in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.GetConfigurationSetDetailsAsync(serverGroup.ServerGroupId, default);
-
-			response.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_GetConfigurationSetDetailsAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetConfigurationSetDetailsAsync(id, default));
 
 	[Fact]
-	public async Task ConfigurationController_GetConfigurationSetViews_Succeeds()
-	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var serverGroup in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.GetAllConfigurationSetViewsAsync(serverGroup.ServerGroupId, default);
-			response.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_GetConfigurationSetViews_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetAllConfigurationSetViewsAsync(id, default));
 
 	[Fact]
 	public async Task ConfigurationController_AddViewToConfigurationSetAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var (groupId, view) = await AddViewAsync();
 
-		serverGroups.Should().NotBeNull();
-
-		var newView = new ConfigurationSetViewCreate
-		{
-			ViewName = "TestView",
-			BaseViewType = 1,
-			BaseViewNames = ["All Objects"],
-			DomainFilter = "All Objects",
-			EventFilter = "All Events",
-			IncidentFilter = "All Incidents",
-
-		};
-
-		var firstGroup = serverGroups.Items.First();
-
-		var response = await client
-			.Configuration
-			.AddViewToConfigurationSetAsync(firstGroup.ServerGroupId, newView, default);
-
-		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
-
-		// Remove View from Configuration Set
-		_ = await client
-			.Configuration
-			.RemoveViewFromConfigurationSetAsync(firstGroup.ServerGroupId, newView.ViewName, default);
+		_ = await client.Configuration.RemoveViewFromConfigurationSetAsync(groupId, view.ViewName, default);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_RemoveViewFromConfigurationSetAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var (groupId, view) = await AddViewAsync();
 
-		serverGroups.Should().NotBeNull();
+		var removeResponse = await client.Configuration.RemoveViewFromConfigurationSetAsync(groupId, view.ViewName, default);
 
-		var newView = new ConfigurationSetViewCreate
-		{
-			ViewName = "TestView",
-			BaseViewType = 1,
-			BaseViewNames = ["All Objects"],
-			DomainFilter = "All Objects",
-			EventFilter = "All Events",
-			IncidentFilter = "All Incidents",
-
-		};
-
-		var firstGroup = serverGroups.Items.First();
-
-		var response = await client
-			.Configuration
-			.AddViewToConfigurationSetAsync(firstGroup.ServerGroupId, newView, default);
-
-		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
-
-		// Remove View from Configuration Set
-		var removeResponse = await client
-			.Configuration
-			.RemoveViewFromConfigurationSetAsync(firstGroup.ServerGroupId, newView.ViewName, default);
-
-		removeResponse.Should().NotBeNull();
-		removeResponse.ErrorCode.Should().Contain("SUCCESS");
+		removeResponse.ErrorCode.Should().Contain(Success);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_UpdateViewInConfigurationSetAsync_Succeeds()
 	{
-		var serverGroups = await client
-				.Configuration
-				.GetAllConfigurationSetsAsync(default);
+		var (groupId, view) = await AddViewAsync();
 
-		serverGroups.Should().NotBeNull();
-
-		var newView = new ConfigurationSetViewCreate
-		{
-			ViewName = "TestView",
-			BaseViewType = 1,
-			BaseViewNames = ["All Objects"],
-			DomainFilter = "All Objects",
-			EventFilter = "All Events",
-			IncidentFilter = "All Incidents",
-
-		};
-
-		var firstGroup = serverGroups.Items.First();
-
-		var response = await client
-			.Configuration
-			.AddViewToConfigurationSetAsync(firstGroup.ServerGroupId, newView, default);
-
-		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
-
-		// Get ID of the view
-
-		var viewResponse = await client
-			.Configuration
-			.GetAllConfigurationSetViewsAsync(firstGroup.ServerGroupId, default);
+		var viewResponse = await client.Configuration.GetAllConfigurationSetViewsAsync(groupId, default);
 
 		viewResponse.Should().NotBeNull();
 		viewResponse.Items.Should().NotBeNull();
 
-		var createdView = viewResponse.Items.FirstOrDefault(view => view.ViewName == newView.ViewName);
+		var createdView = viewResponse.Items.FirstOrDefault(v => v.ViewName == view.ViewName);
 
 		createdView.Should().NotBeNull();
 
-		// Update View
-		var viewUpdate = new ConfigurationSetViewUpdate
-		{
-			ViewName = "UpdatedTestView"
-		};
-
-		var updateResponse = await client
-			.Configuration
-			.UpdateViewInConfigurationSetAsync(firstGroup.ServerGroupId, createdView!.ViewUUID, viewUpdate, default);
+		var updateResponse = await client.Configuration.UpdateViewInConfigurationSetAsync(
+			groupId,
+			createdView!.ViewUUID,
+			new ConfigurationSetViewUpdate { ViewName = "UpdatedTestView" },
+			default);
 
 		updateResponse.Should().NotBeNull();
 
-		// Remove View from Configuration Set
-		_ = await client
-			.Configuration
-			.RemoveViewFromConfigurationSetAsync(firstGroup.ServerGroupId, updateResponse.ViewUUID, default);
+		_ = await client.Configuration.RemoveViewFromConfigurationSetAsync(groupId, updateResponse.ViewUUID, default);
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetAllConfigurationSetContentFiltersAsync_Succeeds()
-	{
-		var response = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		response.Should().NotBeNull();
-		response.Items.Should().NotBeNull();
-
-		foreach (var configSet in response.Items)
-		{
-			var contentFilters = await client
-				.Configuration
-				.GetAllConfigurationSetContentFiltersAsync(configSet.ServerGroupId, default);
-
-			contentFilters.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_GetAllConfigurationSetContentFiltersAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetAllConfigurationSetContentFiltersAsync(id, default));
 
 	[Fact]
 	public async Task ConfigurationController_AddOrUpdateConfigurationSetContentFilterAsync_Succeeds()
 	{
-		var guid = Guid.NewGuid().ToString();
+		var groupId = await FirstSetIdAsync();
 
-		var newContentFilter = new ConfigurationSetContentFilterCreate
-		{
-			Name = $"Test Filter {guid}"
-		};
-
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-		serverGroups.Items.Should().NotBeNull();
-
-		var firstGroup = serverGroups.Items.First();
-
-		var response = await client
-			.Configuration
-			.AddOrUpdateConfigurationSetContentFilterAsync(firstGroup.ServerGroupId, newContentFilter, default);
+		var response = await client.Configuration.AddOrUpdateConfigurationSetContentFilterAsync(
+			groupId,
+			new ConfigurationSetContentFilterCreate { Name = FilterName() },
+			default);
 
 		response.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetAllConfigurationSetIncidentFiltersAsync_Succeeds()
-	{
-		var response = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		response.Should().NotBeNull();
-		response.Items.Should().NotBeNull();
-
-		foreach (var configSet in response.Items)
-		{
-			var contentFilters = await client
-				.Configuration
-				.GetAllConfigurationSetIncidentFiltersAsync(configSet.ServerGroupId, default);
-
-			contentFilters.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_GetAllConfigurationSetIncidentFiltersAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetAllConfigurationSetIncidentFiltersAsync(id, default));
 
 	[Fact]
 	public async Task ConfigurationController_AddOrUpdateConfigurationSetIncidentFilterAsync_Succeeds()
 	{
-		var guid = Guid.NewGuid().ToString();
+		var groupId = await FirstSetIdAsync();
 
-		var newContentFilter = new ConfigurationSetIncidentFilterCreate
-		{
-			Name = $"Test Filter {guid}"
-		};
-
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-		serverGroups.Items.Should().NotBeNull();
-
-		var firstGroup = serverGroups.Items.First();
-
-		var response = await client
-			.Configuration
-			.AddOrUpdateConfigurationSetIncidentFilterAsync(firstGroup.ServerGroupId, newContentFilter, default);
+		var response = await client.Configuration.AddOrUpdateConfigurationSetIncidentFilterAsync(
+			groupId,
+			new ConfigurationSetIncidentFilterCreate { Name = FilterName() },
+			default);
 
 		response.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetAllConfigurationSetEventFiltersAsync_Succeeds()
-	{
-		var response = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		response.Should().NotBeNull();
-		response.Items.Should().NotBeNull();
-
-		foreach (var configSet in response.Items)
-		{
-			var contentFilters = await client
-				.Configuration
-				.GetAllConfigurationSetEventFiltersAsync(configSet.ServerGroupId, default);
-
-			contentFilters.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_GetAllConfigurationSetEventFiltersAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetAllConfigurationSetEventFiltersAsync(id, default));
 
 	[Fact]
 	public async Task ConfigurationController_AddOrUpdateConfigurationSetEventFilterAsync_Succeeds()
 	{
-		var guid = Guid.NewGuid().ToString();
+		var groupId = await FirstSetIdAsync();
 
-		var newContentFilter = new ConfigurationSetEventFilterCreate
-		{
-			Name = $"Test Filter {guid}"
-		};
-
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-		serverGroups.Items.Should().NotBeNull();
-
-		var firstGroup = serverGroups.Items.First();
-
-		var response = await client
-			.Configuration
-			.AddOrUpdateConfigurationSetEventFilterAsync(firstGroup.ServerGroupId, newContentFilter, default);
+		var response = await client.Configuration.AddOrUpdateConfigurationSetEventFilterAsync(
+			groupId,
+			new ConfigurationSetEventFilterCreate { Name = FilterName() },
+			default);
 
 		response.Should().NotBeNull();
 	}
@@ -556,322 +198,225 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ConfigurationController_GetConfigurationSetSummaryInfoAsync_Succeeds()
 	{
-		var response = await client
-		.Configuration
-		.GetConfigurationSetSummaryInfoAsync(default);
+		var response = await client.Configuration.GetConfigurationSetSummaryInfoAsync(default);
 
 		response.Should().NotBeNull();
 	}
 
 	[Fact]
-	public async Task ConfigurationController_GetServerGroupMembershipsAsync_Succeds()
-	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var serverGroup in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
-
-			response.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_GetServerGroupMembershipsAsync_Succeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetConfigurationSetMembershipsAsync(id, default));
 
 	[Fact]
-	public async Task ConfigurationController_AddServerGroupMembershipsAsync_Succeds()
-	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var serverGroup in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
-
-			response.Should().NotBeNull();
-
-			// Add server to a group
-			var addResponse = await client
-				.Configuration
-				.AddConfigurationSetMembersAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipAdd
-				{
-					MembersAdded = [Guid.NewGuid()]
-				}, default);
-
-			addResponse.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_AddServerGroupMembershipsAsync_Succeds()
+		=> ForEachSetAfterMembershipsAsync(async id => await client.Configuration.AddConfigurationSetMembersAsync(
+			id,
+			new ConfigurationSetMembershipAdd { MembersAdded = [Guid.NewGuid()] },
+			default));
 
 	[Fact]
-	public async Task ConfigurationController_AddServerGroupMembershipsAsyncWithFilter_Succeds()
-	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var serverGroup in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
-
-			response.Should().NotBeNull();
-
-			// Add server to a group
-			var addResponse = await client
-				.Configuration
-				.AddConfigurationSetMembersAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipAdd
-				{
-					MembersAdded = [Guid.NewGuid()]
-				}, new() { ForceControl = true }, default);
-
-			addResponse.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_AddServerGroupMembershipsAsyncWithFilter_Succeds()
+		=> ForEachSetAfterMembershipsAsync(async id => await client.Configuration.AddConfigurationSetMembersAsync(
+			id,
+			new ConfigurationSetMembershipAdd { MembersAdded = [Guid.NewGuid()] },
+			new() { ForceControl = true },
+			default));
 
 	[Fact]
-	public async Task ConfigurationController_RemoveServerGroupMembershipsAsync_Succeds()
-	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var serverGroup in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.GetConfigurationSetMembershipsAsync(serverGroup.ServerGroupId, default);
-
-			response.Should().NotBeNull();
-
-			// Add server to a group
-			var addResponse = await client
-				.Configuration
-				.RemoveConfigurationSetMembersAsync(serverGroup.ServerGroupId, new ConfigurationSetMembershipRemove
-				{
-					MembersRemoved = [Guid.NewGuid()]
-				}, default);
-
-			addResponse.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_RemoveServerGroupMembershipsAsync_Succeds()
+		=> ForEachSetAfterMembershipsAsync(async id => await client.Configuration.RemoveConfigurationSetMembersAsync(
+			id,
+			new ConfigurationSetMembershipRemove { MembersRemoved = [Guid.NewGuid()] },
+			default));
 
 	[Fact]
-	public async Task ConfigurationController_GetAllConfigurationSetUserGroupsAsync_Succeeds()
-	{
-		var serverGroups = await client
-		.Configuration
-		.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var configSet in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.GetAllConfigurationSetUserGroupsAsync(configSet.ServerGroupId, default);
-
-			response.Should().NotBeNull();
-		}
-	}
+	public Task ConfigurationController_GetAllConfigurationSetUserGroupsAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.GetAllConfigurationSetUserGroupsAsync(id, default));
 
 	[Fact]
 	public async Task ConfigurationController_GetConfigurationSetUserGroupAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var configSet in serverGroups.Items)
+		foreach (var configSet in await AllSetsAsync())
 		{
-			var response = await client
-				.Configuration
-				.GetAllConfigurationSetUserGroupsAsync(configSet.ServerGroupId, default);
+			var firstUserGroup = await FirstUserGroupAsync(configSet.ServerGroupId);
 
-			response.Should().NotBeNull();
-
-			var firstUserGroup = response.Items.FirstOrDefault();
-
-			firstUserGroup.Should().NotBeNull();
-
-			var userGroupResponse = await client
-				.Configuration
-				.GetConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup!.UserGroupName, default);
-
-			userGroupResponse.Should().NotBeNull();
-
+			(await client.Configuration.GetConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup, default))
+				.Should().NotBeNull();
 		}
-
 	}
-
 
 	[Fact]
 	public async Task ConfigurationController_UpdateConfigurationSetUserGroupAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-
-		serverGroups.Should().NotBeNull();
-
-		foreach (var configSet in serverGroups.Items)
+		foreach (var configSet in await AllSetsAsync())
 		{
-			var response = await client
-				.Configuration
-				.GetAllConfigurationSetUserGroupsAsync(configSet.ServerGroupId, default);
+			var groupId = configSet.ServerGroupId;
+			var userGroup = await FirstUserGroupAsync(groupId);
 
-			response.Should().NotBeNull();
-
-			var firstUserGroup = response.Items.FirstOrDefault();
-
-			firstUserGroup.Should().NotBeNull();
-
-			var userGroupResponse = await client
-				.Configuration
-				.GetConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup!.UserGroupName, default);
+			var userGroupResponse = await client.Configuration.GetConfigurationSetUserGroupAsync(groupId, userGroup, default);
 
 			userGroupResponse.Should().NotBeNull();
 
-			// Hold the orignal members
 			var originalMembers = userGroupResponse.Members.ToList();
 
-			// Update the user group
-			var updateUserGroup = new ConfigurationSetUserGroupMembershipUpdate { Members = ["a", "b"] };
-
-			var updateResponse = await client
-				.Configuration
-				.UpdateConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup.UserGroupName, updateUserGroup, default);
+			var updateResponse = await client.Configuration.UpdateConfigurationSetUserGroupAsync(
+				groupId,
+				userGroup,
+				new ConfigurationSetUserGroupMembershipUpdate { Members = ["a", "b"] },
+				default);
 
 			updateResponse.Should().NotBeNull();
 			updateResponse.Members.Should().NotBeNull();
 
-			// Revert
-			_ = await client
-				.Configuration
-				.UpdateConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup.UserGroupName, new ConfigurationSetUserGroupMembershipUpdate { Members = originalMembers }, default);
-
-
-
+			_ = await client.Configuration.UpdateConfigurationSetUserGroupAsync(
+				groupId,
+				userGroup,
+				new ConfigurationSetUserGroupMembershipUpdate { Members = originalMembers },
+				default);
 		}
 	}
 
 	[Fact]
 	public async Task ConfigurationController_CreateConfigurationSetGroupMemberAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var (groupId, userGroup, username) = await AddUserGroupMemberAsync();
 
-		serverGroups.Should().NotBeNull();
-
-		var userGroups = await client
-			.Configuration
-			.GetAllConfigurationSetUserGroupsAsync(serverGroups.Items.First().ServerGroupId, default);
-
-		serverGroups.Should().NotBeNull();
-
-		var newUser = new ConfigurationSetUserGroupMemberCreate
-		{
-			Username = "TestUser"
-		};
-
-		var response = await client
-			.Configuration
-			.AddConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser, default);
-
-		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
-
-		// Delete user
-		_ = await client
-			.Configuration
-			.DeleteConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser.Username, default);
+		_ = await client.Configuration.DeleteConfigurationSetUserGroupMemberAsync(groupId, userGroup, username, default);
 	}
 
 	[Fact]
 	public async Task ConfigurationController_DeleteConfigurationSetGroupMemberAsync_Succeeds()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var (groupId, userGroup, username) = await AddUserGroupMemberAsync();
+
+		var deleteResponse = await client.Configuration.DeleteConfigurationSetUserGroupMemberAsync(groupId, userGroup, username, default);
+
+		deleteResponse.ErrorCode.Should().Contain(Success);
+	}
+
+	[Fact]
+	public Task ConfigurationController_TriggerSyncOnConfigurationSetAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.TriggerSyncOnConfigurationSetAsync(id, default));
+
+	[Fact]
+	public Task ConfigurationController_PopulateConfigurationSetDetailsAsync_Succeeds()
+		=> ForEachSetAsync(async id => await client.Configuration.PopulateConfigurationSetDetailsAsync(id, new ConfigurationSetDetailedCreate(), default));
+
+	private static string FilterName() => $"Test Filter {Guid.NewGuid()}";
+
+	private async Task<IReadOnlyList<Models.ConfigurationData.Sets.Get.ConfigurationSet>> AllSetsAsync()
+	{
+		var serverGroups = await client.Configuration.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
+		serverGroups.Items.Should().NotBeNull();
 
-		var userGroups = await client
-			.Configuration
-			.GetAllConfigurationSetUserGroupsAsync(serverGroups.Items.First().ServerGroupId, default);
+		return [.. serverGroups.Items];
+	}
 
-		serverGroups.Should().NotBeNull();
-
-		var newUser = new ConfigurationSetUserGroupMemberCreate
+	private async Task ForEachSetAsync(Func<Guid, Task<object>>? call)
+	{
+		foreach (var configSet in await AllSetsAsync())
 		{
-			Username = "TestUser"
-		};
+			if (call is not null)
+			{
+				(await call(configSet.ServerGroupId)).Should().NotBeNull();
+			}
+		}
+	}
 
-		var response = await client
-			.Configuration
-			.AddConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser, default);
+	private async Task ForEachSetAfterMembershipsAsync(Func<Guid, Task<object>> call)
+	{
+		foreach (var configSet in await AllSetsAsync())
+		{
+			(await client.Configuration.GetConfigurationSetMembershipsAsync(configSet.ServerGroupId, default)).Should().NotBeNull();
+
+			(await call(configSet.ServerGroupId)).Should().NotBeNull();
+		}
+	}
+
+	private async Task<Guid> FirstSetIdAsync()
+	{
+		var serverGroups = await client.Configuration.GetAllConfigurationSetsAsync(default);
+
+		serverGroups.Should().NotBeNull();
+		serverGroups.Count.Should().BePositive();
+
+		return serverGroups.Items.First().ServerGroupId;
+	}
+
+	private async Task<string> FirstUserGroupAsync(Guid groupId)
+	{
+		var response = await client.Configuration.GetAllConfigurationSetUserGroupsAsync(groupId, default);
 
 		response.Should().NotBeNull();
-		response.ErrorCode.Should().Contain("SUCCESS");
 
-		// Delete user
-		var deleteResponse = await client
-			.Configuration
-			.DeleteConfigurationSetUserGroupMemberAsync(serverGroups.Items.First().ServerGroupId, userGroups.Items.First().UserGroupName, newUser.Username, default);
+		var firstUserGroup = response.Items.FirstOrDefault();
 
-		deleteResponse.Should().NotBeNull();
-		deleteResponse.ErrorCode.Should().Contain("SUCCESS");
+		firstUserGroup.Should().NotBeNull();
+
+		return firstUserGroup!.UserGroupName;
 	}
 
-	[Fact]
-	public async Task ConfigurationController_TriggerSyncOnConfigurationSetAsync_Succeeds()
+	private async Task<Guid> CreateSetAsync()
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
-		serverGroups.Should().NotBeNull();
+		var response = await client.Configuration.CreateConfigurationSetAsync(
+			new ConfigurationSetCreate { ServerGroupName = "Test Server Group" },
+			default);
 
-		foreach (var configSet in serverGroups.Items)
-		{
-			var response = await client
-				.Configuration
-				.TriggerSyncOnConfigurationSetAsync(configSet.ServerGroupId, default);
+		response.Should().NotBeNull();
 
-			response.Should().NotBeNull();
-		}
+		return response.ServerGroupId;
 	}
 
-	[Fact]
-	public async Task ConfigurationController_PopulateConfigurationSetDetailsAsync_Succeeds()
+	private async Task<(Guid GroupId, string UserName)> AddUserAsync(string userName, string password)
 	{
-		var serverGroups = await client
-			.Configuration
-			.GetAllConfigurationSetsAsync(default);
+		var groupId = await FirstSetIdAsync();
 
-		serverGroups.Should().NotBeNull();
+		var response = await client.Configuration.AddUserToConfigurationSetAsync(
+			groupId,
+			new ConfigurationSetUserAdd { UserName = userName, Password = password },
+			default);
 
-		foreach (var configSet in serverGroups.Items)
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain(Success);
+
+		return (groupId, userName);
+	}
+
+	private async Task<(Guid GroupId, ConfigurationSetViewCreate View)> AddViewAsync()
+	{
+		var groupId = await FirstSetIdAsync();
+
+		var newView = new ConfigurationSetViewCreate
 		{
-			var response = await client
-				.Configuration
-				.PopulateConfigurationSetDetailsAsync(configSet.ServerGroupId, new ConfigurationSetDetailedCreate(), default);
-			response.Should().NotBeNull();
-		}
+			ViewName = "TestView",
+			BaseViewType = 1,
+			BaseViewNames = ["All Objects"],
+			DomainFilter = "All Objects",
+			EventFilter = "All Events",
+			IncidentFilter = "All Incidents",
+		};
+
+		var response = await client.Configuration.AddViewToConfigurationSetAsync(groupId, newView, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain(Success);
+
+		return (groupId, newView);
+	}
+
+	private async Task<(Guid GroupId, string UserGroup, string Username)> AddUserGroupMemberAsync()
+	{
+		var groupId = await FirstSetIdAsync();
+		var userGroup = await FirstUserGroupAsync(groupId);
+		var newUser = new ConfigurationSetUserGroupMemberCreate { Username = "TestUser" };
+
+		var response = await client.Configuration.AddConfigurationSetUserGroupMemberAsync(groupId, userGroup, newUser, default);
+
+		response.Should().NotBeNull();
+		response.ErrorCode.Should().Contain(Success);
+
+		return (groupId, userGroup, newUser.Username);
 	}
 }

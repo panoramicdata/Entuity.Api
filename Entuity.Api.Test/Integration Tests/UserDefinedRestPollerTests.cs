@@ -10,9 +10,7 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task UserDefinedRestPollersController_GetAllAsync_Succeeds()
 	{
-		var pollers = await client
-			.UserDefinedRestPollers
-			.GetAllAsync(default);
+		var pollers = await client.UserDefinedRestPollers.GetAllAsync(default);
 
 		pollers.Should().NotBeNull();
 	}
@@ -20,333 +18,141 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task UserDefinedRestPollersController_GetAsync_Succeeds()
 	{
-		var pollers = await client
-			.UserDefinedRestPollers
-			.GetAllAsync(default);
+		var pollers = await client.UserDefinedRestPollers.GetAllAsync(default);
 
 		pollers.Should().NotBeNull();
 
-		// Foreach poller, get the detailed information
 		foreach (var poller in pollers.Items)
 		{
-			var pollerDetails = await client
-				.UserDefinedRestPollers
-				.GetAsync(poller.PollerId, default);
-
-			pollerDetails.Should().NotBeNull();
+			(await client.UserDefinedRestPollers.GetAsync(poller.PollerId, default)).Should().NotBeNull();
 		}
 	}
 
 	[Fact]
 	public async Task UserDefinedRestPollersController_UpdateAsync_Succeeds()
 	{
-		var newPoller = new RestPollerCreate
-		{
-			PollerType = "API",
-			PollerCollectorType = "ASSOCIATED_COMPONENT",
-			PollerName = "CovidGlobal",
-			ContextTypeName = "UserCreatedNode",
-			ComponentTypeDetails = new()
-			{
-				TypeName = "udp_CovidGlobal",
-				TypeDisplayName = "Covid Global Rates",
-				Description = "",
-				Visibility = "VISIBLE"
-			},
-			FilterDefinition = new()
-			{
-				FilterType = "FILTER_ATTRIBUTE_EQUALS_ANY",
-				AttributeDefinition = "name",
-				AttributeValue = new()
-				{
-					Array = ["CovidData"]
-				}
-			},
-			ObtainRate = 86400,
-			KeepTime = 604800,
-			Steps =
-			[
-				new()
-				{
-					PollerStepType = "POLLING",
-					StepName = "Step 1",
-					AuthenticationDetails = new()
-					{
-						AuthType = "AUTH_NONE",
-					},
-					EndpointUrlSample = "https://coronavirus.m.pipedream.net",
-					Host = "coronavirus.m.pipedream.net",
-					ApiPath = "/",
-					MethodType = "GET",
-					Port = "",
-					UseSsl = true,
-					AttributeMappings = new(){
-						NameToMapping = new()
-						{
-							["CovidData"] = new()
-							{
-								SwAttrName = "udp_CovidGlobal_confirmed",
-								SwAttrDisplayName = "Global Confirmed Cases",
-								DataType = "uint32",
-								DisplayType = "string",
-								Visibility = "SHORTLISTED",
-								Enumerable = false,
-								Searchable = false,
-								StatusMap = new(),
-								EventInformation = new(){
-									EventMode = "NONE",
-									Mapping = null
-								},
-								SourcePath = "summaryStats.global.confirmed"
-							}
-						}
-					}
-				}
-			]
-		};
+		var pollerId = await CreatePollerAsync();
 
-		var createResponse = await client
-			.UserDefinedRestPollers
-			.CreateAsync(newPoller, default);
-
-		createResponse.Should().NotBeNull();
-		createResponse.Content.Should().NotBeNull();
-
-		// Get all pollers
-		var pollers = await client
-			.UserDefinedRestPollers
-			.GetAllAsync(default);
-
-		pollers.Should().NotBeNull();
-
-		// Find the newly created poller
-		var poller = pollers.Items.FirstOrDefault(p => p.PollerName == "CovidGlobal");
-
-		poller.Should().NotBeNull();
-
-		var pollerId = poller!.PollerId;
-
-		// Update the newly created poller
-		var updatePoller = new RestPollerUpdate
-		{
-			PollerType = "SNMP"
-		};
-
-		var updateResponse = await client
-			.UserDefinedRestPollers
-			.UpdateAsync(pollerId, updatePoller, default);
+		var updateResponse = await client.UserDefinedRestPollers.UpdateAsync(
+			pollerId,
+			new RestPollerUpdate { PollerType = "SNMP" },
+			default);
 
 		updateResponse.Should().NotBeNull();
 
-		// Delete the newly created poller
-		await client
-			.UserDefinedRestPollers
-			.DeleteAsync(pollerId, default);
+		await client.UserDefinedRestPollers.DeleteAsync(pollerId, default);
 	}
 
 	[Fact]
 	public async Task UserDefinedRestPollersController_PostAsync_Succeeds()
 	{
-		var newPoller = new RestPollerCreate
-		{
-			PollerType = "API",
-			PollerCollectorType = "ASSOCIATED_COMPONENT",
-			PollerName = "CovidGlobal",
-			ContextTypeName = "UserCreatedNode",
-			ComponentTypeDetails = new()
-			{
-				TypeName = "udp_CovidGlobal",
-				TypeDisplayName = "Covid Global Rates",
-				Description = "",
-				Visibility = "VISIBLE"
-			},
-			FilterDefinition = new()
-			{
-				FilterType = "FILTER_ATTRIBUTE_EQUALS_ANY",
-				AttributeDefinition = "name",
-				AttributeValue = new()
-				{
-					Array = ["CovidData"]
-				}
-			},
-			ObtainRate = 86400,
-			KeepTime = 604800,
-			Steps =
-			[
-				new()
-				{
-					PollerStepType = "POLLING",
-					StepName = "Step 1",
-					AuthenticationDetails = new()
-					{
-						AuthType = "AUTH_NONE",
-					},
-					EndpointUrlSample = "https://coronavirus.m.pipedream.net",
-					Host = "coronavirus.m.pipedream.net",
-					ApiPath = "/",
-					MethodType = "GET",
-					Port = "",
-					UseSsl = true,
-					AttributeMappings = new(){
-						NameToMapping = new()
-						{
-							["CovidData"] = new()
-							{
-								SwAttrName = "udp_CovidGlobal_confirmed",
-								SwAttrDisplayName = "Global Confirmed Cases",
-								DataType = "uint32",
-								DisplayType = "string",
-								Visibility = "SHORTLISTED",
-								Enumerable = false,
-								Searchable = false,
-								StatusMap = new(),
-								EventInformation = new(){
-									EventMode = "NONE",
-									Mapping = null
-								},
-								SourcePath = "summaryStats.global.confirmed"
-							}
-						}
-					}
-				}
-			]
-		};
+		var pollerId = await CreatePollerAsync();
 
-		var createResponse = await client
-			.UserDefinedRestPollers
-			.CreateAsync(newPoller, default);
-
-		createResponse.Should().NotBeNull();
-		createResponse.Content.Should().NotBeNull();
-
-		// Get all pollers
-		var pollers = await client
-			.UserDefinedRestPollers
-			.GetAllAsync(default);
-
-		pollers.Should().NotBeNull();
-
-		// Find the newly created poller
-		var poller = pollers.Items.FirstOrDefault(p => p.PollerName == "CovidGlobal");
-
-		poller.Should().NotBeNull();
-
-		var pollerId = poller!.PollerId;
-
-		// Delete the newly created poller
-		await client
-			.UserDefinedRestPollers
-			.DeleteAsync(pollerId, default);
+		await client.UserDefinedRestPollers.DeleteAsync(pollerId, default);
 	}
 
 	[Fact]
 	public async Task UserDefinedRestPollersController_DeleteAsync_Succeeds()
 	{
-		var newPoller = new RestPollerCreate
-		{
-			PollerType = "API",
-			PollerCollectorType = "ASSOCIATED_COMPONENT",
-			PollerName = "CovidGlobal",
-			ContextTypeName = "UserCreatedNode",
-			ComponentTypeDetails = new()
-			{
-				TypeName = "udp_CovidGlobal",
-				TypeDisplayName = "Covid Global Rates",
-				Description = "",
-				Visibility = "VISIBLE"
-			},
-			FilterDefinition = new()
-			{
-				FilterType = "FILTER_ATTRIBUTE_EQUALS_ANY",
-				AttributeDefinition = "name",
-				AttributeValue = new()
-				{
-					Array = ["CovidData"]
-				}
-			},
-			ObtainRate = 86400,
-			KeepTime = 604800,
-			Steps =
-			[
-				new()
-				{
-					PollerStepType = "POLLING",
-					StepName = "Step 1",
-					AuthenticationDetails = new()
-					{
-						AuthType = "AUTH_NONE",
-					},
-					EndpointUrlSample = "https://coronavirus.m.pipedream.net",
-					Host = "coronavirus.m.pipedream.net",
-					ApiPath = "/",
-					MethodType = "GET",
-					Port = "",
-					UseSsl = true,
-					AttributeMappings = new(){
-						NameToMapping = new()
-						{
-							["CovidData"] = new()
-							{
-								SwAttrName = "udp_CovidGlobal_confirmed",
-								SwAttrDisplayName = "Global Confirmed Cases",
-								DataType = "uint32",
-								DisplayType = "string",
-								Visibility = "SHORTLISTED",
-								Enumerable = false,
-								Searchable = false,
-								StatusMap = new(),
-								EventInformation = new(){
-									EventMode = "NONE",
-									Mapping = null
-								},
-								SourcePath = "summaryStats.global.confirmed"
-							}
-						}
-					}
-				}
-			]
-		};
+		var pollerId = await CreatePollerAsync();
 
-		var createResponse = await client
-			.UserDefinedRestPollers
-			.CreateAsync(newPoller, default);
+		var deleteResponse = await client.UserDefinedRestPollers.DeleteAsync(pollerId, default);
 
-		createResponse.Should().NotBeNull();
-		createResponse.Content.Should().NotBeNull();
-
-		// Get all pollers
-		var pollers = await client
-			.UserDefinedRestPollers
-			.GetAllAsync(default);
-
-		pollers.Should().NotBeNull();
-
-		// Find the newly created poller
-		var poller = pollers.Items.FirstOrDefault(p => p.PollerName == "CovidGlobal");
-
-		poller.Should().NotBeNull();
-
-		var pollerId = poller!.PollerId;
-
-		// Delete the newly created poller
-		var deleteResponse = await client
-			.UserDefinedRestPollers
-			.DeleteAsync(pollerId, default);
 		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
 	}
 
 	[Fact]
 	public async Task UserDefinedRestPollersController_TestPollerAsync_Succeeds()
 	{
-		var testInformation = new RestPollerTestInformation
-		{
-			Url = "https://localhost/api/service/1644"
-		};
+		var testInformation = new RestPollerTestInformation { Url = "https://localhost/api/service/1644" };
 
-		var testResponse = await client
-			.UserDefinedRestPollers
-			.TestRestPollerAsync(testInformation, default);
+		var testResponse = await client.UserDefinedRestPollers.TestRestPollerAsync(testInformation, default);
 
 		testResponse.ReturnCode.Should().Be("OK");
 	}
+
+	private async Task<int> CreatePollerAsync()
+	{
+		var createResponse = await client.UserDefinedRestPollers.CreateAsync(NewPoller(), default);
+
+		createResponse.Should().NotBeNull();
+		createResponse.Content.Should().NotBeNull();
+
+		var pollers = await client.UserDefinedRestPollers.GetAllAsync(default);
+
+		pollers.Should().NotBeNull();
+
+		var poller = pollers.Items.FirstOrDefault(p => p.PollerName == "CovidGlobal");
+
+		poller.Should().NotBeNull();
+
+		return poller!.PollerId;
+	}
+
+	private static RestPollerCreate NewPoller() => new()
+	{
+		PollerType = "API",
+		PollerCollectorType = "ASSOCIATED_COMPONENT",
+		PollerName = "CovidGlobal",
+		ContextTypeName = "UserCreatedNode",
+		ComponentTypeDetails = new()
+		{
+			TypeName = "udp_CovidGlobal",
+			TypeDisplayName = "Covid Global Rates",
+			Description = "",
+			Visibility = "VISIBLE"
+		},
+		FilterDefinition = new()
+		{
+			FilterType = "FILTER_ATTRIBUTE_EQUALS_ANY",
+			AttributeDefinition = "name",
+			AttributeValue = new()
+			{
+				Array = ["CovidData"]
+			}
+		},
+		ObtainRate = 86400,
+		KeepTime = 604800,
+		Steps =
+		[
+			new()
+			{
+				PollerStepType = "POLLING",
+				StepName = "Step 1",
+				AuthenticationDetails = new()
+				{
+					AuthType = "AUTH_NONE",
+				},
+				EndpointUrlSample = "https://coronavirus.m.pipedream.net",
+				Host = "coronavirus.m.pipedream.net",
+				ApiPath = "/",
+				MethodType = "GET",
+				Port = "",
+				UseSsl = true,
+				AttributeMappings = new()
+				{
+					NameToMapping = new()
+					{
+						["CovidData"] = new()
+						{
+							SwAttrName = "udp_CovidGlobal_confirmed",
+							SwAttrDisplayName = "Global Confirmed Cases",
+							DataType = "uint32",
+							DisplayType = "string",
+							Visibility = "SHORTLISTED",
+							Enumerable = false,
+							Searchable = false,
+							StatusMap = new(),
+							EventInformation = new()
+							{
+								EventMode = "NONE",
+								Mapping = null
+							},
+							SourcePath = "summaryStats.global.confirmed"
+						}
+					}
+				}
+			}
+		]
+	};
 }

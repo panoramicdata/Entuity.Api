@@ -1,3 +1,4 @@
+using Entuity.Api.Models;
 using Entuity.Api.Models.FiltersData.Post;
 using Entuity.Api.Models.FiltersData.Update;
 using AwesomeAssertions;
@@ -6,341 +7,138 @@ namespace Entuity.Api.Test.Integration_Tests;
 
 public class FilterTests(EntuityClient client) : TestFixture
 {
+	private sealed record FilterApi(
+		string Label,
+		Func<Task<IReadOnlyList<(string Id, string? Name)>>> ListAsync,
+		Func<string, Task<object>> GetAsync,
+		Func<string, Task<object>> CreateAsync,
+		Func<string, string, Task<object>> UpdateAsync,
+		Func<string, Task<Message>> DeleteAsync);
+
+	private FilterApi Domain => new(
+		"Test Domain Filter",
+		async () => (await client.Filters.GetAllDomainFiltersAsync(default)).Items.Select(i => (i.Id, (string?)i.Name)).ToList(),
+		async id => await client.Filters.GetDomainFilterAsync(id, default),
+		async name => await client.Filters.CreateDomainFilterAsync(new DomainFilterCreate { Name = name }, default),
+		async (id, name) => await client.Filters.UpdateDomainFilterAsync(id, new DomainFilterUpdate { Name = name }, default),
+		id => client.Filters.DeleteDomainFilterAsync(id, default));
+
+	private FilterApi Incident => new(
+		"Test Incident Filter",
+		async () => (await client.Filters.GetAllIncidentFiltersAsync(default)).Items.Select(i => (i.Id, (string?)i.Name)).ToList(),
+		async id => await client.Filters.GetIncidentFilterAsync(id, default),
+		async name => await client.Filters.CreateIncidentFilterAsync(new IncidentFilterCreate { Name = name }, default),
+		async (id, name) => await client.Filters.UpdateIncidentFilterAsync(id, new IncidentFilterUpdate { Name = name }, default),
+		id => client.Filters.DeleteIncidentFilterAsync(id, default));
+
+	private FilterApi Event => new(
+		"Test Event Filter",
+		async () => (await client.Filters.GetAllEventFiltersAsync(default)).Items.Select(i => (i.Id, (string?)i.Name)).ToList(),
+		async id => await client.Filters.GetEventFilterAsync(id, default),
+		async name => await client.Filters.CreateEventFilterAsync(new EventFilterCreate { Name = name }, default),
+		async (id, name) => await client.Filters.UpdateEventFilterAsync(id, new EventFilterUpdate { Name = name }, default),
+		id => client.Filters.DeleteEventFilterAsync(id, default));
 
 	[Fact]
-	public async Task FiltersController_GetAllDomainFiltersAsync_Succeeds()
-	{
-		var result = await client
-			.Filters
-			.GetAllDomainFiltersAsync(default);
+	public Task FiltersController_GetAllDomainFiltersAsync_Succeeds() => GetAllAsync(Domain);
 
-		result.Should().NotBeNull();
-		result.Items.Should().NotBeEmpty();
+	[Fact]
+	public Task FiltersController_GetDomainFilterAsync_Succeeds() => GetEachAsync(Domain);
+
+	[Fact]
+	public Task FiltersController_CreateDomainFilterAsync_Succeeds() => CreateAsync(Domain);
+
+	[Fact]
+	public Task FiltersController_UpdateDomainFilterAsync_Succeeds() => UpdateAsync(Domain);
+
+	[Fact]
+	public Task FiltersController_DeleteDomainFilterAsync_Succeeds() => DeleteAsync(Domain);
+
+	[Fact]
+	public Task FiltersController_GetAllIncidentFiltersAsync_Succeeds() => GetAllAsync(Incident);
+
+	[Fact]
+	public Task FiltersController_CreateIncidentFilterAsync_Succeeds() => CreateAsync(Incident);
+
+	[Fact]
+	public Task FiltersController_UpdateIncidentFilterAsync_Succeeds() => UpdateAsync(Incident);
+
+	[Fact]
+	public Task FiltersController_DeleteIncidentFilterAsync_Succeeds() => DeleteAsync(Incident);
+
+	[Fact]
+	public Task FiltersController_GetIncidentFilterAsync_Succeeds() => GetEachAsync(Incident);
+
+	[Fact]
+	public Task FiltersController_GetAllEventFiltersAsync_Succeeds() => GetAllAsync(Event);
+
+	[Fact]
+	public Task FiltersController_GetEventFilterAsync_Succeeds() => GetEachAsync(Event);
+
+	[Fact]
+	public Task FiltersController_CreateEventFilterAsync_Succeeds() => CreateAsync(Event);
+
+	[Fact]
+	public Task FiltersController_UpdateEventFilterAsync_Succeeds() => UpdateAsync(Event);
+
+	[Fact]
+	public Task FiltersController_DeleteEventFilterAsync_Succeeds() => DeleteAsync(Event);
+
+	private static async Task GetAllAsync(FilterApi api)
+	{
+		var items = await api.ListAsync();
+
+		items.Should().NotBeEmpty();
 	}
 
-	[Fact]
-	public async Task FiltersController_GetDomainFilterAsync_Succeeds()
+	private static async Task GetEachAsync(FilterApi api)
 	{
-		var result = await client
-			.Filters
-			.GetAllDomainFiltersAsync(default);
+		var items = await api.ListAsync();
 
-		result.Should().NotBeNull();
-		result.Items.Should().NotBeEmpty();
+		items.Should().NotBeEmpty();
 
-		foreach (var item in result.Items)
+		foreach (var (id, _) in items)
 		{
-			var detailedResult = await client
-			.Filters
-			.GetDomainFilterAsync(item.Id, default);
-
-			detailedResult.Should().NotBeNull();
+			(await api.GetAsync(id)).Should().NotBeNull();
 		}
 	}
 
-	[Fact]
-	public async Task FiltersController_CreateDomainFilterAsync_Succeeds()
+	private static async Task CreateAsync(FilterApi api)
 	{
-		var newDomainFilter = new DomainFilterCreate { Name = "Test Domain Filter" };
+		var id = await CreateFilterAsync(api);
 
-		var result = await client
-			.Filters
-			.CreateDomainFilterAsync(newDomainFilter, default);
-
-		result.Should().NotBeNull();
-
-		// Get Domain Filter ID
-		var allDomainFilters = await client
-			.Filters.GetAllDomainFiltersAsync(default);
-
-		var createdDomainFilter = allDomainFilters.Items.FirstOrDefault(filter => filter.Name == newDomainFilter.Name);
-
-		createdDomainFilter.Should().NotBeNull();
-
-		// Attempt delete
-		await client
-			.Filters
-			.DeleteDomainFilterAsync(createdDomainFilter!.Id, default);
+		await api.DeleteAsync(id);
 	}
 
-	[Fact]
-	public async Task FiltersController_UpdateDomainFilterAsync_Succeeds()
+	private static async Task UpdateAsync(FilterApi api)
 	{
+		var id = await CreateFilterAsync(api);
 
-		var newDomainFilter = new DomainFilterCreate { Name = "New Domain Filter" };
+		(await api.UpdateAsync(id, $"{api.Label} Updated {Guid.NewGuid().ToString()[..5]}")).Should().NotBeNull();
 
-		var result = await client
-			.Filters
-			.CreateDomainFilterAsync(newDomainFilter, default);
-
-		result.Should().NotBeNull();
-
-		// Get Domain Filter ID
-		var allDomainFilters = await client
-			.Filters.GetAllDomainFiltersAsync(default);
-
-		var createdDomainFilter = allDomainFilters.Items.FirstOrDefault(filter => filter.Name == newDomainFilter.Name);
-
-		createdDomainFilter.Should().NotBeNull();
-
-		// Update
-		var updatedDomainFilter = new DomainFilterUpdate { Name = "New Domain Filter - Updated" };
-
-		await client
-			.Filters
-			.UpdateDomainFilterAsync(createdDomainFilter!.Id, updatedDomainFilter, default);
-
-		// Attempt delete
-		await client
-			.Filters
-			.DeleteDomainFilterAsync(createdDomainFilter!.Id, default);
+		await api.DeleteAsync(id);
 	}
 
-	[Fact]
-	public async Task FiltersController_DeleteDomainFilterAsync_Succeeds()
+	private static async Task DeleteAsync(FilterApi api)
 	{
-		var newDomainFilter = new DomainFilterCreate { Name = "Test Domain Filter" };
+		var id = await CreateFilterAsync(api);
 
-		var result = await client
-			.Filters
-			.CreateDomainFilterAsync(newDomainFilter, default);
-
-		result.Should().NotBeNull();
-
-		// Get Domain Filter ID
-		var allDomainFilters = await client
-			.Filters.GetAllDomainFiltersAsync(default);
-
-		var createdDomainFilter = allDomainFilters.Items.FirstOrDefault(filter => filter.Name == newDomainFilter.Name);
-
-		createdDomainFilter.Should().NotBeNull();
-
-		// Attempt delete
-		var deleteResult = await client
-			.Filters
-			.DeleteDomainFilterAsync(createdDomainFilter!.Id, default);
+		var deleteResult = await api.DeleteAsync(id);
 
 		deleteResult.Should().NotBeNull();
 		deleteResult.Content.Should().Be("OK");
 	}
 
-	[Fact]
-	public async Task FiltersController_GetAllIncidentFiltersAsync_Succeeds()
+	private static async Task<string> CreateFilterAsync(FilterApi api)
 	{
-		var result = await client
-		.Filters
-		.GetAllIncidentFiltersAsync(default);
+		var name = $"{api.Label} {Guid.NewGuid().ToString()[..10]}";
 
-		result.Should().NotBeNull();
-		result.Items.Should().NotBeEmpty();
-	}
+		(await api.CreateAsync(name)).Should().NotBeNull();
 
-	[Fact]
-	public async Task FiltersController_CreateIncidentFilterAsync_Succeeds()
-	{
-		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+		var created = (await api.ListAsync()).FirstOrDefault(filter => filter.Name == name);
 
-		var newIncidentFilter = new IncidentFilterCreate { Name = $"Test Incident Filter {randomGuid}" };
-		var result = await client
-			.Filters
-			.CreateIncidentFilterAsync(newIncidentFilter, default);
-		result.Should().NotBeNull();
+		created.Id.Should().NotBeNull();
 
-		// Get Incident Filter ID
-		var allIncidentFilters = await client
-			.Filters.GetAllIncidentFiltersAsync(default);
-		var createdIncidentFilter = allIncidentFilters.Items.FirstOrDefault(filter => filter.Name == newIncidentFilter.Name);
-		createdIncidentFilter.Should().NotBeNull();
-
-		// Attempt delete
-		await client
-			.Filters
-			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
-	}
-
-	[Fact]
-	public async Task FiltersController_UpdateIncidentFilterAsync_Succeeds()
-	{
-		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
-
-		var newIncidentFilter = new IncidentFilterCreate { Name = $"Test Incident Filter {randomGuid}" };
-
-		var result = await client
-			.Filters
-			.CreateIncidentFilterAsync(newIncidentFilter, default);
-		result.Should().NotBeNull();
-
-		// Get Incident Filter ID
-		var allIncidentFilters = await client
-			.Filters.GetAllIncidentFiltersAsync(default);
-		var createdIncidentFilter = allIncidentFilters.Items.FirstOrDefault(filter => filter.Name == newIncidentFilter.Name);
-
-		createdIncidentFilter.Should().NotBeNull();
-
-		// Update
-		var updatedIncidentFilter = new IncidentFilterUpdate { Name = $"Updated Incident Filter {randomGuid}" };
-		var response = client
-			.Filters
-			.UpdateIncidentFilterAsync(createdIncidentFilter!.Id, updatedIncidentFilter, default);
-
-		response.Should().NotBeNull();
-
-		// Attempt delete
-		await client
-			.Filters
-			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
-	}
-
-	[Fact]
-	public async Task FiltersController_DeleteIncidentFilterAsync_Succeeds()
-	{
-		var newIncidentFilter = new IncidentFilterCreate { Name = "Test Incident Filter 2" };
-		var result = await client
-			.Filters
-			.CreateIncidentFilterAsync(newIncidentFilter, default);
-		result.Should().NotBeNull();
-
-		// Get Incident Filter ID
-		var allIncidentFilters = await client
-			.Filters.GetAllIncidentFiltersAsync(default);
-		var createdIncidentFilter = allIncidentFilters.Items.FirstOrDefault(filter => filter.Name == newIncidentFilter.Name);
-		createdIncidentFilter.Should().NotBeNull();
-
-		// Attempt delete
-		var deleteResult = await client
-			.Filters
-			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
-
-		deleteResult.Should().NotBeNull();
-		deleteResult.Content.Should().Be("OK");
-	}
-
-	[Fact]
-	public async Task FiltersController_GetIncidentFilterAsync_Succeeds()
-	{
-		var result = await client
-		.Filters
-		.GetAllIncidentFiltersAsync(default);
-
-		result.Should().NotBeNull();
-		result.Items.Should().NotBeEmpty();
-
-		foreach (var item in result.Items)
-		{
-			var detailedResult = await client
-			.Filters
-			.GetIncidentFilterAsync(item.Id, default);
-
-			detailedResult.Should().NotBeNull();
-		}
-	}
-
-	[Fact]
-	public async Task FiltersController_GetAllEventFiltersAsync_Succeeds()
-	{
-		var result = await client
-		.Filters
-		.GetAllEventFiltersAsync(default);
-
-		result.Should().NotBeNull();
-		result.Items.Should().NotBeEmpty();
-	}
-
-	[Fact]
-	public async Task FiltersController_GetEventFilterAsync_Succeeds()
-	{
-		var result = await client
-		.Filters
-		.GetAllEventFiltersAsync(default);
-
-		result.Should().NotBeNull();
-		result.Items.Should().NotBeEmpty();
-
-		foreach (var item in result.Items)
-		{
-			var detailedResult = await client
-			.Filters
-			.GetEventFilterAsync(item.Id, default);
-
-			detailedResult.Should().NotBeNull();
-		}
-	}
-
-	[Fact]
-	public async Task FiltersController_CreateEventFilterAsync_Succeeds()
-	{
-		var newEventFilter = new EventFilterCreate { Name = "Test Event Filter" };
-		var result = await client
-			.Filters
-			.CreateEventFilterAsync(newEventFilter, default);
-		result.Should().NotBeNull();
-
-		// Get Event Filter ID
-		var allEventFilters = await client
-			.Filters.GetAllEventFiltersAsync(default);
-		var createdEventFilter = allEventFilters.Items.FirstOrDefault(filter => filter.Name == newEventFilter.Name);
-
-		createdEventFilter.Should().NotBeNull();
-
-		// Attempt delete
-		await client
-			.Filters
-			.DeleteEventFilterAsync(createdEventFilter!.Id, default);
-	}
-
-	[Fact]
-	public async Task FiltersController_UpdateEventFilterAsync_Succeeds()
-	{
-		var newEventFilter = new EventFilterCreate { Name = "Test Event Filter" };
-		var result = await client
-			.Filters
-			.CreateEventFilterAsync(newEventFilter, default);
-		result.Should().NotBeNull();
-
-		// Get Event Filter ID
-		var allEventFilters = await client
-			.Filters.GetAllEventFiltersAsync(default);
-		var createdEventFilter = allEventFilters.Items.FirstOrDefault(filter => filter.Name == newEventFilter.Name);
-
-		createdEventFilter.Should().NotBeNull();
-
-		// Update Event Filter
-		var updatedEventFilter = new EventFilterUpdate { Name = "Updated Event Filter" };
-
-		var response = client
-			.Filters
-			.UpdateEventFilterAsync(createdEventFilter!.Id, updatedEventFilter, default);
-
-		response.Should().NotBeNull();
-
-		// Attempt delete
-		await client
-			.Filters
-			.DeleteEventFilterAsync(createdEventFilter!.Id, default);
-	}
-
-	[Fact]
-	public async Task FiltersController_DeleteEventFilterAsync_Succeeds()
-	{
-		var newEventFilter = new EventFilterCreate { Name = "Test Event Filter 2" };
-		var result = await client
-			.Filters
-			.CreateEventFilterAsync(newEventFilter, default);
-		result.Should().NotBeNull();
-
-		// Get Event Filter ID
-		var allEventFilters = await client
-			.Filters.GetAllEventFiltersAsync(default);
-		var createdEventFilter = allEventFilters.Items.FirstOrDefault(filter => filter.Name == newEventFilter.Name);
-
-		createdEventFilter.Should().NotBeNull();
-
-		// Attempt delete
-		var deleteResult = await client
-			.Filters
-			.DeleteEventFilterAsync(createdEventFilter!.Id, default);
-
-		deleteResult.Should().NotBeNull();
-		deleteResult.Content.Should().Be("OK");
+		return created.Id;
 	}
 }

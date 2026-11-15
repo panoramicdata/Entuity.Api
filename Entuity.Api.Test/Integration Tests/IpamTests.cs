@@ -9,9 +9,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task IpamController_GetIpamAsync_Succeeds()
 	{
-		var ipam = await client
-		.Ipam
-		.GetIpamSettingsAndStatus(default);
+		var ipam = await client.Ipam.GetIpamSettingsAndStatus(default);
 
 		ipam.Should().NotBeNull();
 	}
@@ -19,9 +17,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task IpamController_StartScanOfIpamNetworksAsync_Succeeds()
 	{
-		var response = await client.
-			Ipam
-			.StartScanOfIpamNetworksAsync(default);
+		var response = await client.Ipam.StartScanOfIpamNetworksAsync(default);
 
 		response.Should().NotBeNull();
 	}
@@ -29,41 +25,25 @@ public class IpamTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task IpamController_UpdateIpamSettingsAsync_Succeeds()
 	{
-		var response = await client
-			.Ipam
-			.GetIpamSettingsAndStatus(default);
+		var response = await client.Ipam.GetIpamSettingsAndStatus(default);
 
 		response.Should().NotBeNull();
 
 		var currentActiveTimeFrameHours = response.Settings.ActiveTimeframeHours;
 
-		var update = new IpamSettingsUpdate
-		{
-			ActiveTimeframeHours = currentActiveTimeFrameHours + 1
-		};
+		var update = new IpamSettingsUpdate { ActiveTimeframeHours = currentActiveTimeFrameHours + 1 };
 
-		var updatedResponse = await client
-			.Ipam
-			.UpdateIpamSettingsAsync(update, default);
+		(await client.Ipam.UpdateIpamSettingsAsync(update, default)).Should().NotBeNull();
 
-		updatedResponse.Should().NotBeNull();
-
-		// Revert back to original value
 		update.ActiveTimeframeHours = currentActiveTimeFrameHours;
 
-		var revertResponse = await client
-			.Ipam
-			.UpdateIpamSettingsAsync(update, default);
-
-		revertResponse.Should().NotBeNull();
+		(await client.Ipam.UpdateIpamSettingsAsync(update, default)).Should().NotBeNull();
 	}
 
 	[Fact]
 	public async Task IpamController_GetAllDhcpServersAsync_Succeeds()
 	{
-		var dhcpServers = await client
-			.Ipam
-			.GetAllDhcpServersAsync(default);
+		var dhcpServers = await client.Ipam.GetAllDhcpServersAsync(default);
 
 		dhcpServers.Should().NotBeNull();
 	}
@@ -71,82 +51,30 @@ public class IpamTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task IpamController_GetDhcpServerAsync_Succeeds()
 	{
-		var dhcpServers = await client
-			.Ipam
-			.GetAllDhcpServersAsync(default);
+		var dhcpServers = await client.Ipam.GetAllDhcpServersAsync(default);
 
 		dhcpServers.Should().NotBeNull();
 
 		foreach (var dhcpServer in dhcpServers)
 		{
-			var detailedDhcpServer = await client
-				.Ipam
-				.GetDhcpServerAsync(dhcpServer.Id, default);
-
-			detailedDhcpServer.Should().NotBeNull();
+			(await client.Ipam.GetDhcpServerAsync(dhcpServer.Id, default)).Should().NotBeNull();
 		}
 	}
 
 	[Fact]
 	public async Task IpamController_CreateDhcpServerAsync_Succeeds()
 	{
-		var dhcpServer = new DhcpServerCreate
-		{
-			Name = "Test DHCP Server",
-			IpAddress = TestAddresses.V4(1, 2, 3, 4)
-		};
+		var id = await CreateDhcpServerAsync("Test DHCP Server", TestAddresses.V4(1, 2, 3, 4));
 
-		var response = await client
-			.Ipam
-			.CreateDhcpServerAsync(dhcpServer, default);
-
-		response.Should().NotBeNull();
-
-		// Get all DHCP Servers
-		var dhcpServers = await client
-			.Ipam
-			.GetAllDhcpServersAsync(default);
-
-		var dhcpServerId = dhcpServers.FirstOrDefault(d => d.Name == dhcpServer.Name)?
-			.Id;
-
-		dhcpServerId.Should().NotBeNull();
-
-		// Attempt delete
-		await client
-			.Ipam
-			.DeleteDhcpServerAsync((int)dhcpServerId!, default);
+		await client.Ipam.DeleteDhcpServerAsync(id, default);
 	}
 
 	[Fact]
 	public async Task IpamController_DeleteDhcpServerAsync_Succeeds()
 	{
-		var dhcpServer = new DhcpServerCreate
-		{
-			Name = "Test DHCP Server 2",
-			IpAddress = TestAddresses.V4(2, 3, 4, 5)
-		};
+		var id = await CreateDhcpServerAsync("Test DHCP Server 2", TestAddresses.V4(2, 3, 4, 5));
 
-		var response = await client
-			.Ipam
-			.CreateDhcpServerAsync(dhcpServer, default);
-
-		response.Should().NotBeNull();
-
-		// Get all DHCP Servers
-		var dhcpServers = await client
-			.Ipam
-			.GetAllDhcpServersAsync(default);
-
-		var dhcpServerId = dhcpServers.FirstOrDefault(d => d.Name == dhcpServer.Name)?
-			.Id;
-
-		dhcpServerId.Should().NotBeNull();
-
-		// Attempt delete
-		var deleteResponse = await client
-			.Ipam
-			.DeleteDhcpServerAsync((int)dhcpServerId!, default);
+		var deleteResponse = await client.Ipam.DeleteDhcpServerAsync(id, default);
 
 		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
 	}
@@ -154,9 +82,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task IpamController_GetAllNetworksAsync_Succeeds()
 	{
-		var networks = await client
-			.Ipam
-			.GetAllNetworksAsync(default);
+		var networks = await client.Ipam.GetAllNetworksAsync(default);
 
 		networks.Should().NotBeNull();
 	}
@@ -164,82 +90,29 @@ public class IpamTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task IpamController_GetNetworkAsync_Succeeds()
 	{
-		var networks = await client
-			.Ipam
-			.GetAllNetworksAsync(default);
+		var networks = await client.Ipam.GetAllNetworksAsync(default);
 
 		networks.Should().NotBeNull();
 
 		foreach (var network in networks)
 		{
-			var detailedNetwork = await client
-				.Ipam
-				.GetNetworkAsync(network.Id, default);
-			detailedNetwork.Should().NotBeNull();
+			(await client.Ipam.GetNetworkAsync(network.Id, default)).Should().NotBeNull();
 		}
 	}
 
 	[Fact]
 	public async Task IpamController_CreateNetworkAsync_Succeeds()
 	{
-		var network = new NetworkCreate
-		{
-			Name = "Test Network",
-			IpRange = "10.44.3.0/24",
-			Description = "",
-			UsageMedium = 0
-		};
+		var id = await CreateNetworkAsync("Test Network", "10.44.3.0/24");
 
-		var response = await client
-			.Ipam
-			.CreateNetworkAsync(network, default);
-
-		response.Should().NotBeNull();
-
-		// Get all Networks 
-		var networks = await client
-			.Ipam
-			.GetAllNetworksAsync(default);
-
-		var networkId = networks.FirstOrDefault(n => n.Name == network.Name)?
-			.Id;
-
-		networkId.Should().NotBeNull();
-
-		// Attempt delete
-		await client
-			.Ipam
-			.DeleteNetworkAsync((int)networkId!, default);
+		await client.Ipam.DeleteNetworkAsync(id, default);
 	}
 
 	[Fact]
 	public async Task IpamController_UpdateNetworkAsync_Succeeds()
 	{
-		var network = new NetworkCreate
-		{
-			Name = "Test Network",
-			IpRange = "10.44.5.0/24",
-			Description = "",
-			UsageMedium = 0
-		};
+		var id = await CreateNetworkAsync("Test Network", "10.44.5.0/24");
 
-		var response = await client
-			.Ipam
-			.CreateNetworkAsync(network, default);
-
-		response.Should().NotBeNull();
-
-		// Get all Networks 
-		var networks = await client
-			.Ipam
-			.GetAllNetworksAsync(default);
-
-		var networkId = networks.FirstOrDefault(n => n.Name == network.Name)?
-			.Id;
-
-		networkId.Should().NotBeNull();
-
-		// Update network
 		var updateNetwork = new IpamNetworkUpdate
 		{
 			Name = "Updated Network",
@@ -249,43 +122,15 @@ public class IpamTests(EntuityClient client) : TestFixture
 
 		updateNetwork.Should().NotBeNull();
 
-		// Attempt delete
-		await client
-			.Ipam
-			.DeleteNetworkAsync((int)networkId!, default);
+		await client.Ipam.DeleteNetworkAsync(id, default);
 	}
 
 	[Fact]
 	public async Task IpamController_DeleteNetworkAsync_Succeeds()
 	{
-		var network = new NetworkCreate
-		{
-			Name = "Test Network 2",
-			IpRange = "10.44.3.1/24",
-			Description = "",
-			UsageMedium = 0
-		};
+		var id = await CreateNetworkAsync("Test Network 2", "10.44.3.1/24");
 
-		var response = await client
-			.Ipam
-			.CreateNetworkAsync(network, default);
-
-		response.Should().NotBeNull();
-
-		// Get all Networks 
-		var networks = await client
-			.Ipam
-			.GetAllNetworksAsync(default);
-
-		var networkId = networks.FirstOrDefault(n => n.Name == network.Name)?
-			.Id;
-
-		networkId.Should().NotBeNull();
-
-		// Attempt delete
-		var deleteResponse = await client
-			.Ipam
-			.DeleteNetworkAsync((int)networkId!, default);
+		var deleteResponse = await client.Ipam.DeleteNetworkAsync(id, default);
 
 		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
 	}
@@ -293,19 +138,43 @@ public class IpamTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task IpamController_GetScannedIpAddressPagesAsync_Succeeds()
 	{
-		var networks = await client
-			.Ipam
-			.GetAllNetworksAsync(default);
+		var networks = await client.Ipam.GetAllNetworksAsync(default);
 
 		networks.Should().NotBeNull();
 
 		foreach (var network in networks)
 		{
-			var scannedIpAddressPages = await client
-				.Ipam
-				.GetScannedIpAddressPagesAsync(network.Id, default);
-
-			scannedIpAddressPages.Should().NotBeNull();
+			(await client.Ipam.GetScannedIpAddressPagesAsync(network.Id, default)).Should().NotBeNull();
 		}
+	}
+
+	private async Task<int> CreateDhcpServerAsync(string name, string address)
+	{
+		var response = await client.Ipam.CreateDhcpServerAsync(new DhcpServerCreate { Name = name, IpAddress = address }, default);
+
+		response.Should().NotBeNull();
+
+		var dhcpServers = await client.Ipam.GetAllDhcpServersAsync(default);
+
+		var id = dhcpServers.FirstOrDefault(d => d.Name == name)?.Id;
+
+		id.Should().NotBeNull();
+
+		return id!.Value;
+	}
+
+	private async Task<int> CreateNetworkAsync(string name, string range)
+	{
+		var network = new NetworkCreate { Name = name, IpRange = range, Description = "", UsageMedium = 0 };
+
+		(await client.Ipam.CreateNetworkAsync(network, default)).Should().NotBeNull();
+
+		var networks = await client.Ipam.GetAllNetworksAsync(default);
+
+		var id = networks.FirstOrDefault(n => n.Name == name)?.Id;
+
+		id.Should().NotBeNull();
+
+		return id!.Value;
 	}
 }

@@ -9,10 +9,7 @@ public class ZonesTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ZonesController_GetAllAsync_Succeeds()
 	{
-		// Arrange
-		var result = await client
-			.Zones
-			.GetAllAsync(default);
+		var result = await client.Zones.GetAllAsync(default);
 
 		result.Should().NotBeNull();
 	}
@@ -20,45 +17,15 @@ public class ZonesTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ZonesController_CreateAsync_Succeeds()
 	{
-		var randomName = Guid.NewGuid().ToString();
+		var (_, id) = await CreateZoneAsync(TestAddresses.V4(1, 2, 3, 4));
 
-		var result = await client
-			.Zones
-			.CreateAsync(new ZoneCreate
-			{
-				Name = randomName,
-				V4Interface = TestAddresses.V4(1, 2, 3, 4)
-
-			}, default);
-
-		// Should return content if successful
-		result.Content.Should().NotBeNull();
-
-		// Attempt cleanup
-		var createdZone =
-			result?.Content?.Items.FirstOrDefault(item => item.Name == randomName);
-
-		createdZone.Should().NotBeNull();
-
-		var success = int.TryParse(createdZone?.Id, out var parsedId);
-		success.Should().BeTrue();
-
-		// Run the Delete
-		await client
-			.Zones
-			.DeleteAsync(parsedId, default);
+		await client.Zones.DeleteAsync(id, default);
 	}
 
 	[Fact]
 	public async Task ZonesController_CreateAsync_Fails()
 	{
-		var response = await client
-			.Zones
-			.CreateAsync(new ZoneCreate
-			{
-				Name = "Test Zone"
-			},
-			default);
+		var response = await client.Zones.CreateAsync(new ZoneCreate { Name = "Test Zone" }, default);
 
 		response.IsSuccessStatusCode.Should().BeFalse();
 	}
@@ -66,33 +33,9 @@ public class ZonesTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ZonesController_DeleteAsync_Succeeds()
 	{
-		var randomName = Guid.NewGuid().ToString();
+		var (_, id) = await CreateZoneAsync(TestAddresses.V4(1, 2, 3, 4));
 
-		var result = await client
-			.Zones
-			.CreateAsync(new ZoneCreate
-			{
-				Name = randomName,
-				V4Interface = TestAddresses.V4(1, 2, 3, 4)
-
-			}, default);
-
-		// Should return content if successful
-		result.Content.Should().NotBeNull();
-
-		// Attempt cleanup
-		var createdZone =
-			result?.Content?.Items.FirstOrDefault(item => item.Name == randomName);
-
-		createdZone.Should().NotBeNull();
-
-		var success = int.TryParse(createdZone?.Id, out var parsedId);
-		success.Should().BeTrue();
-
-		// Run the Delete
-		var deleteResult = await client
-			.Zones
-			.DeleteAsync(parsedId, default);
+		var deleteResult = await client.Zones.DeleteAsync(id, default);
 
 		deleteResult.IsSuccessStatusCode.Should().BeTrue();
 		deleteResult.Content.Should().NotBeNull();
@@ -101,41 +44,29 @@ public class ZonesTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ZonesController_UpdateAsync_Succeeds()
 	{
-		var randomName = Guid.NewGuid().ToString();
+		var (name, id) = await CreateZoneAsync(TestAddresses.V4(3, 4, 5, 6));
 
-		var result = await client
-			.Zones
-			.CreateAsync(new ZoneCreate
-			{
-				Name = randomName,
-				V4Interface = TestAddresses.V4(3, 4, 5, 6)
-
-			}, default);
-
-		// Should return content if successful
-		result.Content.Should().NotBeNull();
-
-		var createdZone =
-			result?.Content?.Items.FirstOrDefault(item => item.Name == randomName);
-
-		createdZone.Should().NotBeNull();
-
-		var success = int.TryParse(createdZone?.Id, out var parsedId);
-		success.Should().BeTrue();
-
-		// Update the Item to be {RANDOM_NAME} - edited
-		var updateResult = await client
-			.Zones
-			.UpdateAsync(parsedId, new ZoneUpdate
-			{
-				Name = $"{randomName} - edited"
-			}, default);
+		var updateResult = await client.Zones.UpdateAsync(id, new ZoneUpdate { Name = $"{name} - edited" }, default);
 
 		updateResult.Content.Should().NotBeNull();
 
-		// Attempt cleanup
-		await client
-			.Zones
-			.DeleteAsync(parsedId, default);
+		await client.Zones.DeleteAsync(id, default);
+	}
+
+	private async Task<(string Name, int Id)> CreateZoneAsync(string address)
+	{
+		var name = Guid.NewGuid().ToString();
+
+		var result = await client.Zones.CreateAsync(new ZoneCreate { Name = name, V4Interface = address }, default);
+
+		result.Content.Should().NotBeNull();
+
+		var createdZone = result.Content?.Items.FirstOrDefault(item => item.Name == name);
+
+		createdZone.Should().NotBeNull();
+
+		int.TryParse(createdZone?.Id, out var id).Should().BeTrue();
+
+		return (name, id);
 	}
 }
