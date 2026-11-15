@@ -120,7 +120,7 @@ public class ServiceTests(EntuityClient client) : TestFixture
 		createResponse.Should().NotBeNull();
 
 		// Attempt Delete
-		var deleteResponse = await client
+		await client
 			.Services
 			.DeleteAsync(createResponse.Info.ServiceId, default);
 	}
@@ -145,7 +145,7 @@ public class ServiceTests(EntuityClient client) : TestFixture
 		updateResponse.Should().NotBeNull();
 
 		// Attempt Delete
-		var deleteResponse = await client
+		await client
 			.Services
 			.DeleteAsync(createResponse.Info.ServiceId, default);
 	}

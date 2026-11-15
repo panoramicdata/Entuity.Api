@@ -4,11 +4,6 @@ using Refit;
 namespace Entuity.Api.QueryParameters;
 public class IncidentsFilter
 {
-	//public int UpdateId { get; set; }
-
-	//public int? View { get; set; }
-
-	//[Query(Format = "D")]
 	public SeverityRating? SeverityRating { private get; set; }
 
 	/// <summary>

@@ -92,7 +92,7 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 								Visibility = "SHORTLISTED",
 								Enumerable = false,
 								Searchable = false,
-								StatusMap = new() { },
+								StatusMap = new(),
 								EventInformation = new(){
 									EventMode = "NONE",
 									Mapping = null
@@ -139,7 +139,7 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 		updateResponse.Should().NotBeNull();
 
 		// Delete the newly created poller
-		var deleteResponse = await client
+		await client
 			.UserDefinedRestPollers
 			.DeleteAsync(pollerId, default);
 	}
@@ -199,7 +199,7 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 								Visibility = "SHORTLISTED",
 								Enumerable = false,
 								Searchable = false,
-								StatusMap = new() { },
+								StatusMap = new(),
 								EventInformation = new(){
 									EventMode = "NONE",
 									Mapping = null
@@ -234,7 +234,7 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 		var pollerId = poller!.PollerId;
 
 		// Delete the newly created poller
-		var deleteResponse = await client
+		await client
 			.UserDefinedRestPollers
 			.DeleteAsync(pollerId, default);
 	}
@@ -294,7 +294,7 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 								Visibility = "SHORTLISTED",
 								Enumerable = false,
 								Searchable = false,
-								StatusMap = new() { },
+								StatusMap = new(),
 								EventInformation = new(){
 									EventMode = "NONE",
 									Mapping = null
@@ -338,7 +338,7 @@ public class UserDefinedRestPollerTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task UserDefinedRestPollersController_TestPollerAsync_Succeeds()
 	{
-		var testInformation = new RestPollerTestInformation()
+		var testInformation = new RestPollerTestInformation
 		{
 			Url = "https://localhost/api/service/1644"
 		};

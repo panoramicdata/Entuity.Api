@@ -58,7 +58,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 		createdDomainFilter.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResult = await client
+		await client
 			.Filters
 			.DeleteDomainFilterAsync(createdDomainFilter!.Id, default);
 	}
@@ -86,12 +86,12 @@ public class FilterTests(EntuityClient client) : TestFixture
 		// Update
 		var updatedDomainFilter = new DomainFilterUpdate { Name = "New Domain Filter - Updated" };
 
-		var response = await client
+		await client
 			.Filters
 			.UpdateDomainFilterAsync(createdDomainFilter!.Id, updatedDomainFilter, default);
 
 		// Attempt delete
-		var deleteResult = await client
+		await client
 			.Filters
 			.DeleteDomainFilterAsync(createdDomainFilter!.Id, default);
 	}
@@ -153,7 +153,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 		createdIncidentFilter.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResult = await client
+		await client
 			.Filters
 			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
 	}
@@ -186,7 +186,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 		response.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResult = await client
+		await client
 			.Filters
 			.DeleteIncidentFilterAsync(createdIncidentFilter!.Id, default);
 	}
@@ -283,7 +283,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 		createdEventFilter.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResult = await client
+		await client
 			.Filters
 			.DeleteEventFilterAsync(createdEventFilter!.Id, default);
 	}
@@ -314,7 +314,7 @@ public class FilterTests(EntuityClient client) : TestFixture
 		response.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResult = await client
+		await client
 			.Filters
 			.DeleteEventFilterAsync(createdEventFilter!.Id, default);
 	}

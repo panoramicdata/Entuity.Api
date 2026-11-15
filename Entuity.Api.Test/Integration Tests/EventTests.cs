@@ -18,7 +18,7 @@ public class EventTests(EntuityClient client) : TestFixture
 
 		// Create a new event
 		var randomGuid = Guid.NewGuid().ToString()[..5];
-		var newEvent = new EventCreate()
+		var newEvent = new EventCreate
 		{
 			Reason = $"API test {randomGuid}",
 			Name = $"Event for Test {randomGuid}",

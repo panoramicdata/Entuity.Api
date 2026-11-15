@@ -146,7 +146,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Get first server Group
 		var serverGroup = serverGroups.Items.First();
 
-		var newUser = new ConfigurationSetUserAdd()
+		var newUser = new ConfigurationSetUserAdd
 		{
 			UserName = "TestUser",
 			Password = "TestPassword"
@@ -179,7 +179,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Get first server Group
 		var serverGroup = serverGroups.Items.First();
 
-		var newUser = new ConfigurationSetUserAdd()
+		var newUser = new ConfigurationSetUserAdd
 		{
 			UserName = "TestUser",
 			Password = "TestPassword"
@@ -223,7 +223,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 		// Get first server Group
 		var serverGroup = serverGroups.Items.First();
 
-		var newUser = new ConfigurationSetUserAdd()
+		var newUser = new ConfigurationSetUserAdd
 		{
 			UserName = "TestUser2",
 			Password = "TestPassword2"
@@ -587,7 +587,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetAllConfigurationSetsAsync(default); ;
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 
@@ -616,7 +616,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetAllConfigurationSetsAsync(default); ;
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 
@@ -645,7 +645,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 	{
 		var serverGroups = await client
 			.Configuration
-			.GetAllConfigurationSetsAsync(default); ;
+			.GetAllConfigurationSetsAsync(default);
 
 		serverGroups.Should().NotBeNull();
 
@@ -751,7 +751,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 			var originalMembers = userGroupResponse.Members.ToList();
 
 			// Update the user group
-			var updateUserGroup = new ConfigurationSetUserGroupMembershipUpdate() { Members = ["a", "b"] };
+			var updateUserGroup = new ConfigurationSetUserGroupMembershipUpdate { Members = ["a", "b"] };
 
 			var updateResponse = await client
 				.Configuration
@@ -763,7 +763,7 @@ public class ConfigurationTests(EntuityClient client) : TestFixture
 			// Revert
 			_ = await client
 				.Configuration
-				.UpdateConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup.UserGroupName, new ConfigurationSetUserGroupMembershipUpdate() { Members = originalMembers }, default);
+				.UpdateConfigurationSetUserGroupAsync(configSet.ServerGroupId, firstUserGroup.UserGroupName, new ConfigurationSetUserGroupMembershipUpdate { Members = originalMembers }, default);
 
 
 

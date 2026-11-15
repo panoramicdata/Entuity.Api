@@ -20,7 +20,7 @@ public class UpperCaseEnumConverter<T> : JsonConverter<T> where T : struct, Enum
 
 	public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
 	{
-		string enumValue = GetEnumMemberValue(value) ?? value.ToString().ToUpper();
+		string enumValue = GetEnumMemberValue(value) ?? value.ToString().ToUpperInvariant();
 		writer.WriteStringValue(enumValue);
 	}
 

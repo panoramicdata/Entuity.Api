@@ -47,7 +47,7 @@ public class MaintenanceTests(EntuityClient client) : TestFixture
 		result.Should().NotBeNull();
 
 		// Attempt cleanup
-		var deleteResponse = await client
+		await client
 			.Maintenance
 			.DeleteAsync(result.Id, default);
 	}
@@ -78,7 +78,7 @@ public class MaintenanceTests(EntuityClient client) : TestFixture
 		updateResult.Devices.Should().ContainKey("a-server");
 
 		// Attempt cleanup
-		var deleteResponse = await client
+		await client
 			.Maintenance
 			.DeleteAsync(result.Id, default);
 	}

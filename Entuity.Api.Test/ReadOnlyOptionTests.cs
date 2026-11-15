@@ -1,4 +1,4 @@
-using AwesomeAssertions;
+﻿using AwesomeAssertions;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -19,7 +19,7 @@ public sealed class ReadOnlyOptionTests : IDisposable
 
 	private static CancellationToken CancellationToken => TestContext.Current.CancellationToken;
 
-	private string BaseUrl => $"http://127.0.0.1:{((IPEndPoint)_listener.LocalEndpoint).Port}";
+	private string BaseUrl => $"http://{IPAddress.Loopback}:{((IPEndPoint)_listener.LocalEndpoint).Port}";
 
 	private EntuityClientOptions CreateOptions(bool isReadOnly) => new()
 	{

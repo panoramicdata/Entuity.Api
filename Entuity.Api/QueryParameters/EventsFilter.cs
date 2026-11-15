@@ -4,8 +4,6 @@ using Refit;
 namespace Entuity.Api.QueryParameters;
 public class EventsFilter
 {
-	//public int UpdateId { get; set; }
-
 	/// <summary>
 	/// Filter for events from this Epoch Time
 	/// </summary>
@@ -30,9 +28,7 @@ public class EventsFilter
 	[AliasAs("closedTo")]
 	public int? ClosedTo { get; set; }
 
-	//public int? View { get; set; }
 
-	//[Query(Format = "D")]
 	public SeverityRating? SeverityRating { private get; set; }
 
 	/// <summary>
