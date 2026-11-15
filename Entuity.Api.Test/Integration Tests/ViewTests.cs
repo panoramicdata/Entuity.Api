@@ -8,9 +8,7 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_GetAllViewsAsync_Succeeds()
 	{
-		var views = await client
-			.Views
-			.GetAllAsync(default);
+		var views = await client.Views.GetAllAsync(default);
 
 		views.Should().NotBeNull();
 	}
@@ -18,108 +16,40 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_GetAsync_Succeeds()
 	{
-		var views = await client
-			.Views
-			.GetAllAsync(default);
+		var views = await client.Views.GetAllAsync(default);
 
 		foreach (var view in views.Items)
 		{
-			var viewDetailed = await client
-				.Views
-				.GetAsync(view.Id, default);
-
-			viewDetailed.Should().NotBeNull();
+			(await client.Views.GetAsync(view.Id, default)).Should().NotBeNull();
 		}
 	}
 
 	[Fact]
 	public async Task ViewsController_CreateAsync_Succeeds()
 	{
-		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+		var id = await CreateViewAsync();
 
-		var newView = new ViewCreate
-		{
-			Name = $"Test View {randomGuid}"
-		};
-
-		var response = await client
-			.Views
-			.CreateAsync(newView, default);
-
-		response.Should().NotBeNull();
-
-		// Get the Id of the created view
-		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
-
-		id.Should().NotBeNull();
-
-		// Clean up
-		await client
-			.Views
-			.DeleteAsync(id!, default);
+		await client.Views.DeleteAsync(id, default);
 	}
 
 	[Fact]
 	public async Task ViewsController_UpdateAsync_Succeeds()
 	{
-		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+		var id = await CreateViewAsync();
 
-		var newView = new ViewCreate
-		{
-			Name = $"Test View {randomGuid}"
-		};
-
-		var response = await client
-			.Views
-			.CreateAsync(newView, default);
-
-		response.Should().NotBeNull();
-
-		// Get the Id of the created view
-		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
-
-		id.Should().NotBeNull();
-
-		// Update the name
-		var updateResponse = await client
-			.Views
-			.UpdateAsync(id!,
-			new ViewUpdate { Name = "Updated Test View" },
-			default);
+		var updateResponse = await client.Views.UpdateAsync(id, new ViewUpdate { Name = "Updated Test View" }, default);
 
 		updateResponse.Should().NotBeNull();
 
-		// Clean up
-		await client
-			.Views
-			.DeleteAsync(id!, default);
+		await client.Views.DeleteAsync(id, default);
 	}
 
 	[Fact]
 	public async Task ViewsController_DeleteAsync_Succeeds()
 	{
-		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+		var id = await CreateViewAsync();
 
-		var newView = new ViewCreate
-		{
-			Name = $"Test View {randomGuid}"
-		};
-
-		var response = await client
-			.Views
-			.CreateAsync(newView, default);
-
-		response.Should().NotBeNull();
-
-		// Get the Id of the created view
-		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
-
-		id.Should().NotBeNull();
-
-		// Clean up
-		var deleteResponse = await client
-			.Views
-			.DeleteAsync(id!, default);
+		var deleteResponse = await client.Views.DeleteAsync(id, default);
 
 		deleteResponse.IsSuccessStatusCode.Should().BeTrue();
 	}
@@ -127,100 +57,54 @@ public class ViewTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task ViewsController_GetObjectsAsync_Succeeds()
 	{
-		var views = await client
-		.Views
-		.GetAllAsync(default);
+		var views = await client.Views.GetAllAsync(default);
 
 		foreach (var view in views.Items)
 		{
-			var viewObjects = await client
-				.Views
-				.GetObjectsAsync(view.Id, default);
-
-			viewObjects.Should().NotBeNull();
+			(await client.Views.GetObjectsAsync(view.Id, default)).Should().NotBeNull();
 		}
 	}
 
 	[Fact]
 	public async Task ViewsController_UpdateObjectsAsync_Succeeds()
 	{
-		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+		var id = await CreateViewAsync();
 
-		var newView = new ViewCreate
-		{
-			Name = $"Test View {randomGuid}"
-		};
+		(await client.Views.UpdateObjectsAsync(id, [1, 2, 3], default)).Should().NotBeNull();
 
-		var response = await client
-			.Views
-			.CreateAsync(newView, default);
-
-		response.Should().NotBeNull();
-
-		// Get the Id of the created view
-		var id = response
-			.Items
-			.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
-
-		id.Should().NotBeNull();
-
-
-		// Update the view
-		var updateResponse = await client
-			.Views
-			.UpdateObjectsAsync(id!, [1, 2, 3], default);
-
-		updateResponse.Should().NotBeNull();
-
-		// Clean up
-		await client
-			.Views
-			.DeleteAsync(id!, default);
+		await client.Views.DeleteAsync(id, default);
 	}
 
 	[Fact]
 	public async Task ViewsController_DeleteObjectsAsync_Succeeds()
 	{
-		var randomGuid = Guid.NewGuid().ToString().Substring(0, 10);
+		var id = await CreateViewAsync();
 
-		var newView = new ViewCreate
-		{
-			Name = $"Test View {randomGuid}"
-		};
+		(await client.Views.UpdateObjectsAsync(id, [1, 2, 3], default)).Should().NotBeNull();
 
-		var response = await client
-			.Views
-			.CreateAsync(newView, default);
-
-		response.Should().NotBeNull();
-
-		// Get the Id of the created view
-		var id = response
-			.Items
-			.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
-
-		id.Should().NotBeNull();
-
-
-		// Update the view
-		var updateResponse = await client
-			.Views
-			.UpdateObjectsAsync(id!, [1, 2, 3], default);
-
-		updateResponse.Should().NotBeNull();
-
-
-		// Delete the objects 1 and 2
-		var deleteResponse = await client
-			.Views
-			.DeleteObjectsAsync(id!, [1, 2], default);
+		var deleteResponse = await client.Views.DeleteObjectsAsync(id, [1, 2], default);
 
 		deleteResponse.Should().NotBeNull();
 		deleteResponse.Items.Should().HaveCount(1);
 
-		// Clean up
-		await client
-			.Views
-			.DeleteAsync(id!, default);
+		await client.Views.DeleteAsync(id, default);
+	}
+
+	private async Task<string> CreateViewAsync()
+	{
+		var newView = new ViewCreate
+		{
+			Name = $"Test View {Guid.NewGuid().ToString()[..10]}"
+		};
+
+		var response = await client.Views.CreateAsync(newView, default);
+
+		response.Should().NotBeNull();
+
+		var id = response.Items.FirstOrDefault(item => item.DisplayName.Contains(newView.Name))?.Id;
+
+		id.Should().NotBeNull();
+
+		return id!;
 	}
 }
