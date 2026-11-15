@@ -59,7 +59,7 @@ public class UserTests(EntuityClient client) : TestFixture
 
 		success.Should().BeTrue();
 
-		var deleteResponse = await client
+		await client
 			.Users
 			.DeleteAsync(id, default);
 	}

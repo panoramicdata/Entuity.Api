@@ -45,32 +45,6 @@ public class SettingTests(EntuityClient client) : TestFixture
 		revertResponse.PwChangeDays.Should().Be(oldSettings.PwChangeDays);
 	}
 
-	//NOTE: Running this test seems to mess up the settings for the user running the tests
-	//[Fact]
-	//public async Task SettingsController_ResetGlobalUserSettingsAsync_Succeeds()
-	//{
-	//	var oldSettings = await client
-	//		.Settings
-	//		.GetGlobalUserSettingsAsync(default);
-
-	//	oldSettings.Should().NotBeNull();
-
-	//	var newSettings = new GlobalUserSettingsUpdate { PwChangeDays = 99 };
-
-	//	var response = await client
-	//		.Settings
-	//		.UpdateGlobalUserSettingsAsync(newSettings, default);
-
-	//	// Revert the changes
-	//	newSettings.PwChangeDays = oldSettings.PwChangeDays;
-
-	//	var revertResponse = await client
-	//		.Settings
-	//		.ResetGlobalUsersSettingsAsync(default);
-
-	//	revertResponse.Should().NotBeNull();
-	//}
-
 	[Fact]
 	public async Task SettingsController_GetGlobalPasswordComplexitySettingsAsync_Succeeds()
 	{

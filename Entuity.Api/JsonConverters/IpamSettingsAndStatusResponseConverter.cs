@@ -17,7 +17,9 @@ public class IpamSettingsAndStatusResponseConverter
 		JsonSerializerOptions options)
 	{
 		if (reader.TokenType != JsonTokenType.StartArray)
+		{
 			throw new JsonException("Expected StartArray token");
+		}
 
 		// Read first element: array of strings defining statuses
 		reader.Read();
@@ -32,7 +34,9 @@ public class IpamSettingsAndStatusResponseConverter
 		// Confirm end of array
 		reader.Read();
 		if (reader.TokenType != JsonTokenType.EndArray)
+		{
 			throw new JsonException("Expected EndArray token");
+		}
 
 		return new IpamSettingsAndStatusResponse
 		{

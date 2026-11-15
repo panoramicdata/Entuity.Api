@@ -62,7 +62,7 @@ public class OsServiceTests(EntuityClient client) : TestFixture
 		createdRule.Should().NotBeNull();
 
 		// Delete created rule
-		var deleteResponse = await client
+		await client
 			.OsServices
 			.DeleteAsync(createdRule!.Id, default);
 	}
@@ -109,7 +109,7 @@ public class OsServiceTests(EntuityClient client) : TestFixture
 		updateResponse.Should().NotBeNull();
 
 		// Delete created rule
-		var deleteResponse = await client
+		await client
 			.OsServices
 			.DeleteAsync(createdRule!.Id, default);
 	}

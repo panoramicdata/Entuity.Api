@@ -5,7 +5,7 @@ using Xunit.DependencyInjection.Logging;
 
 namespace Entuity.Api.Test;
 
-public class Startup
+public static class Startup
 {
 	public static void ConfigureServices(IServiceCollection services)
 	{
@@ -13,7 +13,7 @@ public class Startup
 		var config = new ConfigurationBuilder()
 			.AddJsonFile("appsettings.json", true)
 			.AddEnvironmentVariables()
-			.AddUserSecrets<Startup>()
+			.AddUserSecrets(typeof(Startup).Assembly)
 			.Build();
 
 		services
@@ -32,7 +32,6 @@ public class Startup
 					Logger = s.GetRequiredService<ILogger<EntuityClient>>()
 				})
 			);
-
 	}
 
 	private static string GetConfigString(IConfigurationRoot config, string key)

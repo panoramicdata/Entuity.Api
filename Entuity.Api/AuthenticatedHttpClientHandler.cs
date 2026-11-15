@@ -28,6 +28,27 @@ public class AuthenticatedHttpClientHandler(EntuityClientOptions options) : Http
 		HttpRequestMessage request,
 		CancellationToken cancellationToken)
 	{
+		EnsureMethodAllowed(request);
+
+		var requestId = Guid.NewGuid();
+
+		PrepareHeaders(request);
+
+		await LogRequestAsync(requestId, request, cancellationToken).ConfigureAwait(false);
+
+		var httpResponse = await base
+			.SendAsync(request, cancellationToken)
+			.ConfigureAwait(false);
+
+		await LogResponseAsync(requestId, httpResponse, cancellationToken).ConfigureAwait(false);
+
+		await RewriteTypePropertyAsync(httpResponse, cancellationToken).ConfigureAwait(false);
+
+		return httpResponse;
+	}
+
+	private void EnsureMethodAllowed(HttpRequestMessage request)
+	{
 		if (_options.IsReadOnly
 			&& request.Method != HttpMethod.Get
 			&& request.Method != HttpMethod.Head
@@ -36,109 +57,88 @@ public class AuthenticatedHttpClientHandler(EntuityClientOptions options) : Http
 			throw new InvalidOperationException(
 				$"The client is read-only, so {request.Method} {request.RequestUri?.AbsolutePath} was not sent.");
 		}
+	}
 
-		// Generate a unique request id
-		var requestId = Guid.NewGuid();
-
-		// Accept JSON
+	private void PrepareHeaders(HttpRequestMessage request)
+	{
 		request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-		// Authentication
 		request.Headers.Authorization = new AuthenticationHeaderValue(
 			"Basic",
 			Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_options.Username}:{_options.Password}"))
 		);
 
-		// User Agent
 		if (!string.IsNullOrWhiteSpace(_options.UserAgent))
 		{
 			request.Headers.Add("User-Agent", _options.UserAgent);
 		}
+	}
 
-		// Check the logging level as the operation to
-		// extract the content is expensive
-		if (_logger.IsEnabled(LogLevel.Debug))
+	private static string FormatHeaders(HttpHeaders headers)
+		=> string.Join("\n", headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value)}"));
+
+	private static async Task<string> ReadBodyAsync(HttpContent? content, CancellationToken cancellationToken)
+		=> content is null
+			? string.Empty
+			: await content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+
+	private async Task LogRequestAsync(Guid requestId, HttpRequestMessage request, CancellationToken cancellationToken)
+	{
+		if (!_logger.IsEnabled(LogLevel.Debug))
 		{
-			var url = request.RequestUri!.ToString();
-			var headers = string.Join("\n", request.Headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value.Select(v => v))}"));
-			var body = request.Content is not null
-				? await request
-					.Content
-					.ReadAsStringAsync(cancellationToken)
-					.ConfigureAwait(false)
-				: string.Empty;
-
-			_logger.LogDebug(
-				"{RequestId}: REQUEST: Url:{Url}\nHeaders:{Headers}\nBody: {Body}",
-				requestId,
-				url,
-				headers,
-				body);
+			return;
 		}
 
-		// Make the HTTP call
-		var httpResponse = await base
-			.SendAsync(request, cancellationToken)
-			.ConfigureAwait(false)
-			;
+		var body = await ReadBodyAsync(request.Content, cancellationToken).ConfigureAwait(false);
 
-		// Check the logging level as the operation to
-		// extract the content is expensive
-		if (_logger.IsEnabled(LogLevel.Debug))
+		_logger.LogDebug(
+			"{RequestId}: REQUEST: Url:{Url}\nHeaders:{Headers}\nBody: {Body}",
+			requestId,
+			request.RequestUri!.ToString(),
+			FormatHeaders(request.Headers),
+			body);
+	}
+
+	private async Task LogResponseAsync(Guid requestId, HttpResponseMessage httpResponse, CancellationToken cancellationToken)
+	{
+		if (!_logger.IsEnabled(LogLevel.Debug))
 		{
-			var headers = string.Join("\n", httpResponse.Headers.Select(h => $"{h.Key}: {string.Join(", ", h.Value.Select(v => v))}"));
-			var body = httpResponse.Content is not null
-				? await httpResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false)
-				: string.Empty;
-			try
-			{
-				// Get an object using System.Text.Json
-				var jObject = JsonSerializer.Deserialize<object>(body);
-				body = JsonSerializer.Serialize(jObject, JsonSerializerOptions);
-			}
-			catch (Exception)
-			{
-				// This doesn't work for arrays, which return the JArray type
-			}
-
-			_logger.LogDebug(
-				"{RequestId}: RESPONSE: {StatusCode}\nHeaders:{Headers}\nBody: {Body}",
-				requestId,
-				httpResponse.StatusCode,
-				headers,
-				body);
+			return;
 		}
 
-		// Was the request successful?
-		if (!httpResponse.IsSuccessStatusCode)
+		var body = await ReadBodyAsync(httpResponse.Content, cancellationToken).ConfigureAwait(false);
+		try
 		{
-			// No.
-
-			// Is this an Entuity Response?
-			var body = httpResponse.Content is not null
-				? await httpResponse
-					.Content
-					.ReadAsStringAsync(cancellationToken)
-					.ConfigureAwait(false)
-				: string.Empty;
+			var jObject = JsonSerializer.Deserialize<object>(body);
+			body = JsonSerializer.Serialize(jObject, JsonSerializerOptions);
+		}
+		catch (JsonException)
+		{
+			// Not a JSON object, so log the raw body
 		}
 
-		// Rewrite the content, replacing all instances of "type" with "$type"
-		if (httpResponse.Content is not null)
+		_logger.LogDebug(
+			"{RequestId}: RESPONSE: {StatusCode}\nHeaders:{Headers}\nBody: {Body}",
+			requestId,
+			httpResponse.StatusCode,
+			FormatHeaders(httpResponse.Headers),
+			body);
+	}
+
+	private static async Task RewriteTypePropertyAsync(HttpResponseMessage httpResponse, CancellationToken cancellationToken)
+	{
+		if (httpResponse.Content is null)
 		{
-			var content = await httpResponse
-				.Content
-				.ReadAsStringAsync(cancellationToken)
-				.ConfigureAwait(false)
-				;
-
-			// Replace all instances of "type" with "$type"
-			content = content.Replace("\"type\"", "\"$type\"", StringComparison.Ordinal);
-
-			// Rewrite the content
-			httpResponse.Content = new StringContent(content);
+			return;
 		}
 
-		return httpResponse;
+		var content = await httpResponse
+			.Content
+			.ReadAsStringAsync(cancellationToken)
+			.ConfigureAwait(false);
+
+		content = content.Replace("\"type\"", "\"$type\"", StringComparison.Ordinal);
+
+		httpResponse.Content = new StringContent(content);
 	}
 }

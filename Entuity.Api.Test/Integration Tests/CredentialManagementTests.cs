@@ -21,9 +21,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv1Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV1CredentialAttributes()
+		var newSnmpCredential = new SnmpV1CredentialAttributes
 		{
-			SnmpV1Attributes = new SnmpV1Credential()
+			SnmpV1Attributes = new SnmpV1Credential
 			{
 				Community = "public",
 				WriteCommunity = "write"
@@ -49,9 +49,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv2Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV2CredentialAttributes()
+		var newSnmpCredential = new SnmpV2CredentialAttributes
 		{
-			SnmpV2Attributes = new SnmpV2Credential()
+			SnmpV2Attributes = new SnmpV2Credential
 			{
 				Community = "public",
 				WriteCommunity = "write"
@@ -77,9 +77,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv12Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV12CredentialAttributes()
+		var newSnmpCredential = new SnmpV12CredentialAttributes
 		{
-			SnmpV12Attributes = new SnmpV12Credential()
+			SnmpV12Attributes = new SnmpV12Credential
 			{
 				Community = "public",
 				WriteCommunity = "write"
@@ -105,9 +105,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CreateSNMPv3Credential_Succeeds()
 	{
-		var newSnmpCredential = new SnmpV3CredentialAttributes()
+		var newSnmpCredential = new SnmpV3CredentialAttributes
 		{
-			SnmpV3Attributes = new SnmpV3Credential()
+			SnmpV3Attributes = new SnmpV3Credential
 			{
 				Username = "test",
 				AuthenticationType = CredentialAuthenticationType.None,
@@ -136,9 +136,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_SshCredential_Succeeds()
 	{
-		var newSnmpCredential = new SshCredentialAttributes()
+		var newSnmpCredential = new SshCredentialAttributes
 		{
-			CliAccessAttributes = new CliAccessCredential()
+			CliAccessAttributes = new CliAccessCredential
 			{
 				Username = "test",
 				Method = CliAccessCredentialMethod.Ssh,
@@ -166,9 +166,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_CreateCredentialAsync_CliCredential_Succeeds()
 	{
-		var newSnmpCredential = new NewCliCredentialAttributes()
+		var newSnmpCredential = new NewCliCredentialAttributes
 		{
-			CliAccessAttributes = new CliAccessCredential()
+			CliAccessAttributes = new CliAccessCredential
 			{
 				Method = CliAccessCredentialMethod.Ssh,
 				Username = "test",
@@ -195,9 +195,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_DeleteCredentialAsync_Succeeds()
 	{
-		var newSnmpCredential = new NewCliCredentialAttributes()
+		var newSnmpCredential = new NewCliCredentialAttributes
 		{
-			CliAccessAttributes = new CliAccessCredential()
+			CliAccessAttributes = new CliAccessCredential
 			{
 				Method = CliAccessCredentialMethod.Ssh,
 				Username = "testusername",
@@ -226,9 +226,9 @@ public class CredentialManagementTests(EntuityClient client) : TestFixture
 	[Fact]
 	public async Task CredentialManagementController_UpdateCredentialAsync_Succeeds()
 	{
-		var newSnmpCredential = new NewCliCredentialAttributes()
+		var newSnmpCredential = new NewCliCredentialAttributes
 		{
-			CliAccessAttributes = new CliAccessCredential()
+			CliAccessAttributes = new CliAccessCredential
 			{
 				Method = CliAccessCredentialMethod.Ssh,
 				Username = "testusername",

@@ -27,7 +27,7 @@ public class ZonesTests(EntuityClient client) : TestFixture
 			.CreateAsync(new ZoneCreate
 			{
 				Name = randomName,
-				V4Interface = "1.2.3.4"
+				V4Interface = TestAddresses.V4(1, 2, 3, 4)
 
 			}, default);
 
@@ -44,7 +44,7 @@ public class ZonesTests(EntuityClient client) : TestFixture
 		success.Should().BeTrue();
 
 		// Run the Delete
-		var deleteResult = await client
+		await client
 			.Zones
 			.DeleteAsync(parsedId, default);
 	}
@@ -73,7 +73,7 @@ public class ZonesTests(EntuityClient client) : TestFixture
 			.CreateAsync(new ZoneCreate
 			{
 				Name = randomName,
-				V4Interface = "1.2.3.4"
+				V4Interface = TestAddresses.V4(1, 2, 3, 4)
 
 			}, default);
 
@@ -108,7 +108,7 @@ public class ZonesTests(EntuityClient client) : TestFixture
 			.CreateAsync(new ZoneCreate
 			{
 				Name = randomName,
-				V4Interface = "3.4.5.6"
+				V4Interface = TestAddresses.V4(3, 4, 5, 6)
 
 			}, default);
 
@@ -133,10 +133,8 @@ public class ZonesTests(EntuityClient client) : TestFixture
 
 		updateResult.Content.Should().NotBeNull();
 
-		//updateResult.Content!.Name.Should().Be($"{randomName} - edited");
-
 		// Attempt cleanup
-		var deleteResult = await client
+		await client
 			.Zones
 			.DeleteAsync(parsedId, default);
 	}

@@ -34,7 +34,7 @@ public class UserGroupTests(EntuityClient client) : TestFixture
 		createdGroup.Should().NotBeNull();
 
 
-		var successfulCast = int.TryParse(createdGroup!.Id, out var id);
+		int.TryParse(createdGroup!.Id, out var id).Should().BeTrue();
 
 		// Clean up
 		await client
@@ -60,7 +60,7 @@ public class UserGroupTests(EntuityClient client) : TestFixture
 		createdGroup.Should().NotBeNull();
 
 
-		var successfulCast = int.TryParse(createdGroup!.Id, out var id);
+		int.TryParse(createdGroup!.Id, out var id).Should().BeTrue();
 
 		// Clean up
 		var deleteResponse = await client

@@ -93,7 +93,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 		var dhcpServer = new DhcpServerCreate
 		{
 			Name = "Test DHCP Server",
-			IpAddress = "1.2.3.4"
+			IpAddress = TestAddresses.V4(1, 2, 3, 4)
 		};
 
 		var response = await client
@@ -113,7 +113,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 		dhcpServerId.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResponse = await client
+		await client
 			.Ipam
 			.DeleteDhcpServerAsync((int)dhcpServerId!, default);
 	}
@@ -124,7 +124,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 		var dhcpServer = new DhcpServerCreate
 		{
 			Name = "Test DHCP Server 2",
-			IpAddress = "2.3.4.5"
+			IpAddress = TestAddresses.V4(2, 3, 4, 5)
 		};
 
 		var response = await client
@@ -207,7 +207,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 		networkId.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResponse = await client
+		await client
 			.Ipam
 			.DeleteNetworkAsync((int)networkId!, default);
 	}
@@ -250,7 +250,7 @@ public class IpamTests(EntuityClient client) : TestFixture
 		updateNetwork.Should().NotBeNull();
 
 		// Attempt delete
-		var deleteResponse = await client
+		await client
 			.Ipam
 			.DeleteNetworkAsync((int)networkId!, default);
 	}
