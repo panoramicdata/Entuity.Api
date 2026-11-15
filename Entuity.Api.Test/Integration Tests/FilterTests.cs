@@ -9,11 +9,11 @@ public class FilterTests(EntuityClient client) : TestFixture
 {
 	private sealed record FilterApi(
 		string Label,
-		Func<Task<IReadOnlyList<(string Id, string? Name)>>> ListAsync,
-		Func<string, Task<object>> GetAsync,
-		Func<string, Task<object>> CreateAsync,
-		Func<string, string, Task<object>> UpdateAsync,
-		Func<string, Task<Message>> DeleteAsync);
+		Func<Task<IReadOnlyList<(string Id, string? Name)>>> ListCall,
+		Func<string, Task<object>> GetCall,
+		Func<string, Task<object>> CreateCall,
+		Func<string, string, Task<object>> UpdateCall,
+		Func<string, Task<Message>> DeleteCall);
 
 	private FilterApi Domain => new(
 		"Test Domain Filter",
@@ -86,20 +86,20 @@ public class FilterTests(EntuityClient client) : TestFixture
 
 	private static async Task GetAllAsync(FilterApi api)
 	{
-		var items = await api.ListAsync();
+		var items = await api.ListCall();
 
 		items.Should().NotBeEmpty();
 	}
 
 	private static async Task GetEachAsync(FilterApi api)
 	{
-		var items = await api.ListAsync();
+		var items = await api.ListCall();
 
 		items.Should().NotBeEmpty();
 
 		foreach (var (id, _) in items)
 		{
-			(await api.GetAsync(id)).Should().NotBeNull();
+			(await api.GetCall(id)).Should().NotBeNull();
 		}
 	}
 
@@ -107,23 +107,23 @@ public class FilterTests(EntuityClient client) : TestFixture
 	{
 		var id = await CreateFilterAsync(api);
 
-		await api.DeleteAsync(id);
+		await api.DeleteCall(id);
 	}
 
 	private static async Task UpdateAsync(FilterApi api)
 	{
 		var id = await CreateFilterAsync(api);
 
-		(await api.UpdateAsync(id, $"{api.Label} Updated {Guid.NewGuid().ToString()[..5]}")).Should().NotBeNull();
+		(await api.UpdateCall(id, $"{api.Label} Updated {Guid.NewGuid().ToString()[..5]}")).Should().NotBeNull();
 
-		await api.DeleteAsync(id);
+		await api.DeleteCall(id);
 	}
 
 	private static async Task DeleteAsync(FilterApi api)
 	{
 		var id = await CreateFilterAsync(api);
 
-		var deleteResult = await api.DeleteAsync(id);
+		var deleteResult = await api.DeleteCall(id);
 
 		deleteResult.Should().NotBeNull();
 		deleteResult.Content.Should().Be("OK");
@@ -133,9 +133,9 @@ public class FilterTests(EntuityClient client) : TestFixture
 	{
 		var name = $"{api.Label} {Guid.NewGuid().ToString()[..10]}";
 
-		(await api.CreateAsync(name)).Should().NotBeNull();
+		(await api.CreateCall(name)).Should().NotBeNull();
 
-		var created = (await api.ListAsync()).FirstOrDefault(filter => filter.Name == name);
+		var created = (await api.ListCall()).FirstOrDefault(filter => filter.Name == name);
 
 		created.Id.Should().NotBeNull();
 
